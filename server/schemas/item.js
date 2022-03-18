@@ -1,6 +1,5 @@
 var mongoose = require('mongoose');
 const { Schema } = require('../db.js');
-// const { User } = require('../schemas/user.js');
 
 // PENDING APPROVAL
 var item = new Schema({

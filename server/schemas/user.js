@@ -9,6 +9,9 @@ var user = new Schema({
   trustScore: Number,
 });
 
+// Potentials to add:
+// LOCATION
+
 
 // Compile model from schema
 var User = mongoose.model('User', user );

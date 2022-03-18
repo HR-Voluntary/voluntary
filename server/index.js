@@ -11,12 +11,11 @@ app.use(logger('dev'));
 // Essentially forces Mongoose to send MongoDB data over and over again ... NO CACHING.
 app.disable('etag');
 
-
 // ROUTES:
 const userRouter = require('./routes/user.js');
 const itemRouter = require('./routes/item.js');
 
-// ROUTES MIDDLEWARE: 
+// ROUTES MIDDLEWARE:
 app.use('/user', userRouter);
 app.use('/item', itemRouter);
 

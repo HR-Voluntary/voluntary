@@ -16,4 +16,4 @@ var Schema = mongoose.Schema;
 // EXPORTING SCHEMA TO ITS CORRESPONDING MODEL FOLDER
 module.exports = {
   Schema
-}
+};
