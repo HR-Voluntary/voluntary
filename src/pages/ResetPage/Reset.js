@@ -13,7 +13,7 @@ const Reset = () => {
   useEffect(() => {
     if (loading) return;
     if (user) {
-      navigate('/dashboard')};
+      navigate('/Dashboard')};
   }, [user, loading]); // LOOK AT THIS IS SHIT STARTS BREAKING
 
   return (
@@ -33,7 +33,7 @@ const Reset = () => {
           Send password reset email
         </button>
         <div>
-          Don't have an account? <Link to='/register'>Register</Link> now
+          Don't have an account? <Link to='/Register'>Register</Link> now
         </div>
       </div>
     </div>
