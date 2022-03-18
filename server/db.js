@@ -1,9 +1,13 @@
-import { initializeApp } from 'firebase/app';
-import {
-  getFirestore,
+const { getModularInstance } = require('@firebase/util');
+const { initializeApp } = require('firebase/app');
+const {
+getFirestore,
   collection,
   getDocs,
-} from 'firebase/firestore'
+  addDoc,
+  updateDoc,
+  doc,
+} = require('firebase/firestore');
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -22,10 +26,34 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 // collectionRef:
-const userRef = collection(db, 'users');
+const userRef = collection(db, 'user');
+const irvingRef = collection(db, 'user','irving');
+await updateDoc(irvingRef, {
+  car:'jim',
+
+});
 
 // get data
 getDocs(userRef)
   .then((snapshot) => {
-    console.log(snapshot)
+    snapshot.docs.forEach(doc => console.log(doc.id))
   });
+
+const addDocument = (userObject) => {
+  return addDoc(userRef, {
+    first: userObject.first,
+    last: userObject.last,
+    location: userObject.location,
+    car: userObject.car
+  })
+};
+
+// addDocument({first: 'Irving', last: 'IIIIRIVAAANG!', location: 'Cali', car: {
+//   fuel: 'gasoline',
+//   gallons: 15
+// }})
+//   .then((success) => console.log(success));
+
+module.exports = {
+  db
+}

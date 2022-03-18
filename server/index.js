@@ -10,12 +10,12 @@ app.use(express.json());
 app.use(logger('dev'));
 
 // ROUTES:
-// const userRouter = require('./routes/user.js');
-// const itemRouter = require('./routes/item.js');
+const userRouter = require('./routes/user.js');
+const itemRouter = require('./routes/item.js');
 
 // ROUTES MIDDLEWARE:
-// app.use('/user', userRouter);
-// app.use('/item', itemRouter);
+app.use('/user', userRouter);
+app.use('/item', itemRouter);
 
 
 app.listen(port, function() {
