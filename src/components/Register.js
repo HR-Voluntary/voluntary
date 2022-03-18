@@ -23,7 +23,7 @@ const Register = () => {
     if (user) {
       history.replace('/dashboard');
     }
-  }, [user, loading, history]) // LOOK AT THIS IF SHIT BREAKS
+  }, [user, loading]) // LOOK AT THIS IF SHIT BREAKS
 
   return (
       <div className="register">

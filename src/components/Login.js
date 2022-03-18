@@ -14,12 +14,12 @@ function Login() {
       return;
     }
     if (user) navigate('/dashboard');
-  })
+  }, [user, loading]); // LOOK AT THIS IS SHIT STARTS BREAKING
 
   return (
-
     <div className="login">
       <div className="login__container">
+        <div className="login__text">
         <input
           type="text"
           className="login__textBox"
@@ -48,6 +48,7 @@ function Login() {
         </div>
         <div>
           Don't have an account? <Link to="/register">Register</Link> now.
+        </div>
         </div>
       </div>
     </div>
