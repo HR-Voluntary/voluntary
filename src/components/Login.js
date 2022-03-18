@@ -17,6 +17,7 @@ function Login() {
   })
 
   return (
+
     <div className="login">
       <div className="login__container">
         <input
@@ -50,6 +51,7 @@ function Login() {
         </div>
       </div>
     </div>
+
   );
 }
 export default Login;
