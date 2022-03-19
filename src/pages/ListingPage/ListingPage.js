@@ -5,18 +5,15 @@ import Listing from './Listing.js';
 
 const ListingPage = () => {
   let [allListings, setAllListings] = useState([]);
-  let [load, setLoad] = useState(false);
 
   useEffect(() => {
     getListings()
-  }, [load])
+  }, [])
 
   const getListings = () => {
     axios.get('http://localhost:3000/item/all')
       .then(response => {
-        console.log(response)
         setAllListings(response.data)
-        setLoad(true)
       })
   }
 
