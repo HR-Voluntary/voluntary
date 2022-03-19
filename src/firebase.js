@@ -47,6 +47,7 @@ const signInWithGoogle = async () => {
     console.log(docs.docs, 'google')
     if (docs.docs.length === 0) {
       await setDoc(doc(db, 'users', user.uid), {
+        uid: user.uid,
         name: user.displayName,
         authProvider: 'google',
         email: user.email,
@@ -79,6 +80,7 @@ const signInWithFacebook = async () => {
         name: user.displayName,
         authProvider: "facebook",
         email: user.email,
+        photo: user.photoURL,
       });
     }
   } catch (err) {
@@ -101,6 +103,7 @@ const registerWithEmailAndPassword = async (name, email, password) => {
     const res = await createUserWithEmailAndPassword(auth, email, password);
     const user = res.user;
     await setDoc(doc(db, 'users', user.uid), {
+      uid:user.uid,
       name,
       authProvider: 'local',
       email: user.email,
