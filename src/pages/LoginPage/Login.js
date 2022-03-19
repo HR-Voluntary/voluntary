@@ -78,6 +78,7 @@ function Login() {
           </div>
         </div>
       </div>
+      <img src={require('./utils/Mascot.png')}></img>
     </div>
   );
 }

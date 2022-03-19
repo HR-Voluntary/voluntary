@@ -3,13 +3,16 @@
   width: 100%;
   display: flex;
   background-color:#FEDCC5;
+  background-image: url('./utils/background.png');
+  background-repeat: no-repeat;
+  background-size: contain;
   align-items: center;
+  justify-content: space-evenly;
 }
 .register__container {
   width:35%;
   height:80%;
   display: flex;
-  margin-left: 10%;
   flex-direction: column;
   opacity: 1;
   border-radius: 40px;

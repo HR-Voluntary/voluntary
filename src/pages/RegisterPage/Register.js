@@ -81,6 +81,7 @@ const Register = () => {
           </button>
         </div>
       </div>
+      <img src={require('./utils/Mascot.png')}></img>
     </div>
   );
 }
