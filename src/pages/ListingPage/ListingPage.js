@@ -1,5 +1,5 @@
 import React from 'react';
-import MapListing from './Map.js';
+import MapListing from './Map/Map.js';
 
 const ListingPage = () => {
 
