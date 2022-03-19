@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import MapListing from './Map/Map.js';
+//import MapListing from './Map/Map.js';
 import FilterBar from './FilterBar.js';
 import axios from 'axios';
+import Listing from './Listing.js';
 
 
 const ListingPage = () => {
@@ -33,15 +34,21 @@ const ListingPage = () => {
   }
 
   const filterListingsByCategory = (listings, filterParam) => {
-    const filter = listings.filter(listing =>
-      listing.cateogry === filterParam
-    )
-
-    setFilterListing(filter);
+    let filtered = listings.filter(listing => {
+      if (listing.category === filterParam) {
+        return listing;
+      }
+    })
+      console.log(filtered);
+    setFilterListing(filtered);
+    if (filterParam === 'default') {
+      setFilterListing(allListings)
+    }
   }
 
   const categoryFilterChange = (e) => {
     console.log(e.target.value);
+
     filterListingsByCategory(allListings, e.target.value)
   }
 
@@ -71,10 +78,9 @@ const ListingPage = () => {
     <>
       <div>Listing Page</div>
       <FilterBar categoryFilterChange={categoryFilterChange}/>
-      <MapListing />
-      {/* pass in stat signifiying initial distance filter */}
+
       <div className="all-listings">
-      {allListings.map(listing => {
+      {filterListing.map(listing => {
         return <Listing listing={listing}/>
       })}
       </div>

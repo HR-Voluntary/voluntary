@@ -25,7 +25,7 @@ const FilterBar = ({categoryFilterChange}) => {
         <option value='50'>50 miles</option>
       </select>
       <select name='category' onChange={categoryFilterChange}>
-        <option value=''>Filter by Category</option>
+        <option value='default'>Filter by Category</option>
         <option value='electronics'>Electronics</option>
         <option value='automotive'>Automotive</option>
       </select>
