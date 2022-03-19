@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { logInWithEmailAndPassword, auth, signInWithGoogle } from "../../firebase";
+import { logInWithEmailAndPassword, auth, signInWithGoogle, signInWithFacebook } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import "./Login.css";
 
@@ -14,7 +14,7 @@ function Login() {
     if (loading) {
       return;
     }
-    if (user) navigate('/dashboard');
+    if (user) navigate('/ProductPage');
   }, [user, loading]); // LOOK AT THIS IS SHIT STARTS BREAKING
 
   return (
@@ -43,6 +43,9 @@ function Login() {
         </button>
         <button className="login__btn login__google" onClick={signInWithGoogle}>
           Login with Google
+        </button>
+        <button className="login__btn login__google" onClick={signInWithFacebook}>
+          Login with Facebook
         </button>
         <div>
           <Link to="/Reset">Forgot Password</Link>
