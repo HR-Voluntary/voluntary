@@ -4,7 +4,7 @@ function Messages({messages}) {
   return (
     <div>
       {messages.map((message, i) => {
-        return <div>{message.messageText}</div>
+        return <div key={i}>{message.messageText}</div>
       })}
     </div>
   )
