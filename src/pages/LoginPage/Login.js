@@ -13,9 +13,10 @@ function Login() {
 
   useEffect(() => {
     if (loading) {
+      // maybe trigger loading screen
       return;
     }
-    if (user) navigate('/ProductPage');
+    if (user) navigate('/ListingPage');
   }, [user, loading]); // LOOK AT THIS IS SHIT STARTS BREAKING
 
   return (

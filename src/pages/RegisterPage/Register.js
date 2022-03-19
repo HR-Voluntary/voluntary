@@ -4,7 +4,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import {
   auth,
   registerWithEmailAndPassword,
-  signInWithGoogle
 } from "../../firebase";
 import styles from './Register.module.css';
 
@@ -13,15 +12,17 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [user, loading, error] = useAuthState(auth);
+  const [type, setType] = useState('Individual');
   const navigate = useNavigate();
   const register = () => {
     if (!name) alert('Please enter name');
-    registerWithEmailAndPassword(name, email, password);
+    registerWithEmailAndPassword(name, email, password, type);
   };
   useEffect(() => {
-    if (loading) return;
+    if (loading) return; // maybe trigger loading screen
+
     if (user) {
-      navigate('/dashboard')
+      navigate('/ListingPage')
     }
   }, [user, loading]) // LOOK AT THIS IF SHIT BREAKS
 
@@ -67,7 +68,7 @@ const Register = () => {
           <div>
             <div className={styles.dropdown_text}>Account Type</div>
             <div className={styles.register__authBtns}>
-              <select className={styles.dropdown}>
+              <select value={type} onChange={(e) => setType(e.target.value)} className={styles.dropdown}>
                 <option value='Individual'>Individual</option>
                 <option value='Organization'>Organization</option>
               </select>
@@ -75,7 +76,7 @@ const Register = () => {
           </div>
           <button
             className={styles.register__btn}
-            onClick={() => {}} // add functionality
+            onClick={register} // add functionality
           >
             Sign Up
           </button>

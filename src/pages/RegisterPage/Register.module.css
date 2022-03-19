@@ -5,7 +5,7 @@
   background-color:#FEDCC5;
   background-image: url('./utils/background.png');
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
   align-items: center;
   justify-content: space-evenly;
 }
@@ -33,7 +33,7 @@
   margin-bottom: 10px;
   border: none;
   color: white;
-  border-radius: 5px;
+  border-radius: 8px;
   background-color: rgb(242, 80, 25);
 }
 .register__google {
@@ -87,14 +87,14 @@
   width: 100%;
   box-sizing: border-box;
   padding: 25px;
-  border-radius: 5px;
+  border-radius: 8px;
   border: none;
 }
 .register__passwordInput {
   width: 100%;
   box-sizing: border-box;
   padding: 25px;
-  border-radius: 5px;
+  border-radius: 8px;
   border: none;
   margin-bottom: 31px;
 }
@@ -140,7 +140,7 @@
   height: 65px;
   width: 100%;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   padding: 0px 25px;
 }
 

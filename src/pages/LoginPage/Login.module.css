@@ -6,7 +6,7 @@
   align-items: center;
   background-image: url('./utils/background.png');
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
   justify-content: space-evenly;
 }
 .login__container {
@@ -90,14 +90,14 @@
   width: 100%;
   box-sizing: border-box;
   padding: 25px;
-  border-radius: 5px;
+  border-radius: 8px;
   border: none;
 }
 .login__passwordInput {
   width: 100%;
   box-sizing: border-box;
   padding: 25px;
-  border-radius: 5px;
+  border-radius: 8px;
   border: none;
 }
 
