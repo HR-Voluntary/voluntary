@@ -4,13 +4,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { logInWithEmailAndPassword, auth, signInWithGoogle, signInWithFacebook } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import styles from './Login.module.css';
+import { logout } from "../../firebase";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
-
   useEffect(() => {
     if (loading) {
       // maybe trigger loading screen
@@ -28,11 +28,12 @@ function Login() {
           <div className={styles.login_emailContainer}>
             <div>Email</div>
             <input
-              type='text'
+              type='email'
               className={styles.login__emailInput}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder='Email'
+              required
             >
             </input>
           </div>
@@ -44,6 +45,7 @@ function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder='Password'
+              required
             >
             </input>
           </div>

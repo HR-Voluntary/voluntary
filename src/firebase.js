@@ -124,6 +124,7 @@ const sendPasswordReset = async (email) => {
 
 const logout = async () => {
  await signOut(auth);
+ alert('You have been logged out')
 };
 
 export {

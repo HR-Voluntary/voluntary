@@ -17,7 +17,7 @@
   opacity: 1;
   border-radius: 40px;
   background-color: rgb(255 255 255 / 33%);
-
+  align-items: center;
   padding: 30px;
   border-width: 3px;
   border-color: black;
@@ -67,6 +67,7 @@
 
 .login__features {
   display: flex;
+  margin-top: 10%;
   flex-direction: column;
   width: 80%;
   padding: 60px;

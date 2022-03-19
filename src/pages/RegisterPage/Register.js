@@ -14,10 +14,12 @@ const Register = () => {
   const [user, loading, error] = useAuthState(auth);
   const [type, setType] = useState('Individual');
   const navigate = useNavigate();
+
   const register = () => {
     if (!name) alert('Please enter name');
     registerWithEmailAndPassword(name, email, password, type);
   };
+
   useEffect(() => {
     if (loading) return; // maybe trigger loading screen
 
@@ -40,17 +42,19 @@ const Register = () => {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder='Name'
+              required
             >
             </input>
           </div>
           <div className={styles.register_passwordContainer}>
             <div>Email</div>
             <input
-              type='text'
+              type='email'
               className={styles.register__passwordInput}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder='Email'
+              required
             >
             </input>
           </div>
@@ -62,13 +66,19 @@ const Register = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder='Password'
+              required
             >
             </input>
           </div>
           <div>
             <div className={styles.dropdown_text}>Account Type</div>
             <div className={styles.register__authBtns}>
-              <select value={type} onChange={(e) => setType(e.target.value)} className={styles.dropdown}>
+              <select
+                value={type}
+                onChange={(e) => setType(e.target.value)}
+                className={styles.dropdown}
+                required
+              >
                 <option value='Individual'>Individual</option>
                 <option value='Organization'>Organization</option>
               </select>
