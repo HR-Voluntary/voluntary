@@ -5,10 +5,11 @@ const {
   setDoc,
   addDoc,
   updateDoc,
+  deleteDoc,
   doc,
 } = require('../db.js');
 
-const userRef = collection(db, 'item');
+const userRef = collection(db, 'items');
 
 // USER SCHEMA & CREATION
 const createItem = (userObject) => {
@@ -19,28 +20,74 @@ const createItem = (userObject) => {
     location: userObject.location,
     name: userObject.name,
     sellerInfo: userObject.sellerInfo,
-    trustScore: userObject.trustScore
+    isActive: userObject.isActive
   });
 };
 
 
 // THE BELOW IS EXAMPLE WORK FROM IRVING:
 
-// const getItems = () => {
-//   return getDocs(userRef)
-//     .then((snapshot) => {
-//       const userArray = snapshot.docs.map(doc => {
-//         return { id: doc.id, ...doc.data()};
-//       })
-//       return userArray;
-//     });
-// };
+const getItems = () => {
+  return getDocs(userRef)
+    .then((snapshot) => {
+      const itemArray = snapshot.docs.map(doc => {
+        return {id: doc.id, ...doc.data()};
+      })
+      return itemArray;
+    });
+};
+
+const getItem = (id) => {
+  console.log('in getItem')
+  console.log(id)
+  return getDocs(userRef)
+    .then((snapshot) => {
+      const doc = snapshot.docs.filter(doc => id === doc.id)
+      return {...doc[0].data()};
+    })
+    .catch((err) => {
+      return {  error: err, message: 'item not found!' }
+    });
+};
+
+const getItemByCategory = (category) => {
+  console.log('in CATEGORY FUNC')
+  console.log(category)
+  return getDocs(userRef)
+    .then((snapshot) => {
+      const docs = snapshot.docs.filter(doc => category === doc.data().category)
+
+      let itemsByCategoryArray = [];
+
+      docs.forEach(doc => {
+        itemsByCategoryArray.push({...doc.data()})
+      });
+      console.log(itemsByCategoryArray)
+      return itemsByCategoryArray
+    });
+  };
 
 
+const markItemSold = (id) => {
+  const docToUpdate = doc(db, 'items', id);
+  return updateDoc(docToUpdate, { isActive: false })
+    .then((success) => {
+      return success;
+    });
+};
+
+const deleteItem = (id) => {
+  const docToDelete = doc(db, 'items', id);
+  return deleteDoc(docToDelete);
+}
+
+
+
+//                      db  collection uid
 // const irvingRef = doc(db, 'user','irving');
-// // updateDoc(irvingRef, {
-// //   car:'booboo'
-// // });
+// updateDoc(irvingRef, {
+//   car:'booboo'
+// });
 
 // get data
 // getDocs(userRef)
@@ -64,5 +111,10 @@ const createItem = (userObject) => {
 //   .then((success) => console.log(success));
 
 module.exports = {
+  getItemByCategory,
   createItem,
+  getItems,
+  getItem,
+  markItemSold,
+  deleteItem
 };

@@ -6,6 +6,7 @@ const {
   addDoc,
   setDoc,
   updateDoc,
+  deleteDoc,
   doc,
 } = require('firebase/firestore');
 
@@ -26,6 +27,7 @@ const db = getFirestore(app);
 
 module.exports = {
   db,
+  deleteDoc,
   collection,
   getDocs,
   addDoc,
