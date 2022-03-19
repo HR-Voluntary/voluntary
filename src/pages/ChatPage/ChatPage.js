@@ -2,7 +2,7 @@ import React,{useEffect,useState} from 'react'
 import styles from './ChatPage.module.css';
 import Chat from './Chat.js'
 import {userb} from './dummydata.js'
-import {collection, Timestamp, doc, onSnapshot, orderBy, query, addDoc,setDoc, getDoc, getDocs} from "firebase/firestore";
+import {collection, Timestamp, doc, onSnapshot, orderBy, query, setDoc, getDoc } from "firebase/firestore";
 import {db,auth} from '../../firebase.js'
 import { useAuthState } from "react-firebase-hooks/auth";
 import Users from './Users'
