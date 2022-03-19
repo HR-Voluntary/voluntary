@@ -48,18 +48,12 @@ const signInWithGoogle = async () => {
     if (docs.docs.length === 0) {
       await setDoc(doc(db, 'users', user.uid), {
         uid: user.uid,
+        trustScore: 50,
         name: user.displayName,
         authProvider: 'google',
         email: user.email,
         photo: user.photoURL,
-      })
-      // await setDoc(collection(db, "users"), {
-      //   uid: user.uid,
-      //   name: user.displayName,
-      //   authProvider: "google",
-      //   email: user.email,
-      //   photo: user.photoURL,
-      // });
+      });
     }
   } catch (err) {
     console.error(err);
@@ -75,10 +69,11 @@ const signInWithFacebook = async () => {
     const docs = await getDocs(q);
     console.log(user);
     if (docs.docs.length === 0) {
-      await addDoc(collection(db, "users"), {
+      await setDoc(doc(db, 'users', user.uid), {
         uid: user.uid,
         name: user.displayName,
-        authProvider: "facebook",
+        trustScore: 50,
+        authProvider: 'google',
         email: user.email,
         photo: user.photoURL,
       });
@@ -103,18 +98,13 @@ const registerWithEmailAndPassword = async (name, email, password) => {
     const res = await createUserWithEmailAndPassword(auth, email, password);
     const user = res.user;
     await setDoc(doc(db, 'users', user.uid), {
-      uid:user.uid,
+      uid: user.uid,
       name,
+      trustScore: 50,
       authProvider: 'local',
       email: user.email,
       photo: '',
     })
-    // await addDoc(collection(db, "users"), {
-    //   uid: user.uid,
-    //   name,
-    //   authProvider: "local",
-    //   email,
-    // });
   } catch (err) {
     console.error(err);
     alert(err.message);
