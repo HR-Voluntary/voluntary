@@ -3,6 +3,7 @@ const logger = require('morgan');
 const cors = require('cors');
 const app = express();
 const port = 3000;
+const s3 = require('./s3');
 
 app.use(cors());
 app.use(express.json());
@@ -15,6 +16,13 @@ const itemRouter = require('./routes/item.js');
 // ROUTES MIDDLEWARE:
 app.use('/user', userRouter);
 app.use('/item', itemRouter);
+
+// CUSTOM ROUTE FOR S3 IMAGE UPLOAD:
+app.get('/s3Url', (req, res) => {
+  s3().then(url => {
+    res.status(200).send(url)
+  });
+});
 
 // LISTEN:
 app.listen(port, function() {

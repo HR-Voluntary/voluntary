@@ -38,14 +38,13 @@ const getUsersAndProducts = async () => {
     .then((snapshot) => {
       const userArray = snapshot.docs.map(doc => {
         const userSpecificItemArray = itemArray.filter(item => {
-          // console.log(item);
           return item.sellerInfo === doc.data().uid
         })
         return { id: doc.id, ...doc.data(), userItems: userSpecificItemArray};
       })
       return userArray;
     });
-    
+
   return userArray;
 };
 
@@ -57,7 +56,7 @@ const getUser = (id) => {
       const doc = snapshot.docs.filter(doc => doc.id === id);
       return {...doc[0].data()};
     });
-}
+};
 
 const thumbsUp = (user) => {
   if (user.trustScore === 100) {
@@ -72,7 +71,7 @@ const thumbsUp = (user) => {
                 return err;
               })
   }
-}
+};
 
 const thumbsDown = (user) => {
   if (user.trustScore === 0) {
