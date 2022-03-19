@@ -1,10 +1,10 @@
-const { getModularInstance } = require('@firebase/util');
 const { initializeApp } = require('firebase/app');
 const {
-getFirestore,
+  getFirestore,
   collection,
   getDocs,
   addDoc,
+  setDoc,
   updateDoc,
   doc,
 } = require('firebase/firestore');
@@ -21,39 +21,16 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-
 // Connect to Firestore:
 const db = getFirestore(app);
 
-// collectionRef:
-const userRef = collection(db, 'user');
-const irvingRef = collection(db, 'user','irving');
-await updateDoc(irvingRef, {
-  car:'jim',
-
-});
-
-// get data
-getDocs(userRef)
-  .then((snapshot) => {
-    snapshot.docs.forEach(doc => console.log(doc.id))
-  });
-
-const addDocument = (userObject) => {
-  return addDoc(userRef, {
-    first: userObject.first,
-    last: userObject.last,
-    location: userObject.location,
-    car: userObject.car
-  })
+module.exports = {
+  db,
+  collection,
+  getDocs,
+  addDoc,
+  setDoc,
+  updateDoc,
+  doc,
 };
 
-// addDocument({first: 'Irving', last: 'IIIIRIVAAANG!', location: 'Cali', car: {
-//   fuel: 'gasoline',
-//   gallons: 15
-// }})
-//   .then((success) => console.log(success));
-
-module.exports = {
-  db
-}

@@ -1,7 +1,6 @@
 const express = require('express');
 const logger = require('morgan');
 const cors = require('cors');
-const axios = require('axios');
 const app = express();
 const port = 3000;
 
@@ -17,7 +16,7 @@ const itemRouter = require('./routes/item.js');
 app.use('/user', userRouter);
 app.use('/item', itemRouter);
 
-
+// LISTEN:
 app.listen(port, function() {
   console.log(`Example app listening on port ${port}!`)
 });
