@@ -9,7 +9,7 @@ section {
 .navbar {
   width: 100%;
   min-height: 60px;
-  border: solid 1px;
+  /* border: solid 1px; */
   background-color: red;
   position: relative;
 }
@@ -21,7 +21,7 @@ section {
   align-items: center;
   width: 100vw;
   height: 250px;
-  border: solid 1px;
+  /* border: solid 1px; */
 }
 
 .body {
@@ -30,14 +30,14 @@ section {
   justify-content: space-around;
   width: 100vw;
   height: 1000px;
-  border: solid 1px;
+  /* border: solid 1px; */
   background-color: #FFFFFF;
 }
 
 .cards-container {
   width: 40%;
   height: 100%;
-  border: solid 1px;
+  /* border: solid 1px; */
 }
 
 .cards-container h2 {
@@ -51,7 +51,7 @@ section {
   margin: 10px;
 }
 
-.rec.rec-arrow {
+/* .rec.rec-arrow {
   background-color: #FEDCC5;
   margin: 0 20px;
 }
@@ -75,7 +75,7 @@ section {
 
 .rec.rec-dot {
   display: none;
-}
+} */
 
 .cards-container-two {
   display: flex;
@@ -83,28 +83,28 @@ section {
 }
 
 .pic {
-  border: solid 1px;
+  /* border: solid 1px; */
   width: 200px;
   height: 200px;
   border-radius: 100%;
 }
 
 .profile-name {
-  border: solid 1px;
+  /* border: solid 1px; */
   width: 250px;
   height: 150px;
   text-align: center;
 }
 
 .votes {
-  border: solid 1px;
+  /* border: solid 1px; */
   width: 250px;
   height: 150px;
   text-align: center;
 }
 
 .msg-btn {
-  border: solid 1px;
+  /* border: solid 1px; */
   width: 100px;
   height: 50px;
 }
@@ -113,4 +113,39 @@ section {
   position: absolute;
   top: 30%;
   left: 90%;
+}
+
+
+/* THIS CSS BELONGS TO THE FORM CARD INSIDE DAN'S MODAL */
+
+.formContainer {
+  position: absolute;
+  top: 20%;
+  left: 25%;
+  width: 1000px;
+  height: 950px;
+  background-color: white;
+  z-index: 2;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.formContainer textarea {
+  width: 350px;
+  height: 50px;
+}
+
+.form-product-title {
+  width: 350px;
+}
+
+.form-product-description {
+  width: 350px;
+}
+
+.form-submit {
+  margin-top: 20px;
 }
