@@ -1,11 +1,15 @@
 // Importing our installed dependencies
 const aws = require('aws-sdk');
+require('dotenv').config()
 
 // Configuring our S3 bucket in React
 const region = "us-east-1";
 const bucketName = "voluntaryhackreactorbucket";
-const accessKeyId = process.env.AWS_ACCESS_KEY_ID;
-const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+const accessKeyId = process.env.REACT_APP_AWS_ACCESS_KEY_ID;
+const secretAccessKey = process.env.REACT_APP_AWS_SECRET_ACCESS_KEY;
+
+// console.log('accessKey ')
+// console.log(accessKeyId)
 
 const s3 = new aws.S3({
   region,
