@@ -4,7 +4,7 @@ import './ProfilePage.css';
 import khristian from './images/khristian.jpeg';
 
 const ProfilePage = () => {
-  const [user, setUser] = useState({ name: 'Khristian Lopez', type: 'Individual', location: 'Los Angeles', votes: 6, trustLevel: 5, listings: [1, 2, 3, 4, 5, 6], claimed: [1,2,3] });
+  const [user, setUser] = useState({ name: 'Rob Cherry T.', type: 'Individual', location: 'Los Angeles', votes: 6, trustLevel: 5, listings: [1, 2, 3, 4, 5, 6], claimed: [1, 2, 3, 4] });
 
   useEffect(() => {
 
@@ -12,7 +12,9 @@ const ProfilePage = () => {
 
   return (
     <section>
-      <div className="navbar"></div>
+      <div className="navbar">
+        <button className="list-item-btn">List Item</button>
+      </div>
       <div className="heading">
         <img className="pic" src={khristian} alt="profile-pic" />
         <div className="profile-name">
@@ -22,12 +24,12 @@ const ProfilePage = () => {
         </div>
         <div className="votes">
           <div>
-          <h2>Trust Votes</h2>
-          <h4>{user.votes} votes</h4>
+            <h2>Trust Votes</h2>
+            <h4>{user.votes} votes</h4>
           </div>
           <div>
-          <h2>Trust Level</h2>
-          <h4>lv. {user.trustLevel}</h4>
+            <h2>Trust Level</h2>
+            <h4>lv. {user.trustLevel}</h4>
           </div>
         </div>
         <button className="msg-btn">Message</button>

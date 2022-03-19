@@ -8,9 +8,10 @@ section {
 
 .navbar {
   width: 100%;
-  height: 60px;
+  min-height: 60px;
   border: solid 1px;
   background-color: red;
+  position: relative;
 }
 
 .heading {
@@ -19,7 +20,7 @@ section {
   justify-content: space-around;
   align-items: center;
   width: 100vw;
-  height: 30%;
+  height: 250px;
   border: solid 1px;
 }
 
@@ -28,7 +29,7 @@ section {
   flex-direction: row;
   justify-content: space-around;
   width: 100vw;
-  height: 70%;
+  height: 1000px;
   border: solid 1px;
   background-color: #FFFFFF;
 }
@@ -83,22 +84,22 @@ section {
 
 .pic {
   border: solid 1px;
-  width: 20vh;
-  height: 20vh;
+  width: 200px;
+  height: 200px;
   border-radius: 100%;
 }
 
 .profile-name {
   border: solid 1px;
-  width: 20%;
-  height: 60%;
+  width: 250px;
+  height: 150px;
   text-align: center;
 }
 
 .votes {
   border: solid 1px;
-  width: 20%;
-  height: 60%;
+  width: 250px;
+  height: 150px;
   text-align: center;
 }
 
@@ -106,4 +107,10 @@ section {
   border: solid 1px;
   width: 100px;
   height: 50px;
+}
+
+.list-item-btn {
+  position: absolute;
+  top: 30%;
+  left: 90%;
 }
