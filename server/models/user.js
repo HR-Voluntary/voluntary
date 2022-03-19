@@ -45,7 +45,7 @@ const getUsersAndProducts = async () => {
       })
       return userArray;
     });
-    
+
   return userArray;
 };
 
