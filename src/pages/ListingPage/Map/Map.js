@@ -14,6 +14,19 @@ const MapListing = () => {
 
   const [selectedFacility, setSelectedFacility] = useState(null);
 
+  const success = (position) => {
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+    console.log('latitude: ', latitude);
+    console.log('longitude: ', longitude);
+  }
+
+  // const error = () => {
+  //   status.textContent = 'Unable to retrieve your location';
+  // }
+
+  navigator.geolocation.getCurrentPosition(success);
+
   useEffect(() => {
     const listener = (e) => {
       if (e.key === 'Escape') {
@@ -29,8 +42,7 @@ const MapListing = () => {
 
   return (
     <div>
-      <small class={styles.sampletext}>You are running this application in <b>{process.env.NODE_ENV}</b> mode.</small>
-      <div>
+      <small className={styles.sampletext}>You are running this application in <b>{process.env.NODE_ENV}</b> mode.</small>
         <Map
           initialViewState={{ ...viewport }}
           style={{
@@ -77,7 +89,6 @@ const MapListing = () => {
             </Popup>
           )}
         </Map>
-      </div>
     </div>
   )
 };
