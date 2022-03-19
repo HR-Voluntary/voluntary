@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var { getUsers, getUser, thumbsUp, thumbsDown } = require('../models/user.js');
+var { getUsers, getUser, thumbsUp, thumbsDown, getUsersAndProducts } = require('../models/user.js');
 
 router.get('/all', function(req, res) {
   console.log('I AM WORKING');
-  getUsers()
+  getUsersAndProducts()
   .then(users => {
     console.log(users);
     res.status(200).send(users);
