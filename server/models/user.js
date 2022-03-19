@@ -10,6 +10,7 @@ const {
 } = require('../db.js');
 
 const userRef = collection(db, 'users');
+const itemRef = collection(db, 'items');
 
 const getUsers = () => {
   console.log('I am firing')
@@ -21,6 +22,34 @@ const getUsers = () => {
       return userArray;
     });
 };
+
+const getUsersAndProducts = async () => {
+  const itemArray = await getDocs(itemRef)
+    .then((snapshot) => {
+      const itemArray = snapshot.docs.map(doc => {
+        return {id: doc.id, ...doc.data()};
+      });
+      return itemArray;
+    })
+
+    // console.log(itemArray);
+
+  const userArray = await getDocs(userRef)
+    .then((snapshot) => {
+      const userArray = snapshot.docs.map(doc => {
+        const userSpecificItemArray = itemArray.filter(item => {
+          // console.log(item);
+          return item.sellerInfo === doc.data().uid
+        })
+        return { id: doc.id, ...doc.data(), userItems: userSpecificItemArray};
+      })
+      return userArray;
+    });
+    
+  return userArray;
+};
+
+getUsersAndProducts();
 
 const getUser = (id) => {
   return getDocs(userRef)
@@ -71,5 +100,6 @@ module.exports = {
   getUsers,
   getUser,
   thumbsUp,
-  thumbsDown
+  thumbsDown,
+  getUsersAndProducts
 }
