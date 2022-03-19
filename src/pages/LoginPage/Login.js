@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { logInWithEmailAndPassword, auth, signInWithGoogle, signInWithFacebook } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import "./Login.css";
+// import "./Login.css";
+import styles from './Login.module.css';
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -19,62 +20,62 @@ function Login() {
   }, [user, loading]); // LOOK AT THIS IS SHIT STARTS BREAKING
 
   return (
-    <div className="login">
-      <div className="login__container">
-        <div className="login__features">
+    <div className={styles.login}>
+      <div className={styles.login__container}>
+        <div className={styles.login__features}>
           <h5>Your Logo</h5>
           <h1>Login</h1>
-          <div className="login_emailContainer">
+          <div className={styles.login_emailContainer}>
             <div>Email</div>
             <input
               type='text'
-              className='login__emailInput'
+              className={styles.login__emailInput}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder='Email'
             >
             </input>
           </div>
-          <div className="login_passwordContainer">
+          <div className={styles.login_passwordContainer}>
             <div>Password</div>
             <input
               type='text'
-              className='login__passwordInput'
+              className={styles.login__passwordInput}
               value={email}
               onChange={(e) => setPassword(e.target.value)}
               placeholder='Password'
             >
             </input>
           </div>
-            <div className="login__reset">
+            <div className={styles.login__reset}>
               <Link to="/Reset">Forgot Password</Link>
             </div>
           <button
-            className="login__btn"
+            className={styles.login__btn}
             onClick={() => logInWithEmailAndPassword(email, password)}
           >
             Sign In
           </button>
-          <div className="login__btnContainer">
-            <div className='login__text'>or continue with</div>
-            <div className="login__authBtns">
+          <div className={styles.login__btnContainer}>
+            <div className={styles.login__text}>or continue with</div>
+            <div className={styles.login__authBtns}>
               <img
-                className='login__authImg'
+                className={styles.login__authImg}
                 src={require('./utils/google.png')}
                 alt=''
                 onClick={signInWithGoogle}
               />
               <img
-                className='login__authImg'
+                className={styles.login__authImg}
                 src={require('./utils/facebook.png')}
                 alt=''
                 onClick={signInWithFacebook}
               />
             </div>
           </div>
-          <div className="login__registerText">
+          <div className={styles.login__registerText}>
             Don't have an account yet?
-            <Link className='login__register' to="/Register">Register</Link> for free
+            <Link className={styles.login__register} to="/Register">Register</Link> for free
           </div>
         </div>
       </div>
