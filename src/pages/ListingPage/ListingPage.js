@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import MapListing from './Map/Map.js';
+import FilterBar from './FilterBar.js';
 import axios from 'axios';
 
 
@@ -26,10 +27,30 @@ const ListingPage = () => {
       })
   }
 
-  const filterListings = (listings, filterParam) => {
- //
-    //
+  const filterListingsByCategory = (listings, filterParam) => {
+    const filter = listings.filter(listing =>
+      listing.cateogry === filterParam
+    )
+
+    setFilterListing(filter);
   }
+
+  const categoryFilterChange = (e) => {
+    console.log(e.target.value);
+    filterListingsByCategory(allListings, e.target.value)
+  }
+
+  // const filterListingsByTrust = (listings, filterParam) => {
+  //   const filter = listings.filter((listing) => {
+
+  //     //sellers trust level equals filterParam
+  //   })
+  //   setFilterListing(filter);
+  // }
+
+  // const trustFilterChange = (value) => {
+  //   filterListings(allListings, value)
+  // }
 
   // axios calls
   // state/states with array of data
@@ -44,6 +65,7 @@ const ListingPage = () => {
   return (
     <>
       <div>Listing Page</div>
+      <FilterBar categoryFilterChange={categoryFilterChange}/>
       <MapListing />
       {/* pass in stat signifiying initial distance filter */}
     </>
