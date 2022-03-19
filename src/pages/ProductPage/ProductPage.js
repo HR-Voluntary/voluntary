@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+const axios = require('axios');
 
 // get product from Listings page
 
@@ -50,13 +50,14 @@ const ProductPage = () => {
   }
 
   useEffect(() => {
-    fetch(``) // limit the fetch of images to fit the screen
+    axios.get(``) // limit the get of images to fit the screen
       .then(response => response.json())
       .then(data => setProducts(data))
   }, [pageDisplay])
 
   return (
     <>
+      {/* link back to listing page */}
       <button onClick={() => setPageDisplay('listings')}>Back to Listings</button>
       <button onClick={() => setPageDisplay('similar')}>Similar Products</button>
       <button onClick={() => setPageDisplay('otherSellerItems')}>Other Items from the Seller</button>
