@@ -12,8 +12,9 @@ const ListingPage = () => {
   }, [load])
 
   const getListings = () => {
-    axios.get('/item/all')
+    axios.get('http://localhost:3000/item/all')
       .then(response => {
+        console.log(response)
         setAllListings(response.data)
         setLoad(true)
       })
@@ -22,9 +23,11 @@ const ListingPage = () => {
   return (
     <div>
       <h1>Listing Page</h1>
+      <div className="all-listings">
       {allListings.map(listing => {
         return <Listing listing={listing}/>
       })}
+      </div>
     </div>
   )
 };
