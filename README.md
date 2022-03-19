@@ -60,18 +60,53 @@ http://localhost:3000/item/:id
 
 ### Response
 ```  
-{
-    "category": "electronics",
-    "sellerInfo": "1AOjnwnoc5bxD1u3VBiaNzKYL2k1",
-    "location": "San Francisco, California",
-    "image": [
-        "https://imageurl.gstatic.com./images?q=tbn:ANd9GcRJwjQ2VbM6DEt8vb5xqBAs2hn9D8EjyR9TyQ&usqp=CAU",
-        "https://imageurl.gstatic.com./images?q=tbn:ANd9GcRJwjQ2VbM6DEt8vb5xqBAs2hn9D8EjyR9TyQ&usqp=CAU",
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJwjQ2VbM6DEt8vb5xqBAs2hn9D8EjyR9TyQ&usqp=CAU",
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJwjQ2VbM6DEt8vb5xqBAs2hn9D8EjyR9TyQ&usqp=CAU"
-    ],
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
-    "name": "iPhone 15s Pro"
-}
+[  
+  {
+      "category": "electronics",
+      "sellerInfo": "1AOjnwnoc5bxD1u3VBiaNzKYL2k1",
+      "location": "San Francisco, California",
+      "image": [
+          "https://imageurl.gstatic.com./images?q=tbn:ANd9GcRJwjQ2VbM6DEt8vb5xqBAs2hn9D8EjyR9TyQ&usqp=CAU",
+          "https://imageurl.gstatic.com./images?q=tbn:ANd9GcRJwjQ2VbM6DEt8vb5xqBAs2hn9D8EjyR9TyQ&usqp=CAU",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJwjQ2VbM6DEt8vb5xqBAs2hn9D8EjyR9TyQ&usqp=CAU",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJwjQ2VbM6DEt8vb5xqBAs2hn9D8EjyR9TyQ&usqp=CAU"
+      ],
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
+      "name": "iPhone 15s Pro"
+  },
+  {
+      "category": "electronics",
+      "sellerInfo": "1AOjnwnoc5bxD1u3VBiaNzKYL2k1",
 ```
 
+### Request
+
+`GET /user/profile/:id`
+
+http://localhost:3000/item/:id
+
+### Response
+```  
+[  
+   {
+        "id": "YYr7QsRYHRawcKrsnoICvhGbtok1",
+        "email": "irving.sotocastillo@gmail.com",
+        "authProvider": "google",
+        "photo": "https://lh3.googleusercontent.com/a/AATXAJyH3URZvK3YldpTIpaP1fPJ7KNG0DwgfHrQvqe2=s96-c",
+        "uid": "YYr7QsRYHRawcKrsnoICvhGbtok1",
+        "name": "Irving Soto",
+        "userItems": [
+            {
+                "id": "ors6TpflOS41kbED8JSR",
+                "description": "This is a description",
+                "category": "automotive",
+                "name": "Self driving car",
+                "sellerInfo": "YYr7QsRYHRawcKrsnoICvhGbtok1",
+                "location": "California",
+                "isActive": true,
+                "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJwjQ2VbM6DEt8vb5xqBAs2hn9D8EjyR9TyQ&usqp=CAU"
+            }
+        ]
+    }
+]
+```
