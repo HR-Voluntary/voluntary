@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { logInWithEmailAndPassword, auth, signInWithGoogle, signInWithFacebook } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-// import "./Login.css";
 import styles from './Login.module.css';
 
 function Login() {
@@ -39,9 +38,9 @@ function Login() {
           <div className={styles.login_passwordContainer}>
             <div>Password</div>
             <input
-              type='text'
+              type='password'
               className={styles.login__passwordInput}
-              value={email}
+              value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder='Password'
             >

@@ -6,7 +6,7 @@ import {
   registerWithEmailAndPassword,
   signInWithGoogle
 } from "../../firebase";
-import './Register.css';
+import styles from './Register.module.css';
 
 const Register = () => {
   const [email, setEmail] = useState('');
@@ -26,40 +26,59 @@ const Register = () => {
   }, [user, loading]) // LOOK AT THIS IF SHIT BREAKS
 
   return (
-      <div className="register">
-      <div className="register__container">
-        <input
-          type="text"
-          className="register__textBox"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Full Name"
-        />
-        <input
-          type="text"
-          className="register__textBox"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="E-mail Address"
-        />
-        <input
-          type="password"
-          className="register__textBox"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-        />
-        <button className="register__btn" onClick={register}>
-          Register
-        </button>
-        <button
-          className="register__btn register__google"
-          onClick={signInWithGoogle}
-        >
-          Register with Google
-        </button>
-        <div>
-          Already have an account? <Link to="/">Login</Link> now.
+    <div className={styles.register}>
+      <div className={styles.register__container}>
+        <div className={styles.register__features}>
+          <h5>Your Logo</h5>
+          <h1>Sign Up</h1>
+          <div className={styles.register_passwordContainer}>
+            <div>Name</div>
+            <input
+              type='text'
+              className={styles.register__passwordInput}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder='Name'
+            >
+            </input>
+          </div>
+          <div className={styles.register_passwordContainer}>
+            <div>Email</div>
+            <input
+              type='text'
+              className={styles.register__passwordInput}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder='Email'
+            >
+            </input>
+          </div>
+          <div className={styles.register_passwordContainer}>
+            <div>Password</div>
+            <input
+              type='password'
+              className={styles.register__passwordInput}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder='Password'
+            >
+            </input>
+          </div>
+          <div>
+            <div className={styles.dropdown_text}>Account Type</div>
+            <div className={styles.register__authBtns}>
+              <select className={styles.dropdown}>
+                <option value='Individual'>Individual</option>
+                <option value='Organization'>Organization</option>
+              </select>
+            </div>
+          </div>
+          <button
+            className={styles.register__btn}
+            onClick={() => {}} // add functionality
+          >
+            Sign Up
+          </button>
         </div>
       </div>
     </div>

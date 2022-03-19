@@ -73,7 +73,7 @@ const signInWithFacebook = async () => {
         uid: user.uid,
         name: user.displayName,
         trustScore: 50,
-        authProvider: 'google',
+        authProvider: 'facebook',
         email: user.email,
         photo: user.photoURL,
       });
