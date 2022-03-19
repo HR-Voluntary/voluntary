@@ -1,0 +1,32 @@
+.navbar {
+  height: 50px;
+  background-color: #FEDCC5;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.navbar_list {
+  display: flex;
+  align-items: center;
+  list-style: none;
+}
+
+.navbar_list_item {
+  margin-right: 20px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.navbar_avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50;
+  object-fit: cover;
+}
