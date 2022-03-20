@@ -1,70 +1,112 @@
-# Getting Started with Create React App
+# Voluntary - Donations Made Easy
+Looking to donate locally? Voluntary brings together those looking to donate, as well as those looking to receive. 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Create an account using Google or Facebook, post some items, or browse local listings in your area.
 
-## Available Scripts
+<PLACEHOLDER GIF>
+![gif](https://user-images.githubusercontent.com/43115008/158876469-321675e3-2c08-406d-ba8b-f98c7012cc3c.gif)
 
-In the project directory, you can run:
 
-### `npm start`
+## :heavy_check_mark: Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Voluntary Overview
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+* Real-time Chat
+* Firebase Firestore
+* Facebook and Google Authentication
+* AWS S3 Image Uploading
 
-### `npm test`
+### Technologies Used
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* Firebase
+* React - Persistant storage
+* AWS - Raspberry Pi-hosted local network server
+* Others TBD... 
+  
+## :heavy_check_mark: Setup
+* .env file in root folder ~ example:
+```
+REACT_APP_YELP_API=''
+REACT_APP_YELP_API_SECRET=''
+REACT_APP_MONGO_URI=''
+```
+* `npm install` to install all dependencies
+* `npm run server` to start Node.js server locally
+* `npm run start` to start React/Webpack server locally
 
-### `npm run build`
+## :heavy_check_mark: RESTful API
+  
+## Create a New Listing
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Request
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+`POST /item/`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+http://localhost:3000/item/
 
-### `npm run eject`
+### Response
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+    HTTP/1.1 201 Created
+    Date: Thu, 24 Feb 2011 12:36:30 GMT
+    Status: 201 Created
+    Connection: close
+    Content-Type: application/json
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Request
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+`GET /item/:id`
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+http://localhost:3000/item/:id
 
-## Learn More
+### Response
+```  
+[  
+  {
+      "category": "electronics",
+      "sellerInfo": "1AOjnwnoc5bxD1u3VBiaNzKYL2k1",
+      "location": "San Francisco, California",
+      "image": [
+          "https://imageurl.gstatic.com./images?q=tbn:ANd9GcRJwjQ2VbM6DEt8vb5xqBAs2hn9D8EjyR9TyQ&usqp=CAU",
+          "https://imageurl.gstatic.com./images?q=tbn:ANd9GcRJwjQ2VbM6DEt8vb5xqBAs2hn9D8EjyR9TyQ&usqp=CAU",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJwjQ2VbM6DEt8vb5xqBAs2hn9D8EjyR9TyQ&usqp=CAU",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJwjQ2VbM6DEt8vb5xqBAs2hn9D8EjyR9TyQ&usqp=CAU"
+      ],
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
+      "name": "iPhone 15s Pro"
+  },
+  {
+      "category": "electronics",
+      "sellerInfo": "1AOjnwnoc5bxD1u3VBiaNzKYL2k1",
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Request
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+`GET /user/profile/:id`
 
-### Code Splitting
+http://localhost:3000/item/:id
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Response
+```  
+[  
+   {
+        "id": "YYr7QsRYHRawcKrsnoICvhGbtok1",
+        "email": "irving.sotocastillo@gmail.com",
+        "authProvider": "google",
+        "photo": "https://lh3.googleusercontent.com/a/AATXAJyH3URZvK3YldpTIpaP1fPJ7KNG0DwgfHrQvqe2=s96-c",
+        "uid": "YYr7QsRYHRawcKrsnoICvhGbtok1",
+        "name": "Irving Soto",
+        "userItems": [
+            {
+                "id": "ors6TpflOS41kbED8JSR",
+                "description": "This is a description",
+                "category": "automotive",
+                "name": "Self driving car",
+                "sellerInfo": "YYr7QsRYHRawcKrsnoICvhGbtok1",
+                "location": "California",
+                "isActive": true,
+                "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJwjQ2VbM6DEt8vb5xqBAs2hn9D8EjyR9TyQ&usqp=CAU"
+            }
+        ]
+    }
+]
+```

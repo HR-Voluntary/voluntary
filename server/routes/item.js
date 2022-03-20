@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var {
   createItem,
+  createItemWithImgArray,
   getItems,
   getItem,
   getItemByCategory,
@@ -14,6 +15,16 @@ router.post('/', function(req, res){
   console.log(req.body);
   createItem(req.body)
   .then((ifSuccess) => console.log('item created! Check database.'))
+  .catch(err => console.log(err))
+
+  res.sendStatus(200).end();
+});
+//// SIVA DOING IT //
+//Post route for array of image Urls
+router.post('/img', function(req, res){
+  console.log(req.body);
+  createItemWithImgArray(req.body)
+  .then((ifSuccess) => console.log('item created Siva! Check database.'))
   .catch(err => console.log(err))
 
   res.sendStatus(200).end();

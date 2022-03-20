@@ -10,6 +10,7 @@ const {
 } = require('../db.js');
 
 const userRef = collection(db, 'users');
+const itemRef = collection(db, 'items');
 
 const getUsers = () => {
   console.log('I am firing')
@@ -22,13 +23,74 @@ const getUsers = () => {
     });
 };
 
+const getUsersAndProducts = async () => {
+  const itemArray = await getDocs(itemRef)
+    .then((snapshot) => {
+      const itemArray = snapshot.docs.map(doc => {
+        return {id: doc.id, ...doc.data()};
+      });
+      return itemArray;
+    })
+
+  const userArray = await getDocs(userRef)
+    .then((snapshot) => {
+      const userArray = snapshot.docs.map(doc => {
+        const userSpecificItemArray = itemArray.filter(item => {
+          return item.sellerInfo === doc.data().uid
+        })
+        return { id: doc.id, ...doc.data(), userItems: userSpecificItemArray};
+      })
+      return userArray;
+    });
+
+  return userArray;
+};
+
+//getUsersAndProducts();
+
+//  Get all the items listed by a user with a given UserId
+const getItemsForUser = async (id) => {
+  //itemArray holds all the items
+  const itemArray = await getDocs(itemRef)
+    .then((snapshot) => {
+      const itemArray = snapshot.docs.map(doc => {
+        return {id: doc.id, ...doc.data()};
+      });
+      return itemArray;
+    })
+
+   // console.log("itemArray = ", itemArray);
+
+  const userArray = await getDocs(userRef)
+    .then((snapshot) => {
+      const userArray = snapshot.docs.map(doc => {
+        const userSpecificItemArray = itemArray.filter(item => {
+          //filter from itemArray the item matches with uid(from users) and the sellerInfo to userSpecificItemArray
+          return item.sellerInfo === doc.data().uid
+        })
+        // userSpecificItemArray => an array holds all the items listed by a user and returned under key "userItems"
+        return { id: doc.id, ...doc.data(), userItems: userSpecificItemArray};
+      })
+      //userArray is the array of objects with id, data(which holds the uid), userItems(holds the userSpecificItems)
+      return userArray;
+    });
+    //console.log("userArray = ", userArray);
+    //Filter through the userArray return the items that matches the given id with the item.uid=> is the sellerInfo or the seller/user Id
+    return userArray.filter(item => {
+      return item.uid === id;
+    })
+  };
+//getItemsForUser();
+
+
 const getUser = (id) => {
   return getDocs(userRef)
     .then((snapshot) => {
       const doc = snapshot.docs.filter(doc => doc.id === id);
       return {...doc[0].data()};
     });
-}
+};
+
 
 const thumbsUp = (user) => {
   if (user.trustScore === 100) {
@@ -43,7 +105,7 @@ const thumbsUp = (user) => {
                 return err;
               })
   }
-}
+};
 
 const thumbsDown = (user) => {
   if (user.trustScore === 0) {
@@ -71,5 +133,7 @@ module.exports = {
   getUsers,
   getUser,
   thumbsUp,
-  thumbsDown
+  thumbsDown,
+  getUsersAndProducts,
+  getItemsForUser,
 }

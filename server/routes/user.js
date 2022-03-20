@@ -1,17 +1,29 @@
 var express = require('express');
 var router = express.Router();
-var { getUsers, getUser, thumbsUp, thumbsDown } = require('../models/user.js');
+var { getUsers, getUser, thumbsUp, thumbsDown, getUsersAndProducts, getItemsForUser } = require('../models/user.js');
 
 router.get('/all', function(req, res) {
   console.log('I AM WORKING');
-  getUsers()
+  getUsersAndProducts()
   .then(users => {
     console.log(users);
     res.status(200).send(users);
   });
 });
 
-
+/// SIVA did that
+// Get request for all the items listed by a user
+// Route /user/profile/:id
+router.get('/profile/:id', function(req, res) {
+  const { id } = req.params;
+  //console.log('I AM WORKING SIVAAA');
+  getItemsForUser(id)
+  .then(users => {
+   // console.log(users);
+    res.status(200).send(users);
+  })
+  .catch(() => res.status(400).end());
+});
 // USER TO TEST:
 // 1AOjnwnoc5bxD1u3VBiaNzKYL2k1
 // INCREMENT TRUST SCORE

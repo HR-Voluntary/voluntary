@@ -1,0 +1,26 @@
+
+.rec.rec-arrow {
+  background-color: #FEDCC5;
+  margin: 0 20px;
+}
+
+.rec.rec-arrow:hover {
+  background-color: #FEDCC5;
+}
+
+.rec.rec-arrow-up:hover:enabled,
+.rec.rec-arrow-down:hover:enabled{
+    background-color: rgb(223, 144, 144);
+    box-shadow: 0 0 1px 3px var(--clr-primary-400);
+}
+
+.rec.rec-arrow-up:focus:enabled,
+.rec.rec-arrow-down:focus:enabled{
+    background-color: #FEDCC5;
+    box-shadow: 0 0 1px 3px var(--clr-primary-400);
+    color: black;
+}
+
+.rec.rec-dot {
+  display: none;
+}
