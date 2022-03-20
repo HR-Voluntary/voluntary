@@ -16,7 +16,6 @@ import {
   getDocs,
   collection,
   where,
-  addDoc,
   setDoc,
 }
 from "firebase/firestore";
@@ -53,6 +52,8 @@ const signInWithGoogle = async () => {
         authProvider: 'google',
         email: user.email,
         photo: user.photoURL,
+        type: 'Individual',
+        location: [],
       });
     }
   } catch (err) {
@@ -76,6 +77,8 @@ const signInWithFacebook = async () => {
         authProvider: 'facebook',
         email: user.email,
         photo: user.photoURL,
+        type: 'Individual',
+        location: [],
       });
     }
   } catch (err) {
@@ -105,6 +108,7 @@ const registerWithEmailAndPassword = async (name, email, password, type) => {
       email: user.email,
       photo: '',
       type,
+      location: [],
     })
   } catch (err) {
     console.error(err);

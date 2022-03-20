@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
   auth,
   registerWithEmailAndPassword,
@@ -92,7 +92,7 @@ const Register = () => {
           </button>
         </div>
       </div>
-      <img src={require('./utils/Mascot.png')}></img>
+      <img src={require('./utils/Mascot.png')} alt=''></img>
     </div>
   );
 }
