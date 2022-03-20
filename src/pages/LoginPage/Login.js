@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { logInWithEmailAndPassword, auth, signInWithGoogle, signInWithFacebook } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-// import "./Login.css";
 import styles from './Login.module.css';
 
 function Login() {
