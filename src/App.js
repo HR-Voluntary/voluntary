@@ -14,9 +14,6 @@ import { getAuth } from 'firebase/auth';
 
 const App = () => {
 
-  const auth = getAuth();
-  const user = auth.currentUser;
-
   return (
     <div className={styles.App}>
         <Routes>

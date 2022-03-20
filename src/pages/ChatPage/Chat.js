@@ -1,6 +1,6 @@
 import styles from './Chat.module.css'
 import React, {useState,useEffect} from 'react'
-import {collection, Timestamp, doc, onSnapshot, orderBy, query, addDoc,setDoc} from "firebase/firestore";
+import {collection, serverTimestamp, Timestamp, doc, onSnapshot, orderBy, query, addDoc,setDoc} from "firebase/firestore";
 import {db} from '../../firebase.js'
 import Messages from './Messages';
 
@@ -28,7 +28,7 @@ function Chat({user1, user2}) {
       messageText,
       from: user1,
       to: user2,
-      createdAt: Timestamp.fromDate(new Date()),
+      createdAt: serverTimestamp(),
       image: "",
     });
     await setDoc(doc(db, 'conversations', user1.uid, 'to', user2.uid), {uid:user2.uid,name:user2.name,photo:user2.photo||'',lastInteracted: Timestamp.fromDate(new Date())})
