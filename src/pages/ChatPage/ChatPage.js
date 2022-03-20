@@ -2,7 +2,7 @@ import React,{useEffect,useState} from 'react'
 import styles from './ChatPage.module.css';
 import Chat from './Chat.js'
 import {userb} from './dummydata.js'
-import {collection, Timestamp, doc, onSnapshot, orderBy, query, setDoc, getDoc } from "firebase/firestore";
+import {collection, serverTimestamp, doc, onSnapshot, orderBy, query, setDoc, getDoc } from "firebase/firestore";
 import {db,auth} from '../../firebase.js'
 import { useAuthState } from "react-firebase-hooks/auth";
 import Users from './Users'
@@ -38,11 +38,11 @@ function ChatPage() {
     try{
     let toUserConversation= await getDocument('conversations', user1.uid, 'to',user2.uid);
     if(!toUserConversation){
-      await setDoc(doc(db, 'conversations', user1.uid, 'to', user2.uid), {uid:user2.uid,name:user2.name,photo:user2.photo||'',lastInteracted: Timestamp.fromDate(new Date())})
+      await setDoc(doc(db, 'conversations', user1.uid, 'to', user2.uid), {uid:user2.uid,name:user2.name,photo:user2.photo||'',lastInteracted: serverTimestamp()})
     }
     let fromUserConversation = await getDocument('conversations', user2.uid, 'to', user1.uid);
     if(!fromUserConversation){
-    await setDoc(doc(db, 'conversations', user2.uid, 'to', user1.uid), {uid:user1.uid,name:user1.name,photo:user1.photo||'',lastInteracted: Timestamp.fromDate(new Date())})
+    await setDoc(doc(db, 'conversations', user2.uid, 'to', user1.uid), {uid:user1.uid,name:user1.name,photo:user1.photo||'',lastInteracted: serverTimestamp()})
     }}catch(e){
       console.log('errror',e)
     }

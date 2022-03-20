@@ -1,7 +1,7 @@
 import styles from './Chat.module.css'
 import React, {useState,useEffect} from 'react'
-import {collection, Timestamp, doc, onSnapshot, orderBy, query, addDoc,setDoc} from "firebase/firestore";
-import {db} from '../../firebase.js'
+import {collection,serverTimestamp, Timestamp, doc, onSnapshot, orderBy, query, addDoc,setDoc} from "firebase/firestore";
+import {db} from '../../firebase.js';
 import Messages from './Messages';
 
 function Chat({user1, user2}) {
@@ -12,13 +12,16 @@ function Chat({user1, user2}) {
     const roomId = user1.uid > user2.uid ? `${user1.uid + user2.uid}` : `${user2.uid + user1.uid}`;
     const messagesDoc = collection(db, "messages", roomId, "chat");
     const q = query(messagesDoc, orderBy("createdAt", "asc"));
-    onSnapshot(q, (querySnapshot) => {
+    let unsubscribe =onSnapshot(q, (querySnapshot) => {
+      console.log(querySnapshot)
       let messages = [];
       querySnapshot.forEach((doc)=>{
+
         messages.push(doc.data())
       });
       setMessages(messages);
     });
+    return unsubscribe
   },[user1,user2])
   async function addMessageToConversation(){
     const roomId = user1?.uid > user2?.uid ? `${user1?.uid + user2?.uid}` : `${user2?.uid + user1?.uid}`;
@@ -28,11 +31,11 @@ function Chat({user1, user2}) {
       messageText,
       from: user1,
       to: user2,
-      createdAt: Timestamp.fromDate(new Date()),
+      createdAt: serverTimestamp(),
       image: "",
     });
-    await setDoc(doc(db, 'conversations', user1.uid, 'to', user2.uid), {uid:user2.uid,name:user2.name,photo:user2.photo||'',lastInteracted: Timestamp.fromDate(new Date())})
-    await setDoc(doc(db, 'conversations', user2.uid, 'to', user1.uid), {uid:user1.uid,name:user1.name,photo:user1.photo||'',lastInteracted: Timestamp.fromDate(new Date())})
+    await setDoc(doc(db, 'conversations', user1.uid, 'to', user2.uid), {uid:user2.uid,name:user2.name,photo:user2.photo||'',lastInteracted: serverTimestamp()})
+    await setDoc(doc(db, 'conversations', user2.uid, 'to', user1.uid), {uid:user1.uid,name:user1.name,photo:user1.photo||'',lastInteracted: serverTimestamp()})
   }
   function onChangeTextHandler(e){
     setMessageText(e.target.value);
