@@ -14,7 +14,7 @@ const ProductPage = () => {
   const [pageDisplay, setPageDisplay] = useState('product')
   const [product, setProduct] = useState([])
   const [mainImage, setMainImage] = useState('')
-  const [newProducts, setNewProdcuts] = useState({})
+  const [newProducts, setNewProducts] = useState([])
 
   const dummyData = '5usff6HI0mIB2TTRy2Ut';
 
@@ -25,15 +25,26 @@ const ProductPage = () => {
 
   function clickImage(e) {
     // alert('clicked');
-    console.log(e.target.src);
+    // console.log(e.target.src);
     setMainImage(e.target.src);
   }
-
+  // fix to account for non array images
   function renderImages() {
     return (
       <>
-        {product.image.map(img => {
-          return <img src={img} className={styles.allProductImages} onClick={clickImage} alt="different views of item"/>;
+        {product.image.map((img, index) => {
+          return <img src={img} className={styles.allProductImages} onClick={clickImage} key={index} alt="different views of item"/>;
+          })
+        }
+      </>
+    )
+  }
+
+  function renderSimilarImages() {
+    return (
+      <>
+        {newProducts.map((item, index) => {
+          return <img src={Array.isArray(item.image) ? item.image[0] : item.image} className={styles.similarImages} onClick={clickImage} key={index} alt="similar things"/>;
           })
         }
       </>
@@ -58,12 +69,23 @@ const ProductPage = () => {
     } else if (pageDisplay === 'similar') {
       return (
         <>
+          <div className="main-product-pic-box">
+            <img className= "product-img" src={mainImage || product.image} alt="item"/>
+            <div>{product.image ? renderImages() : ''}</div>
+          </div>
+          <div className="other-info-box">
+            <h2>Similar Products</h2>
+            <div>{newProducts.length ? renderSimilarImages() : ''}</div>
+          </div>
         </>
       )
     } else if (pageDisplay === 'sellerItems') {
       return (
         <>
-
+          <div className="main-product-pic-box">
+            <img className= "product-img" src={mainImage || product.image} alt="item"/>
+            <div>{product.image ? renderImages() : ''}</div>
+          </div>
         </>
       )
     } else {
@@ -74,23 +96,23 @@ const ProductPage = () => {
   function clickSimilar() {
     const category = product.category;
     setPageDisplay('similar');
-    axios.get(`http://localhost:3000/category/${category}`)
+    axios.get(`http://localhost:3000/item/category/${category}`)
       .then(response => {
         console.log('category response ', response)
-        // setNewProducts(response.data))
+        setNewProducts(response.data)
       })
-      // .catch(err => console.log(err))
+      .catch(err => console.log(err))
   }
 
   function clickSellerItems() {
     const sellerId = product.sellerInfo;
     setPageDisplay('sellerItems');
-    axios.get(`http://localhost:3000/${sellerId}`)
+    axios.get(`http://localhost:3000/user/${sellerId}`)
       .then(response => {
-        console.log('category response ', response)
-        // setNewProducts(response.data))
+        console.log('seller items response ', response)
+        setNewProducts(response.data)
       })
-      // .catch(err => console.log(err))
+      .catch(err => console.log(err))
   }
 
   useEffect(() => {
@@ -99,6 +121,7 @@ const ProductPage = () => {
         console.log(response)
         setProduct(response.data)
       })
+      .catch(err => console.log(err))
   }, [])
 
 
