@@ -1,6 +1,6 @@
 .navbar {
   height: 50px;
-  background-color: #FEDCC5;
+  background-color: white;
   color: black;
   display: flex;
   align-items: center;
@@ -29,4 +29,8 @@
   height: 32px;
   border-radius: 50;
   object-fit: cover;
+}
+
+.navbar_logout_button {
+  cursor: pointer;
 }

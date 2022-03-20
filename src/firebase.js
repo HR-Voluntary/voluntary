@@ -16,7 +16,6 @@ import {
   getDocs,
   collection,
   where,
-  addDoc,
   setDoc,
 }
 from "firebase/firestore";
@@ -53,6 +52,8 @@ const signInWithGoogle = async () => {
         authProvider: 'google',
         email: user.email,
         photo: user.photoURL,
+        type: 'Individual',
+        location: [],
       });
     }
   } catch (err) {
@@ -73,9 +74,11 @@ const signInWithFacebook = async () => {
         uid: user.uid,
         name: user.displayName,
         trustScore: 50,
-        authProvider: 'google',
+        authProvider: 'facebook',
         email: user.email,
         photo: user.photoURL,
+        type: 'Individual',
+        location: [],
       });
     }
   } catch (err) {
@@ -93,7 +96,7 @@ const logInWithEmailAndPassword = async (email, password) => {
   }
 };
 
-const registerWithEmailAndPassword = async (name, email, password) => {
+const registerWithEmailAndPassword = async (name, email, password, type) => {
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
     const user = res.user;
@@ -104,6 +107,8 @@ const registerWithEmailAndPassword = async (name, email, password) => {
       authProvider: 'local',
       email: user.email,
       photo: '',
+      type,
+      location: [],
     })
   } catch (err) {
     console.error(err);
@@ -123,6 +128,7 @@ const sendPasswordReset = async (email) => {
 
 const logout = async () => {
  await signOut(auth);
+ alert('You have been logged out')
 };
 
 export {
