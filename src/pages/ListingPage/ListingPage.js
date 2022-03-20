@@ -7,7 +7,24 @@ import axios from 'axios';
 const ListingPage = () => {
   let [allListings, setAllListings] = useState([]);
   let [filterListing, setFilterListing] = useState([]);
-  // state signifying distance
+  let [userLocation, setUserLocation] = useState([37.791200, -122.396080]);
+
+  const getUserLoc = () => {
+    const success = (position) => {
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
+      setUserLocation([latitude, longitude]);
+    }
+
+    const error = (error) => {
+      console.log(error.message);
+    }
+
+    navigator.geolocation.getCurrentPosition(success, error);
+    // after checking yelp, it seems like it's up to the user to manually change their decision about location sharing
+  }
+
+  useEffect(() => getUserLoc(), []);
 
 
   useEffect(() => {

@@ -14,18 +14,7 @@ const MapListing = () => {
 
   const [selectedFacility, setSelectedFacility] = useState(null);
 
-  const success = (position) => {
-    const latitude = position.coords.latitude;
-    const longitude = position.coords.longitude;
-    console.log('latitude: ', latitude);
-    console.log('longitude: ', longitude);
-  }
 
-  // const error = () => {
-  //   status.textContent = 'Unable to retrieve your location';
-  // }
-
-  navigator.geolocation.getCurrentPosition(success);
 
   useEffect(() => {
     const listener = (e) => {
