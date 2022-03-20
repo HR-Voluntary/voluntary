@@ -20,6 +20,7 @@ const ProductPage = () => {
 
 
   function clickChat() {
+    // update a value in app.js for the sellerId so that chat can access it
 
   }
 
@@ -62,7 +63,7 @@ const ProductPage = () => {
           <div className="other-info-box">
             <h2>{product.name}</h2>
             <div className={styles.description}>{product.description}</div>
-            <button onClick={clickChat}>Chat with Seller</button>
+            <button onClick={clickChat}><a href="http://localhost:3001/ChatPage">Chat with Seller</a></button>
           </div>
         </>
       )
@@ -128,7 +129,8 @@ const ProductPage = () => {
   return (
     <>
       {/* link back to listing page */}
-      <button onClick={() => setPageDisplay('listings')}>Back to Listings</button>
+      {/* <button onClick={() => setPageDisplay('listings')}>Back to Listings</button> */}
+      <button><a href="http://localhost:3001/ListingPage">Back to Listings</a></button>
       {/* <button onClick={() => setPageDisplay('similar')}>Similar Products</button> */}
       <button onClick={clickSimilar}>Similar Products</button>
       {/* <button onClick={() => setPageDisplay('sellerItems')}>Other Items from the Seller</button> */}
