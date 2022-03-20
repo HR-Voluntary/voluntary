@@ -10,6 +10,7 @@ const ListingPage = () => {
   let [userLocation, setUserLocation] = useState([37.791200, -122.396080]);
 
   const getUserLoc = () => {
+    // after checking yelp, it seems like it's up to the user to manually change their decision about location sharing
     const success = (position) => {
       const latitude = position.coords.latitude;
       const longitude = position.coords.longitude;
@@ -17,23 +18,18 @@ const ListingPage = () => {
     }
 
     const error = (error) => {
-      console.log(error.message);
+      console.log(error.message); // sends message of why location wasn't able to be obtained
+      setUserLocation([37.791200, -122.396080]);
     }
 
     navigator.geolocation.getCurrentPosition(success, error);
-    // after checking yelp, it seems like it's up to the user to manually change their decision about location sharing
   }
 
   useEffect(() => getUserLoc(), []);
 
-
   useEffect(() => {
     getListings()
   }, [])
-
-  // useEffect(() => {
-    // save user location
-  // }, [])
 
   const getListings = () => {
     axios.get('http://localhost:3000/item/all')
@@ -83,7 +79,7 @@ const ListingPage = () => {
     <>
       <div>Listing Page</div>
       <FilterBar categoryFilterChange={categoryFilterChange}/>
-      <MapListing />
+      <MapListing userLocation={userLocation} />
       {/* pass in stat signifiying initial distance filter */}
     </>
   )
