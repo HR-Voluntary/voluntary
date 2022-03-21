@@ -3,19 +3,13 @@ import { logout } from '../../firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../../firebase';
 import { useNavigate } from 'react-router';
+import { useAuth } from '../../contexts/AuthContext';
 
 const ListingPage = () => {
 
-  const [user, loading, error] = useAuthState(auth);
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (loading) return;
-    if (!user) return navigate('/');
-  }, [user, loading]);
-
   return (
     <div>
-      <button onClick={logout}>LOG OUT</button>
+      <button onClick={ logout }>LOG OUT</button>
     </div>
   )
 };
