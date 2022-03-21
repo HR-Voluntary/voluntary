@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { logout } from '../../firebase';
 import styles from './ProductPage.module.css';
-import SimilarProducts from './SimilarProducts.jsx'
+import SimilarProducts from './SimilarProducts.jsx';
+import SellerItems from './SellerItems.jsx'
+
 
 // get product from Listings page
 // if they click get similar products or more from seller
@@ -33,13 +35,13 @@ const ProductPage = () => {
     // alert('clicked');
     // console.log(e.target.src);
     setMainImage(e.target.src);
-    setMainName(e.target.name);
-    console.log('name ', mainName);
-    setMainDescription(e.target.content);
-    console.log('desc ', mainDescription);
-    setMainSeller(e.target.seller);
-    console.log('seller info ', mainSeller);
-    setPageDisplay('product');
+    // setMainName(e.target.name);
+    // console.log('name ', mainName);
+    // setMainDescription(e.target.content);
+    // console.log('desc ', mainDescription);
+    // setMainSeller(e.target.seller);
+    // console.log('seller info ', mainSeller);
+    // setPageDisplay('product');
   }
   // fix to account for non array images
   function renderImages() {
@@ -53,46 +55,62 @@ const ProductPage = () => {
     )
   }
 
-  function renderSimilarImages() {
+  // function renderSimilarImages() {
+  //   return (
+  //     <>
+  //       {newProducts.map((item, index) => {
+  //         // <SimilarProducts
+  //         //   item={item}
+  //         //   setMainImage={setMainImage}
+  //         //   name={item.name}
+  //         //   setMainName={setMainName}
+  //         //   description={item.description}
+  //         //   setMainDescription={setMainDescription}
+  //         //   seller={item.sellerInfo}
+  //         //   setMainSeller={setMainSeller}
+  //         //   setPageDisplay={setPageDisplay}
+  //         // />
+  //         return <img src={Array.isArray(item.image) ? item.image[0] : item.image}
+  //           className={styles.similarImages} key={index} alt="similar things"
+  //           onClick={clickImage}
+  //           name={item.name}
+  //           content={item.description}
+  //           seller={item.sellerInfo}
+  //           />;
+  //         })
+  //       }
+  //     </>
+  //   )
+  // }
+
+  function renderSimilarProducts() {
     return (
-      <>
+      <div>
         {newProducts.map((item, index) => {
-          // <SimilarProducts
-          //   item={item}
-          //   setMainImage={setMainImage}
-          //   name={item.name}
-          //   setMainName={setMainName}
-          //   description={item.description}
-          //   setMainDescription={setMainDescription}
-          //   seller={item.sellerInfo}
-          //   setMainSeller={setMainSeller}
-          //   setPageDisplay={setPageDisplay}
-          // />
-          return <img src={Array.isArray(item.image) ? item.image[0] : item.image}
-            className={styles.similarImages} key={index} alt="similar things"
-            onClick={clickImage}
-            name={item.name}
-            description={item.description}
-            seller={item.sellerInfo}
-            />;
+          return <SimilarProducts item={item}
+            setMainImage={setMainImage}
+            setMainName={setMainName}
+            setPageDisplay={setPageDisplay}
+            setMainDescription={setMainDescription}
+            sellerId={newProducts.sellerInfo}
+            key={index}/>
           })
         }
-      </>
+      </div>
     )
-    // return (
-    //   <>
-    //     {newProducts.map((item, index) => {
-    //       return <img src={Array.isArray(item.image) ? item.image[0] : item.image}
-    //         className={styles.similarImages} key={index} alt="similar things"
-    //         onClick={clickImage}
-    //         name={item.name}
-    //         content={item.description}
-    //         seller={item.sellerInfo}
-    //         />;
-    //       })
-    //     }
-    //   </>
-    // )
+  }
+
+  function renderSellerProducts() {
+    return (
+      <div>
+        {newProducts.map((item, index) => {
+          return <SellerItems item={item}
+          setMainImage={setMainImage}
+          sellerId={product.sellerInfo} key={index}/>
+          })
+        }
+      </div>
+    )
   }
 
   function renderPage() {
@@ -119,7 +137,8 @@ const ProductPage = () => {
           </div>
           <div className="other-info-box">
             <h2>Similar Products</h2>
-            <div>{newProducts.length ? renderSimilarImages() : ''}</div>
+            <div>{newProducts.length ? renderSimilarProducts() : ''}</div>
+            {/* <div>{newProducts.length ? renderSimilarImages() : ''}</div> */}
           </div>
         </>
       )
@@ -129,6 +148,10 @@ const ProductPage = () => {
           <div className="main-product-pic-box">
             <img className= "product-img" src={mainImage || product.image} alt="item"/>
             <div>{product.image ? renderImages() : ''}</div>
+          </div>
+          <div className="other-info-box">
+            <h2>More Items from the Seller</h2>
+            <div>{newProducts.length ? renderSellerProducts : ''}</div>
           </div>
         </>
       )
@@ -151,10 +174,10 @@ const ProductPage = () => {
   function clickSellerItems() {
     const sellerId = product.sellerInfo;
     setPageDisplay('sellerItems');
-    axios.get(`http://localhost:3000/user/${sellerId}`)
+    axios.get(`http://localhost:3000/user/profile/${sellerId}`)
       .then(response => {
         console.log('seller items response ', response)
-        setNewProducts(response.data)
+        setNewProducts(response.userItems)
       })
       .catch(err => console.log(err))
   }
