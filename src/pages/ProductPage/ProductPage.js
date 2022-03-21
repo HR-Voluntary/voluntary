@@ -22,7 +22,7 @@ const ProductPage = () => {
   const [mainName, setMainName] = useState('')
   const [mainDescription, setMainDescription] = useState('')
   const [mainSeller, setMainSeller] = useState('')
-  const [morePictures, setMorePictures] = useState([])
+  const [allItemPictures, setAllItemPictures] = useState([])
 
   const dummyData = '5usff6HI0mIB2TTRy2Ut';
 
@@ -33,31 +33,54 @@ const ProductPage = () => {
   }
 
   function clickImage(e) {
-
     // setProduct(newProductID)
     setMainImage(e.target.src);
     setPageDisplay('product');
   }
 
-  // will work once all images are arrays, failing because single images can't .map, if logic attempted not working
+
   function renderImages() {
-    return (
-      <>
-        {morePictures.length > 0 ?
-          // (Array.isArray(morePictures) ?
-          morePictures.map((img, index) => {
+    if (allItemPictures.length > 0) {
+      if (Array.isArray(allItemPictures)) {
+        return (
+          <>
+            {allItemPictures.map((img, index) => {
+              return <img src={img} className={styles.allProductImages} onClick={clickImage} key={index} alt="different views of item"/>;
+            })
+            }
+          </>
+          )
+          }
+          // else {
+          //   return <img src={allItemPictures} className={styles.allProductImages} alt="same main pic" />
+          // }
+    } else {
+      return (
+        <>
+          {product.image.map((img, index) => {
             return <img src={img} className={styles.allProductImages} onClick={clickImage} key={index} alt="different views of item"/>;
           })
-            // :
-            //   return <div></div>;
-          // )
-          :
-          product.image.map((img, index) => {
-            return <img src={img} className={styles.allProductImages} onClick={clickImage} key={index} alt="different views of item"/>;
-          })
-        }
-      </>
-    )
+          }
+        </>
+      )
+    }
+    // return (
+    //   <>
+    //     {allItemPictures.length > 0 ?
+    //       // (Array.isArray(allItemPictures) ?
+    //       allItemPictures.map((img, index) => {
+    //         return <img src={img} className={styles.allProductImages} onClick={clickImage} key={index} alt="different views of item"/>;
+    //       })
+    //         // :
+    //         //   return <div></div>;
+    //       // )
+    //       :
+    //       product.image.map((img, index) => {
+    //         return <img src={img} className={styles.allProductImages} onClick={clickImage} key={index} alt="different views of item"/>;
+    //       })
+    //     }
+    //   </>
+    // )
   }
 
   function renderSimilarProducts() {
@@ -69,7 +92,7 @@ const ProductPage = () => {
             setMainName={setMainName}
             setPageDisplay={setPageDisplay}
             setMainDescription={setMainDescription}
-            setMorePictures={setMorePictures}
+            setAllItemPictures={setAllItemPictures}
             sellerId={newProducts.sellerInfo}
             key={index}/>
           })
@@ -87,7 +110,7 @@ const ProductPage = () => {
           setMainName={setMainName}
           setPageDisplay={setPageDisplay}
           setMainDescription={setMainDescription}
-          setMorePictures={setMorePictures}
+          setAllItemPictures={setAllItemPictures}
           sellerId={product.sellerInfo}
           key={index}/>
           })
@@ -102,10 +125,11 @@ const ProductPage = () => {
         <div className={styles.fullPage}>
           <div className={styles.mainProductPicBox}>
             <img className={styles.productImg} src={mainImage || product.image} alt="item"/>
-            {/* {morePictures.length > 0 ?
-              <div>{Array.isArray(morePictures) ? morePictures.map(pic => pic) : morePictures}</div>
+            {/* {allItemPictures.length > 0 ?
+              <div>{Array.isArray(allItemPictures) ? allItemPictures.map(pic => pic) : allItemPictures}</div>
               : */}
-              <div>{Array.isArray(product.image) ? renderImages() : product.image}</div>
+              {/* <div>{Array.isArray(allItemPictures) ? renderImages() : allItemPictures}</div> */}
+              <div>{Array.isArray(product.image) ? renderImages() : <img src={product.image} alt=""/>}</div>
             {/* } */}
           </div>
           <div className={styles.otherInfoBox}>
