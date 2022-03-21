@@ -137,6 +137,13 @@ http://localhost:3000/ratings/ratingCount/:id
 
 ### Response
 ```  
-// JDH comment:
-// Need to update with response from successful API call.
+{
+  "message": "ratings adjusted for user",
+  "userId": "sda31120fsjkl",
+  "updatedInformation": {
+    "ratingsCount": 5,
+    "ratingsScore": 4.5,
+    "trustScore": 2
+  }
+}
 ```
