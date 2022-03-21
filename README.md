@@ -111,10 +111,9 @@ http://localhost:3000/item/:id
 ]
 ```
 
-
 ### Request
 
-`PUT /ratings/ratingCount/:id`
+`PUT /ratings/transactionCount/:id`
 
 http://localhost:3000/ratings/ratingCount/:id
 
@@ -128,4 +127,16 @@ http://localhost:3000/ratings/ratingCount/:id
 {
   "message": "Decremented transaction count by 1"
 }
+```
+
+### Request
+
+`PUT /ratings/ratingCount/:id`
+
+http://localhost:3000/ratings/ratingCount/:id
+
+### Response
+```  
+// JDH comment:
+// Need to update with response from successful API call.
 ```
