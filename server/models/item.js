@@ -57,7 +57,8 @@ const getItem = (id) => {
   return getDocs(itemRef)
     .then((snapshot) => {
       const doc = snapshot.docs.filter(doc => id === doc.id)
-      return {...doc[0].data()};
+
+      return {id: doc[0].id, ...doc[0].data()};
     })
     .catch((err) => {
       return {  error: err, message: 'item not found!' }
@@ -90,6 +91,23 @@ const markItemSold = (id) => {
     });
 };
 
+// EDIT item // SIVA
+const  UpdateItem = (id,itemObject) => {
+  console.log('Iriving need this ', id)
+  // const itmObj = {
+  //   category: itemObject.category,
+  //   description: itemObject.description,
+  //   image: itemObject.image,
+  //   location: itemObject.location,
+  //   name: itemObject.name,
+  //   isActive: itemObject.isActive,
+  //   sellerInfo: itemObject.sellerInfo,
+  //   itemId: itemObject.itemId
+  //  }
+  return updateDoc(doc(db,'items',id),itemObject);
+ // return addDoc(userRef, {
+  //})
+};
 const deleteItem = (id) => {
   const docToDelete = doc(db, 'items', id);
   return deleteDoc(docToDelete);
@@ -131,5 +149,6 @@ module.exports = {
   getItem,
   markItemSold,
   deleteItem,
-  createItemWithImgArray
+  createItemWithImgArray,
+  UpdateItem
 };

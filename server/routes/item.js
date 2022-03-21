@@ -2,12 +2,14 @@ var express = require('express');
 var router = express.Router();
 var {
   createItem,
+  editItem,
   createItemWithImgArray,
   getItems,
   getItem,
   getItemByCategory,
   markItemSold,
-  deleteItem
+  deleteItem,
+  UpdateItem
   } = require('../models/item.js');
 
 // CREATE ITEM
@@ -60,6 +62,14 @@ router.get('/:id', function(req, res){
 router.put('/:id', function(req, res){
   const { id } = req.params;
   markItemSold(id)
+  .then(items => {
+    res.status(200).send(items);
+  });
+});
+// Edit ITEM // SIVA
+router.put('/itm/:id', function(req, res){
+  const { id } = req.params;
+  UpdateItem(id, req.body)
   .then(items => {
     res.status(200).send(items);
   });
