@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Carousel from 'react-elastic-carousel';
 import styles from './ProfilePage.module.css';
-import khristian from './images/khristian.jpeg';
 import Modal from './Modal/Modal.js';
 import './ProfilePageCarousel.css';
 import axios from 'axios';
@@ -9,24 +8,29 @@ import { Buffer } from 'buffer';
 import useUploadImage from '../../components/hooks/useUploadImage'
 
 const ProfilePage = () => {
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState(null);
   const [show, setShow] = useState(false);
   const [productTitle, setProductTitle] = useState('');
   const [productDescription, setProductDescription] = useState('');
+  const [productCategory, setProductCategory] = useState('');
 
   // Photo Upload Custom Hook:
-  const { onFileChange, onFormSubmit, completedImgArray } = useUploadImage();
+  const { onFileChange, onFormSubmitGeneratePhotoUrl, completedImgArray } = useUploadImage();
 
   // console.log(completedImgArray)
 
   useEffect(() => {
     axios.get(`http://localhost:3000/user/profile/1AOjnwnoc5bxD1u3VBiaNzKYL2k1`)
     .then(res => {
+      console.log(res.data)
       setUser(res.data[0]);
-      // console.log(user)
+    })
+    .then((res) => {
+      console.log(res);
     })
     .catch(e => console.log(e))
   }, [])
+
 
   function showModal() {
     setShow(!show);
@@ -39,8 +43,32 @@ const ProfilePage = () => {
   function handleProductDescriptionChange(e) {
     setProductDescription(e.target.value)
   }
+function handleProductCategoryChange(e) {
+  setProductCategory(e.target.value)
+}
 
-  if (!user.length) {
+async function onFormSubmit(e) {
+  e.preventDefault();
+  const arrOfS3SuccessPuts = await onFormSubmitGeneratePhotoUrl();
+  let s3photoUrlsArray = arrOfS3SuccessPuts.map(s3url => {
+    // This map returns the exact URL we can use as an img tag's source:
+    return s3url.config.url.split('?')[0];
+  });
+  console.log(s3photoUrlsArray);
+  let itemToPost = {
+    category: productCategory,
+    sellerInfo: user.id,
+    image:s3photoUrlsArray,
+    description: productDescription,
+    name: productTitle
+  };
+  console.log(itemToPost);
+  setProductTitle('');
+  setProductDescription('');
+  setProductCategory('');
+}
+
+  if (user === null) {
     return null;
   } else {
     return (
@@ -49,7 +77,7 @@ const ProfilePage = () => {
           <button className={styles['list-item-btn']}>List Item</button>
         </div>
         <div className={styles.heading}>
-          <img className={styles.pic} src={khristian} alt="profile-pic" />
+          <img className={styles.pic} src={user.photo} alt="profile-pic" />
           <div className={styles['profile-name']}>
             <h2>{user.name}</h2>
             <h4>{user.type}</h4>
@@ -80,31 +108,37 @@ const ProfilePage = () => {
           </div>
           <div className={styles['cards-container']}>
             <h2>Claimed</h2>
-            <div className={styles['cards-container-two']}>
+            {/* <div className={styles['cards-container-two']}>
               <Carousel verticalMode itemsToShow={4}>
                 {user.claimed.map((card, i) =>
                   <div key={`claimed-${i}`} className={styles.card}></div>
                 )}
               </Carousel>
-            </div>
+            </div> */}
           </div>
         </div>
 
         {/* Modal Form */}
         <button onClick={() => setShow(!show)}>OPEN MODAL TEST BUTTON</button>
         <Modal onClose={showModal} show={show}>
-          <form className={styles.formContainer} onSubmit={onFormSubmit}>
+          <form className={styles.formContainer} onSubmit={(e) => onFormSubmit(e)}>
             <label>
               <h2>Product Title:</h2>
               <input className={styles['form-product-title']} type="text" value={productTitle} onChange={handleProductTitleChange} />
             </label>
+
             <label>
               <h2>Product Description:</h2>
               <textarea className={styles['form-product-description']} type="text" value={productDescription} onChange={handleProductDescriptionChange} />
             </label>
+
+            <label>
+              <h2>Category:</h2>
+              <input className={styles['form-product-title']} type="text" value={productCategory} onChange={handleProductCategoryChange} />
+            </label>
             <h2>Upload Picture:</h2>
-            <input type="file" onChange={onFileChange}/>
-            <input className={styles['form-submit']} type="submit" value="POST PRODUCT" />
+            <input type="file" multiple="multiple" onChange={onFileChange}/>
+            <button className={styles['form-submit']} type="submit">SUBMIT</button>
           </form>
 
         </Modal>
