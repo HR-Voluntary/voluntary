@@ -1,0 +1,20 @@
+.messageContainer{
+  display: flex;
+  flex-direction: column;
+  width: 75vw;
+  height: 87vh;
+}
+.formContainer{
+  margin-top:10px;
+  border-radius: 20px;
+  background-color: #E9E9E9;
+  height: 30px;
+  width: 70vw;
+}
+.textBox{
+  border:none;
+  background-color: transparent;
+  height: 100%;
+  margin-left:5px;
+  outline: none;
+}
