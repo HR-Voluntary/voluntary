@@ -27,10 +27,11 @@ router.put('/transactionCount/:id', async (req, res) => {
     res.status(200).send({ message: 'User has 0 transactions and cannot be decremented.' })
     return;
   } else {
-  let newCount = user.transactionCount + number;
-  let transactionCount = { transactionCount: newCount}
+  let updatedCount = user.transactionCount + number;
+  let updatedTrustScore = calculateTrustScore(updatedCount, user.ratingsScore);
+  let updatedData = { transactionCount: updatedCount, trustScore: updatedTrustScore };
 
-  updateUser(id, transactionCount)
+  updateUser(id, updatedData)
     .then(() => res.status(200).send({message: 'Increased transaction count by 1'}))
     .catch((err) => res.status(400).send({message: err.message, error: err}));
   }
