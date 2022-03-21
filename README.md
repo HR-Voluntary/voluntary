@@ -114,6 +114,21 @@ http://localhost:3000/item/:id
 ### Request
 
 `PUT /ratings/transactionCount/:id`
+  
+### Request Body
+```
+{
+// Positive (i.e. thumbs up)
+  "number": 1
+}
+  
+// OR
+  
+{
+// Negative (i.e. thumbs down)
+  "number": -1
+}
+```
 
 http://localhost:3000/ratings/ratingCount/:id
 
