@@ -7,7 +7,8 @@ const Listing = ({listing}) => {
       <img className="listing-image" src={listing.image} alt=""></img>
       <span className="listing-loc">{listing.location}</span>
       <span className="listing-descp">{listing.description}</span>
-      
+      <span className="seller-trust-score">{listing.trustScore}</span>
+      <span className="seller-name">{listing.sellerName}</span>
       <span className="listing-category">{listing.category}</span>
     </div>
   )
@@ -15,5 +16,4 @@ const Listing = ({listing}) => {
 
 export default Listing;
 
-/* <span className="seller-trust-score">{listing.seller.trustScore}</span>
-      <span className="seller-name">{listing.seller.name}</span> */
+

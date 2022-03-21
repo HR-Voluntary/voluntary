@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react';
 
-const FilterBar = ({categoryFilterChange}) => {
+const FilterBar = ({categoryFilterChange, trustFilterChange}) => {
 
   return (
     <div>
-      <select name='trust' >
-        <option value=''>Filter by Trust</option>
+      <select name='trust'onChange={trustFilterChange} >
+        <option value='defaultTrust'>Filter by Trust</option>
         <option value='9'>9+</option>
         <option value='8'>8+</option>
         <option value='7'>7+</option>
