@@ -3,6 +3,7 @@ import MapListing from './Map/Map.js';
 import FilterBar from './FilterBar.js';
 import axios from 'axios';
 import Listing from './Listing.js';
+import styles from './listingStyle.module.css';
 
 
 const ListingPage = () => {
@@ -113,7 +114,7 @@ const ListingPage = () => {
       <div>Listing Page</div>
       <FilterBar categoryFilterChange={categoryFilterChange} trustFilterChange={trustFilterChange}/>
       <MapListing userLocation={userLocation} />
-      <div className="all-listings">
+      <div className={styles.allListings}>
       {filterListing.map(listing => {
         return <Listing listing={listing}/>
       })}
