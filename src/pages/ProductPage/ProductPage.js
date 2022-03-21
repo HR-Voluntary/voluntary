@@ -116,44 +116,44 @@ const ProductPage = () => {
   function renderPage() {
     if (pageDisplay === 'product') {
       return (
-        <>
-          <div className="main-product-pic-box">
-            <img className= "product-img" src={mainImage || product.image} alt="item"/>
+        <div className={styles.fullPage}>
+          <div className={styles.mainProductPicBox}>
+            <img className={styles.productImg} src={mainImage || product.image} alt="item"/>
             <div>{product.image ? renderImages() : ''}</div>
           </div>
-          <div className="other-info-box">
+          <div className={styles.otherInfoBox}>
             <h2>{mainName || product.name}</h2>
             <div className={styles.description}>{mainDescription || product.description}</div>
             <button onClick={clickChat}><a href="http://localhost:3001/ChatPage">Chat with Seller</a></button>
           </div>
-        </>
+        </div>
       )
     } else if (pageDisplay === 'similar') {
       return (
-        <>
-          <div className="main-product-pic-box">
-            <img className= "product-img" src={mainImage || product.image} alt="item"/>
+        <div className={styles.fullPage}>
+          <div className={styles.mainProductPicBox}>
+            <img className={styles.productImg}src={mainImage || product.image} alt="item"/>
             <div>{product.image ? renderImages() : ''}</div>
           </div>
-          <div className="other-info-box">
+          <div className={styles.otherInfoBox}>
             <h2>Similar Products</h2>
             <div>{newProducts.length ? renderSimilarProducts() : ''}</div>
             {/* <div>{newProducts.length ? renderSimilarImages() : ''}</div> */}
           </div>
-        </>
+        </div>
       )
     } else if (pageDisplay === 'sellerItems') {
       return (
-        <>
-          <div className="main-product-pic-box">
-            <img className= "product-img" src={mainImage || product.image} alt="item"/>
+        <div className={styles.fullPage}>
+          <div className={styles.mainProductPicBox}>
+            <img className={styles.productImg} src={mainImage || product.image} alt="item"/>
             <div>{product.image ? renderImages() : ''}</div>
           </div>
-          <div className="other-info-box">
-            <h2>More Items from the Seller</h2>
+          <div className={styles.otherInfoBox}>
+            <h2>More Items from this Seller</h2>
             <div>{newProducts.length ? renderSellerProducts : ''}</div>
           </div>
-        </>
+        </div>
       )
     } else {
       return <div>Something went wrong</div>
