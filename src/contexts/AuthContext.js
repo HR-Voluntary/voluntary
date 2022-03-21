@@ -3,7 +3,6 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { auth } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router";
-import { getAuth } from "firebase/auth";
 
 const AuthContext = createContext();
 
