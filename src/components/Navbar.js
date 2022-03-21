@@ -18,7 +18,8 @@ const Navbar = () => {
     <div className={styles.navbar}>
       <span className={styles.logo}>
         <Link className={styles.logo} to='/ListPage'>
-          PlaceHolder
+          <img className={styles.image} src={require('./utils/Mascot.png')} alt=''></img>
+          <span className={styles.logoText}>Voluntary</span>
         </Link>
       </span>
       <ul className={styles.navbar_list}>

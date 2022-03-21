@@ -22,7 +22,7 @@ function Login() {
     <div className={styles.login}>
       <div className={styles.login__container}>
         <div className={styles.login__features}>
-          <h5>Your Logo</h5>
+          <h5>Voluntary</h5>
           <h1>Login</h1>
           <div className={styles.login_emailContainer}>
             <div>Email</div>
