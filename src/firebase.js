@@ -46,7 +46,7 @@ const signInWithGoogle = async () => {
     if (docs.docs.length === 0) {
       await setDoc(doc(db, 'users', user.uid), {
         uid: user.uid,
-        trustScore: 50,
+        trustScore: 1,
         name: user.displayName,
         authProvider: 'google',
         email: user.email,
@@ -71,7 +71,7 @@ const signInWithFacebook = async () => {
       await setDoc(doc(db, 'users', user.uid), {
         uid: user.uid,
         name: user.displayName,
-        trustScore: 50,
+        trustScore: 1,
         authProvider: 'facebook',
         email: user.email,
         photo: user.photoURL,
@@ -101,7 +101,7 @@ const registerWithEmailAndPassword = async (name, email, password, type) => {
     await setDoc(doc(db, 'users', user.uid), {
       uid: user.uid,
       name,
-      trustScore: 50,
+      trustScore: 1,
       authProvider: 'local',
       email: user.email,
       photo: '',
