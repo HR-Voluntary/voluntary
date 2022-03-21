@@ -111,10 +111,24 @@ http://localhost:3000/item/:id
 ]
 ```
 
-
 ### Request
 
-`PUT /ratings/ratingCount/:id`
+`PUT /ratings/transactionCount/:id`
+  
+### Request Body
+```
+{
+// Positive (i.e. thumbs up)
+  "number": 1
+}
+  
+// OR
+  
+{
+// Negative (i.e. thumbs down)
+  "number": -1
+}
+```
 
 http://localhost:3000/ratings/ratingCount/:id
 
@@ -127,5 +141,24 @@ http://localhost:3000/ratings/ratingCount/:id
 // If negative transaction:
 {
   "message": "Decremented transaction count by 1"
+}
+```
+
+### Request
+
+`PUT /ratings/ratingCount/:id`
+
+http://localhost:3000/ratings/ratingCount/:id
+
+### Response
+```  
+{
+  "message": "ratings adjusted for user",
+  "userId": "sda31120fsjkl",
+  "updatedInformation": {
+    "ratingsCount": 5,
+    "ratingsScore": 4.5,
+    "trustScore": 2
+  }
 }
 ```
