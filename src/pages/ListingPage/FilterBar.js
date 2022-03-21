@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 
-const FilterBar = ({categoryFilterChange, trustFilterChange}) => {
+const FilterBar = ({categoryFilterChange, trustFilterChange, distanceFilterChange}) => {
 
   return (
     <div>
@@ -16,7 +16,7 @@ const FilterBar = ({categoryFilterChange, trustFilterChange}) => {
         <option value='2'>2+</option>
         <option value='1'>1+</option>
       </select>
-      <select name='location'>
+      <select name='location' onChange={distanceFilterChange}>
         <option value=''>Filter by Location</option>
         <option value='1'>1 mile</option>
         <option value='5'>5 miles</option>
