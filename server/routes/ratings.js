@@ -63,8 +63,8 @@ router.put('/ratingCount/:id', async function(req, res) {
     updated.trustScore = calculateTrustScore(user.transactionCount, updated.ratingsScore);
   };
   updateUser(id, updated)
-    .then(success => console.log(success))
-    .catch(err => console.log(err))
+    .then(success => res.status(200).send({message: 'ratings adjusted for user', userId: id, updatedInformation: updated }))
+    .catch((err) => res.status(400).send({message: err.message, error: err}));
   res.end();
 });
 
