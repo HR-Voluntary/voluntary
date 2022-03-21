@@ -27,11 +27,13 @@ const editTransactionCount = (point) => {
     //user.ratings.transactionCount++
   }
   editTrustScore();
+  return;
 }
 
 const editTrustScore = () => {
   calculateTrustScore();
   //put new Trust score in db
+  return;
 }
 
 const calculateTrustScore = () => {
@@ -59,11 +61,12 @@ const calculateTrustScore = () => {
   //     trustScore = 3;
   //   }
   // }
-
+  return;
 }
 
 const getTrustScore = () => {
   // get user.ratings.trustScore
+  return;
 }
 
 
@@ -73,8 +76,19 @@ const editRatingsScore = (newRating) => {
   // ((user.ratings.ratingsScore * user.ratings.ratingsCount) + newRating) / (user.ratings.ratingsCount + 1)
   // user.ratings.ratingsCount = user.ratings.ratingsCount +1
   // update ratingsScore
+  return;
 }
 
 const getRatingsScore = () => {
   //get current average score
+  return;
 }
+
+module.exports = {
+  editTransactionCount,
+  editTrustScore,
+  calculateTrustScore,
+  getTrustScore,
+  editRatingsScore,
+  getRatingsScore,
+};
