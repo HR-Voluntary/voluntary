@@ -1,15 +1,14 @@
-import React, { useEffect } from 'react';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import React from 'react';
 import { logout } from '../../firebase';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from '../../firebase';
-import { useNavigate } from 'react-router';
-import { useAuth } from '../../contexts/AuthContext';
+import { db } from '../../firebase';
+import { doc, updateDoc } from 'firebase/firestore';
 
 const ListingPage = () => {
 
   return (
     <div>
-      <button onClick={ logout }>LOG OUT</button>
+      LIST PAGE
     </div>
   )
 };

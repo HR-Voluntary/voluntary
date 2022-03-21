@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Navbar.module.css';
 import { useLocation } from 'react-router';
-
+import { logout } from '../firebase';
 
 const Navbar = () => {
 
@@ -22,7 +22,7 @@ const Navbar = () => {
           John Doe
         </li>
         <li className={styles.navbar_logout_button}>
-          logout
+          <button onClick={ logout }>Logout</button>
         </li>
       </ul>
     </div>

@@ -17,6 +17,7 @@ import {
   collection,
   where,
   setDoc,
+  updateDoc,
 }
 from "firebase/firestore";
 
@@ -38,6 +39,7 @@ const facebookProvider = new FacebookAuthProvider();
 const googleProvider = new GoogleAuthProvider();
 
 const signInWithGoogle = async () => {
+
   try {
     const res = await signInWithPopup(auth, googleProvider);
     const user = res.user;
@@ -58,6 +60,9 @@ const signInWithGoogle = async () => {
         ratingsCount: 0,
         active: true,
       });
+    } else {
+      const docToUpdate = doc(db, 'users', user.uid);
+      updateDoc(docToUpdate, { active: true} );
     }
   } catch (err) {
     console.error(err);
@@ -86,6 +91,9 @@ const signInWithFacebook = async () => {
         ratingsCount: 0,
         active: true,
       });
+    } else {
+      const docToUpdate = doc(db, 'users', user.uid);
+      updateDoc(docToUpdate, { active: true} );
     }
   } catch (err) {
     console.error(err);
@@ -96,6 +104,8 @@ const signInWithFacebook = async () => {
 const logInWithEmailAndPassword = async (email, password) => {
   try {
     await signInWithEmailAndPassword(auth, email, password);
+    const docToUpdate = doc(db, 'users', auth.currentUser.uid);
+    updateDoc(docToUpdate, { active: true } );
   } catch (err) {
     console.error(err);
     alert(err.message);
@@ -137,8 +147,12 @@ const sendPasswordReset = async (email) => {
 };
 
 const logout = async () => {
- await signOut(auth);
- alert('You have been logged out')
+  const user = auth.currentUser.uid;
+  const docToUpdate = doc(db, 'users', user);
+  updateDoc(docToUpdate, { active: false } );
+
+  await signOut(auth);
+  alert('You have been logged out')
 };
 
 export {
