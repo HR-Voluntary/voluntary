@@ -4,7 +4,7 @@ import React, {useState,useEffect,useRef} from 'react'
 import {collection,serverTimestamp, Timestamp, doc, onSnapshot, orderBy, query, addDoc,setDoc} from "firebase/firestore";
 import {db} from '../../firebase.js';
 import Messages from './Messages';
-import { animateScroll } from "react-scroll";
+
 
 function Chat({user1, user2}) {
   const [messages, setMessages] = useState([]);
