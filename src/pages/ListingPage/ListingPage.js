@@ -8,7 +8,6 @@ import Listing from './Listing.js';
 const ListingPage = () => {
   let [allListings, setAllListings] = useState([]);
   let [filterListing, setFilterListing] = useState([]);
-<<<<<<< HEAD
   let [userLocation, setUserLocation] = useState([37.791200, -122.396080]);
 
   const getUserLoc = () => {
@@ -28,9 +27,6 @@ const ListingPage = () => {
     navigator.geolocation.getCurrentPosition(success, error);
   }
 
-=======
-  
->>>>>>> d02bd1a171ae98d974fcf3dac5e985dce7074a40
 
   useEffect(() => {
     getListings()
@@ -115,11 +111,6 @@ const ListingPage = () => {
   return (
     <>
       <div>Listing Page</div>
-<<<<<<< HEAD
-      <FilterBar categoryFilterChange={categoryFilterChange}/>
-      <MapListing userLocation={userLocation} />
-      {/* pass in stat signifiying initial distance filter */}
-=======
       <FilterBar categoryFilterChange={categoryFilterChange} trustFilterChange={trustFilterChange}/>
       <MapListing userLocation={userLocation} />
       <div className="all-listings">
@@ -127,7 +118,6 @@ const ListingPage = () => {
         return <Listing listing={listing}/>
       })}
       </div>
->>>>>>> d02bd1a171ae98d974fcf3dac5e985dce7074a40
     </>
   )
 
