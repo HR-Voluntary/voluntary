@@ -14,7 +14,10 @@ const ProfilePage = () => {
   const [productDescription, setProductDescription] = useState('');
 
   useEffect(() => {
-
+    axios.get(`/user/profile/${user}`)
+    .then(res => {
+      setUser(res.data)
+    })
   })
 
   function showModal() {
