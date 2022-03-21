@@ -26,6 +26,8 @@ const ListingPage = () => {
     navigator.geolocation.getCurrentPosition(success, error);
   }
 
+
+
   useEffect(() => getUserLoc(), []);
 
   useEffect(() => {
