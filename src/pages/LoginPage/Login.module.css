@@ -21,7 +21,6 @@
   padding: 30px;
   border-width: 3px;
   border-color: black;
-
 }
 .login__textBox {
   padding: 10px;
@@ -37,6 +36,7 @@
   border-radius: 5px;
   background-color: rgb(242, 80, 25);
 }
+
 .login__google {
   background-color: #4285f4;
   border-radius: 30px;

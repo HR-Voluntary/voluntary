@@ -1,7 +1,22 @@
 var express = require('express');
 var router = express.Router();
-var { getUsers, getUser, thumbsUp, thumbsDown, getUsersAndProducts, getItemsForUser } = require('../models/user.js');
+var { getUsers,
+   getUser,
+   thumbsUp,
+   thumbsDown,
+   getUsersAndProducts,
+   getItemsForUser,
+   getTrustScore,
+   UpdateUser,
+  } = require('../models/user.js');
 
+  router.put('/addUsr/:id', function(req, res){
+    console.log(req.body);
+    UpdateUser(req.body)
+    .then((ifSuccess) => console.log('User added Siva! Check database.'))
+    .catch(err => console.log(err))
+    res.sendStatus(200).end();
+  });
 router.get('/all', function(req, res) {
   console.log('I AM WORKING');
   getUsersAndProducts()
@@ -26,7 +41,18 @@ router.get('/profile/:id', function(req, res) {
 });
 // USER TO TEST:
 // 1AOjnwnoc5bxD1u3VBiaNzKYL2k1
-// INCREMENT TRUST SCORE
+
+//GET trust score SIVAAAA
+router.get('/trustScore/:id', function(req, res) {
+  const { id } = req.params;
+  getTrustScore(id)
+  .then(score => {
+    console.log('Score = ', score);
+    res.status(200).send(score);
+  })
+  .catch(() => res.status(400).end());
+});
+// INCREMENT TRUST SCORE for thumbsUp
 router.put('/trustScore/thumbsup/:id', (req, res) => {
   const { id } = req.params;
   getUser(id)
