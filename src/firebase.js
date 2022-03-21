@@ -152,7 +152,6 @@ const logout = async () => {
   updateDoc(docToUpdate, { active: false } );
 
   await signOut(auth);
-  alert('You have been logged out')
 };
 
 export {
