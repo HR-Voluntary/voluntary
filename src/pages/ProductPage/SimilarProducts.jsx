@@ -4,13 +4,14 @@ import styles from './ProductPage.module.css';
 const SimilarProducts = (props) => {
 
 
-const { item, setMainImage, setMainName, setMainDescription, setMainSeller, setPageDisplay } = props;
+const { item, setMainImage, setMainName, setMainDescription, setMainSeller, setPageDisplay, setMorePictures } = props;
 
 
 function clickSimilarItem(e) {
   setMainImage(e.target.src);
   setMainName(item.name);
   setMainDescription(item.description);
+  setMorePictures(item.image);
   setPageDisplay('product');
 }
 

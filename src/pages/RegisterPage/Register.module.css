@@ -1,15 +1,15 @@
-.login {
+.register {
   height: 100%;
   width: 100%;
   display: flex;
   background-color:#FEDCC5;
-  align-items: center;
   background-image: url('./utils/background.png');
   background-repeat: no-repeat;
   background-size: cover;
+  align-items: center;
   justify-content: space-evenly;
 }
-.login__container {
+.register__container {
   width:35%;
   height:80%;
   display: flex;
@@ -17,27 +17,27 @@
   opacity: 1;
   border-radius: 40px;
   background-color: rgb(255 255 255 / 33%);
-  align-items: center;
   padding: 30px;
   border-width: 3px;
   border-color: black;
+  align-items: center;
 
 }
-.login__textBox {
+.register__textBox {
   padding: 10px;
   font-size: 18px;
   margin-bottom: 10px;
 }
-.login__btn {
-  padding: 10px;
+.register__btn {
+  padding: 20px;
   font-size: 18px;
   margin-bottom: 10px;
   border: none;
   color: white;
-  border-radius: 5px;
+  border-radius: 8px;
   background-color: rgb(242, 80, 25);
 }
-.login__google {
+.register__google {
   background-color: #4285f4;
   border-radius: 30px;
   font-size: 30px;
@@ -46,7 +46,7 @@
   padding: 12px 50px 12px 50px;
 }
 
-.login__facebook {
+.register__facebook {
   border-radius: 30px;
   font-size: 25px;
   height: 100%;
@@ -54,55 +54,53 @@
   padding: 12px 50px 12px 50px;
 }
 
-.login__text {
+.register__text {
   display: flex;
   justify-content: center;
   margin-top: 44px;
   margin-bottom: 15px;
 }
 
-.login__passwordText {
+.register__passwordText {
   margin-bottom: 2px;
 }
 
-.login__features {
+.register__features {
   display: flex;
-  margin-top: 10%;
   flex-direction: column;
   width: 80%;
-  padding: 60px;
+  margin-top: 10%
 }
 
-.login__btnContainer {
+.register__btnContainer {
   align-self: center;
 }
 
-.login__authBtns {
-  display: flex;
-  justify-content: space-between;
-  width: 261px;
+.register__authBtns {
+  width: 100%;
 }
 
-.login__registerText {
+.register__registerText {
   align-self: center
 }
 
-.login__emailInput {
+.register__emailInput {
   width: 100%;
   box-sizing: border-box;
   padding: 25px;
   border-radius: 8px;
   border: none;
 }
-.login__passwordInput {
+.register__passwordInput {
   width: 100%;
   box-sizing: border-box;
   padding: 25px;
   border-radius: 8px;
   border: none;
+  margin-bottom: 31px;
 }
 
-.login__container h5 {
+.register__container h5 {
   margin: 0;
   margin-bottom: 11px;
   color: #f25019;
@@ -111,35 +109,42 @@
   font-family: Abel;
 }
 
-.login__container h1 {
+.register__container h1 {
   margin: 0;
   font-size: 38px;
   font-weight: 400;
   margin-bottom: 26px;
 }
 
-.login_emailContainer div{
+.register_emailContainer div{
   margin-bottom: 7px;
 }
-.login_passwordContainer div {
-  margin-top: 31px;
+.register_passwordContainer div {
   margin-bottom: 7px;
 }
 
-.login__reset {
+.register__reset {
   margin-top: 17px;
   margin-bottom: 41px;
 }
 
-.login__authImg {
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-  border-radius: 40px;
-}
-
-.login__registerText {
+.register__registerText {
   margin-top: 31px;
 }
 
-.login__register {
+.register__register {
   margin-left: 38px;
+}
+
+.dropdown {
+  margin-bottom: 31px;
+  height: 65px;
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  padding: 0px 25px;
+}
+
+.dropdown_text {
+  margin-bottom: 7px;
 }

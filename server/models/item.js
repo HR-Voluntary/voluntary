@@ -24,6 +24,20 @@ const createItem = (userObject) => {
   });
 };
 
+//// SIVA DOING IT //
+//Schema for items with multiple image Urls for one item
+
+const createItemWithImgArray = (userObject) => {
+  return addDoc(userRef, {
+        category: userObject.category,
+        description: userObject.description,
+        image: userObject.image,
+        location: userObject.location,
+        name: userObject.name,
+        sellerInfo: userObject.sellerInfo,
+        isActive: userObject.isActive
+      })
+};
 
 // THE BELOW IS EXAMPLE WORK FROM IRVING:
 
@@ -116,5 +130,6 @@ module.exports = {
   getItems,
   getItem,
   markItemSold,
-  deleteItem
+  deleteItem,
+  createItemWithImgArray
 };
