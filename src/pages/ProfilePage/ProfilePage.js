@@ -5,7 +5,7 @@ import khristian from './images/khristian.jpeg';
 import Modal from './Modal/Modal.js';
 import './ProfilePageCarousel.css';
 import axios from 'axios';
-
+import { Buffer } from 'buffer';
 
 const ProfilePage = () => {
   const [user, setUser] = useState({ name: 'Rob Cherry T.', type: 'Individual', location: 'Los Angeles', votes: 6, trustLevel: 5, listings: [1, 2, 3, 4, 5, 6], claimed: [1, 2, 3, 4] });
@@ -55,23 +55,30 @@ const ProfilePage = () => {
   async function onFormSubmit (e) {
     e.preventDefault();
     e.persist();
+
   // STEP 1: Declare an array to hold promise values of unresolved API calls:
     let arrOfS3UrlPromises = [];
+
   // STEP 2: Loop through imgArray (i.e. your state full of base64 images):
     imageArray.forEach(img => {
       // For each image, retrieve an S3 URL to upload that image to:
       let getUrl = axios({ method: 'GET', url: 'http://localhost:3000/s3Url' }).then(data => data.data);
       arrOfS3UrlPromises.push(getUrl);
     });
-    // STEP 3: Wait for those axios requests to resolve, giving you the final S3 signed URL array:
+
+  // STEP 3: Wait for those axios requests to resolve, giving you the final S3 signed URL array:
     let arrOfS3Urls = await Promise.all(arrOfS3UrlPromises);
+
   // STEP 4: Declare an array to hold PUT axios requests to the above URL:
     let arrOfS3SuccessPutPromise = [];
+
   // STEP 5: Loop through above S3 signed URLs
     arrOfS3Urls.forEach((s3url, index) => {
       const base64 = imageArray[index];
+
   // STEP 6: Use the Buffer object (from Node, more information below)
       const base64Data = new Buffer.from(base64.replace(/^data:image\/\w+;base64,/, ""), 'base64');
+
   // STEP 7: Post image to S3
       let successCall = axios({
         method: 'PUT',
@@ -94,6 +101,7 @@ const ProfilePage = () => {
      // This map returns the exact URL we can use as an img tag's source:
       return s3url.config.url.split('?')[0];
     });
+    console.log(s3photoUrlsArray);
     setCompletedImgArray(s3photoUrlsArray);
   };
 
