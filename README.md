@@ -62,9 +62,11 @@ http://localhost:3000/item/:id
 ```  
 [  
   {
+      "id": "1241sdaklja124",
       "category": "electronics",
       "sellerInfo": "1AOjnwnoc5bxD1u3VBiaNzKYL2k1",
       "location": "San Francisco, California",
+      "isActive": true,
       "image": [
           "https://imageurl.gstatic.com./images?q=tbn:ANd9GcRJwjQ2VbM6DEt8vb5xqBAs2hn9D8EjyR9TyQ&usqp=CAU",
           "https://imageurl.gstatic.com./images?q=tbn:ANd9GcRJwjQ2VbM6DEt8vb5xqBAs2hn9D8EjyR9TyQ&usqp=CAU",
@@ -104,7 +106,12 @@ http://localhost:3000/item/:id
                 "sellerInfo": "YYr7QsRYHRawcKrsnoICvhGbtok1",
                 "location": "California",
                 "isActive": true,
-                "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJwjQ2VbM6DEt8vb5xqBAs2hn9D8EjyR9TyQ&usqp=CAU"
+                "image": [
+                    "https://imageurl.gstatic.com./images?q=tbn:ANd9GcRJwjQ2VbM6DEt8vb5xqBAs2hn9D8EjyR9TyQ&usqp=CAU",
+                    "https://imageurl.gstatic.com./images?q=tbn:ANd9GcRJwjQ2VbM6DEt8vb5xqBAs2hn9D8EjyR9TyQ&usqp=CAU",
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJwjQ2VbM6DEt8vb5xqBAs2hn9D8EjyR9TyQ&usqp=CAU",
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJwjQ2VbM6DEt8vb5xqBAs2hn9D8EjyR9TyQ&usqp=CAU"
+                 ],
             }
         ]
     }
