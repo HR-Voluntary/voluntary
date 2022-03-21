@@ -1,19 +1,27 @@
 import React from 'react';
-import "./Navbar.css";
+import styles from './Navbar.module.css';
+import { useLocation } from 'react-router';
 
 
 const Navbar = () => {
+
+  const location = useLocation();
+
+  if (location.pathname === '/' || location.pathname === '/Register' || location.pathname === '/Reset') {
+    return null
+  }
+
   return (
-    <div className='navbar'>
-      <span className='logo'>PlaceHolder</span>
-      <ul className='navbar_list'>
-        <li className='navbar_list_item'>
-          <img src='' alt='' className='navbar_avatar' />
+    <div className={styles.navbar}>
+      <span className={styles.logo}>PlaceHolder</span>
+      <ul className={styles.navbar_list}>
+        <li className={styles.navbar_list_item}>
+          <img src='' alt='' className={styles.navbar_avatar} />
         </li>
-        <li className='navbar_list_item'>
+        <li className={styles.navbar_list_item}>
           John Doe
         </li>
-        <li className='navbar_logout_button'>
+        <li className={styles.navbar_logout_button}>
           logout
         </li>
       </ul>
