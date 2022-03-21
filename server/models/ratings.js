@@ -78,3 +78,9 @@ const editRatingsScore = (newRating) => {
 const getRatingsScore = () => {
   //get current average score
 }
+
+module.exports = {
+  editTransactionCount,
+  editTrustScore,
+  calculateTrustScore,
+}

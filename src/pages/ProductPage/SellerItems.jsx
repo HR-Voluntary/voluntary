@@ -3,7 +3,7 @@ import styles from './ProductPage.module.css';
 
 const SellerItems = (props) => {
 
-  const { item, sellerId, setMainImage, setMainName, setMainDescription, setPageDisplay } = props;
+  const { item, sellerId, setMainImage, setMainName, setMainDescription, setPageDisplay, setMorePictures } = props;
 
 
   function clickSellerItem(e) {
@@ -11,9 +11,11 @@ const SellerItems = (props) => {
     setMainName(item.name);
     setMainDescription(item.description);
     setPageDisplay('product');
+    setMorePictures(item.image);
+    setPageDisplay('product');
   }
 
-  
+
   return (
     <div onClick={clickSellerItem}>
       <div>{item.name}</div>
@@ -22,7 +24,5 @@ const SellerItems = (props) => {
     </div>
   )
 }
-
-
 
 export default SellerItems;

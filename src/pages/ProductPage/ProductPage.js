@@ -84,7 +84,12 @@ const ProductPage = () => {
         {newProducts.map((item, index) => {
           return <SellerItems item={item}
           setMainImage={setMainImage}
-          sellerId={product.sellerInfo} key={index}/>
+          setMainName={setMainName}
+          setPageDisplay={setPageDisplay}
+          setMainDescription={setMainDescription}
+          setMorePictures={setMorePictures}
+          sellerId={product.sellerInfo}
+          key={index}/>
           })
         }
       </div>
@@ -131,8 +136,8 @@ const ProductPage = () => {
             <div>{Array.isArray(product.image) ? renderImages() : product.image}</div>
           </div>
           <div className={styles.otherInfoBox}>
-            <h2>More Items from this Seller</h2>
-            <div>{newProducts.length ? renderSellerProducts : ''}</div>
+            <h2>All Items from this Seller</h2>
+            <div>{newProducts.length ? renderSellerProducts() : ''}</div>
           </div>
         </div>
       )
@@ -158,7 +163,7 @@ const ProductPage = () => {
     axios.get(`http://localhost:3000/user/profile/${sellerId}`)
       .then(response => {
         console.log('seller items response ', response)
-        setNewProducts(response.userItems)
+        setNewProducts(response.data[0].userItems)
       })
       .catch(err => console.log(err))
   }
