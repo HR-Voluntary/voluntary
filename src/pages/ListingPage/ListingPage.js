@@ -18,8 +18,9 @@ const ListingPage = () => {
     }
 
     const error = (error) => {
-      console.log(error.message); // sends message of why location wasn't able to be obtained
-      setUserLocation([37.791200, -122.396080]);
+      if (error.code !== 1){
+        alert(`Cannot find location: ${error.message}`);
+      }
     }
 
     navigator.geolocation.getCurrentPosition(success, error);
