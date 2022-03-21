@@ -124,7 +124,7 @@ const ProductPage = () => {
           <div className={styles.otherInfoBox}>
             <h2>{mainName || product.name}</h2>
             <div className={styles.description}>{mainDescription || product.description}</div>
-            <button onClick={clickChat}><a href="http://localhost:3001/ChatPage">Chat with Seller</a></button>
+            <button onClick={clickChat}><a className={styles.link} href="http://localhost:3001/ChatPage">Chat with Seller</a></button>
           </div>
         </div>
       )
@@ -199,7 +199,7 @@ const ProductPage = () => {
     <>
       {/* link back to listing page */}
       {/* <button onClick={() => setPageDisplay('listings')}>Back to Listings</button> */}
-      <button><a href="http://localhost:3001/ListingPage">Back to Listings</a></button>
+      <button><a className={styles.link} href="http://localhost:3001/ListingPage">Back to Listings</a></button>
       {/* <button onClick={() => setPageDisplay('similar')}>Similar Products</button> */}
       <button onClick={clickSimilar}>Similar Products</button>
       {/* <button onClick={() => setPageDisplay('sellerItems')}>Other Items from the Seller</button> */}
