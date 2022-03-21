@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { logout } from '../../firebase';
 import styles from './ProductPage.module.css';
-import ProductPicView from './ProductPicView.jsx'
+import SimilarProducts from './SimilarProducts.jsx'
 
 // get product from Listings page
 // if they click get similar products or more from seller
   // it will bring up a list of thos products in the place of the description
 // clicking on any image will bring up the prodcut display for that image
+// are all images going to be in the form of an array, even if it's just one?
+  // I have logic to handle both cases since that is what the data is right now.
 
 const ProductPage = () => {
 
@@ -15,6 +17,9 @@ const ProductPage = () => {
   const [product, setProduct] = useState([])
   const [mainImage, setMainImage] = useState('')
   const [newProducts, setNewProducts] = useState([])
+  const [mainName, setMainName] = useState('')
+  const [mainDescription, setMainDescription] = useState('')
+  const [mainSeller, setMainSeller] = useState('')
 
   const dummyData = '5usff6HI0mIB2TTRy2Ut';
 
@@ -28,6 +33,13 @@ const ProductPage = () => {
     // alert('clicked');
     // console.log(e.target.src);
     setMainImage(e.target.src);
+    setMainName(e.target.name);
+    console.log('name ', mainName);
+    setMainDescription(e.target.content);
+    console.log('desc ', mainDescription);
+    setMainSeller(e.target.seller);
+    console.log('seller info ', mainSeller);
+    setPageDisplay('product');
   }
   // fix to account for non array images
   function renderImages() {
@@ -45,11 +57,42 @@ const ProductPage = () => {
     return (
       <>
         {newProducts.map((item, index) => {
-          return <img src={Array.isArray(item.image) ? item.image[0] : item.image} className={styles.similarImages} onClick={clickImage} key={index} alt="similar things"/>;
+          // <SimilarProducts
+          //   item={item}
+          //   setMainImage={setMainImage}
+          //   name={item.name}
+          //   setMainName={setMainName}
+          //   description={item.description}
+          //   setMainDescription={setMainDescription}
+          //   seller={item.sellerInfo}
+          //   setMainSeller={setMainSeller}
+          //   setPageDisplay={setPageDisplay}
+          // />
+          return <img src={Array.isArray(item.image) ? item.image[0] : item.image}
+            className={styles.similarImages} key={index} alt="similar things"
+            onClick={clickImage}
+            name={item.name}
+            description={item.description}
+            seller={item.sellerInfo}
+            />;
           })
         }
       </>
     )
+    // return (
+    //   <>
+    //     {newProducts.map((item, index) => {
+    //       return <img src={Array.isArray(item.image) ? item.image[0] : item.image}
+    //         className={styles.similarImages} key={index} alt="similar things"
+    //         onClick={clickImage}
+    //         name={item.name}
+    //         content={item.description}
+    //         seller={item.sellerInfo}
+    //         />;
+    //       })
+    //     }
+    //   </>
+    // )
   }
 
   function renderPage() {
@@ -61,8 +104,8 @@ const ProductPage = () => {
             <div>{product.image ? renderImages() : ''}</div>
           </div>
           <div className="other-info-box">
-            <h2>{product.name}</h2>
-            <div className={styles.description}>{product.description}</div>
+            <h2>{mainName || product.name}</h2>
+            <div className={styles.description}>{mainDescription || product.description}</div>
             <button onClick={clickChat}><a href="http://localhost:3001/ChatPage">Chat with Seller</a></button>
           </div>
         </>
@@ -125,6 +168,9 @@ const ProductPage = () => {
       .catch(err => console.log(err))
   }, [])
 
+  useEffect(() => {
+    console.log('new item clicked')
+  }, [mainName])
 
   return (
     <>

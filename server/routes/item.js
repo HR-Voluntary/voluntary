@@ -67,7 +67,7 @@ router.delete('/:id', function(req, res){
   .catch(err => console.log(err));
 });
 
-
+// get itme by sellerInfo
 
 
 
