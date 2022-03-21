@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { logInWithEmailAndPassword, auth, signInWithGoogle, signInWithFacebook } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import styles from './Login.module.css';
-import { logout } from "../../firebase";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -23,7 +22,7 @@ function Login() {
     <div className={styles.login}>
       <div className={styles.login__container}>
         <div className={styles.login__features}>
-          <h5>Your Logo</h5>
+          <h5>Voluntary</h5>
           <h1>Login</h1>
           <div className={styles.login_emailContainer}>
             <div>Email</div>
