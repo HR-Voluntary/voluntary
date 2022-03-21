@@ -45,42 +45,29 @@ const ProductPage = () => {
         return (
           <>
             {allItemPictures.map((img, index) => {
-              return <img src={img} className={styles.allProductImages} onClick={clickImage} key={index} alt="different views of item"/>;
+              return <img src={img} className={styles.allProductImages} onClick={clickImage} key={index} alt=""/>;
             })
             }
           </>
           )
-          }
-          // else {
-          //   return <img src={allItemPictures} className={styles.allProductImages} alt="same main pic" />
-          // }
+      } else {
+        return <img src={allItemPictures} className={styles.allProductImages} alt=""/>
+      }
+
     } else {
-      return (
-        <>
-          {product.image.map((img, index) => {
-            return <img src={img} className={styles.allProductImages} onClick={clickImage} key={index} alt="different views of item"/>;
-          })
-          }
-        </>
-      )
+      if (Array.isArray(product.image)) {
+        return (
+          <>
+            {product.image.map((img, index) => {
+              return <img src={img} className={styles.allProductImages} onClick={clickImage} key={index} alt=""/>;
+            })
+            }
+          </>
+        )
+      } else {
+        return <img src={product.image} className={styles.allProductImages} alt=""/>
+      }
     }
-    // return (
-    //   <>
-    //     {allItemPictures.length > 0 ?
-    //       // (Array.isArray(allItemPictures) ?
-    //       allItemPictures.map((img, index) => {
-    //         return <img src={img} className={styles.allProductImages} onClick={clickImage} key={index} alt="different views of item"/>;
-    //       })
-    //         // :
-    //         //   return <div></div>;
-    //       // )
-    //       :
-    //       product.image.map((img, index) => {
-    //         return <img src={img} className={styles.allProductImages} onClick={clickImage} key={index} alt="different views of item"/>;
-    //       })
-    //     }
-    //   </>
-    // )
   }
 
   function renderSimilarProducts() {
@@ -124,13 +111,9 @@ const ProductPage = () => {
       return (
         <div className={styles.fullPage}>
           <div className={styles.mainProductPicBox}>
-            <img className={styles.productImg} src={mainImage || product.image} alt="item"/>
-            {/* {allItemPictures.length > 0 ?
-              <div>{Array.isArray(allItemPictures) ? allItemPictures.map(pic => pic) : allItemPictures}</div>
-              : */}
-              {/* <div>{Array.isArray(allItemPictures) ? renderImages() : allItemPictures}</div> */}
-              <div>{Array.isArray(product.image) ? renderImages() : <img src={product.image} alt=""/>}</div>
-            {/* } */}
+            <img className={styles.productImg} src={mainImage || product.image} alt=""/>
+              <div>{renderImages()}</div>
+              {/* <div>{Array.isArray(product.image) ? renderImages() : <img src={product.image} alt=""/>}</div> */}
           </div>
           <div className={styles.otherInfoBox}>
             <h2>{mainName || product.name}</h2>
@@ -143,7 +126,7 @@ const ProductPage = () => {
       return (
         <div className={styles.fullPage}>
           <div className={styles.mainProductPicBox}>
-            <img className={styles.productImg} src={mainImage || product.image} onClick={clickImage} alt="item"/>
+            <img className={styles.productImg} src={mainImage || product.image} onClick={clickImage} alt=""/>
             <div>{Array.isArray(product.image) ? renderImages() : product.image}</div>
           </div>
           <div className={styles.otherInfoBox}>
@@ -156,7 +139,7 @@ const ProductPage = () => {
       return (
         <div className={styles.fullPage}>
           <div className={styles.mainProductPicBox}>
-            <img className={styles.productImg} src={mainImage || product.image} onClick={clickImage} alt="item"/>
+            <img className={styles.productImg} src={mainImage || product.image} onClick={clickImage} alt=""/>
             <div>{Array.isArray(product.image) ? renderImages() : product.image}</div>
           </div>
           <div className={styles.otherInfoBox}>
@@ -219,8 +202,3 @@ const ProductPage = () => {
 }
 
 export default ProductPage;
-
-
-// {product.image.map((img, index) =>
-//   <ProductPicView prodImages={product.image} key={index}/>
-// )}
