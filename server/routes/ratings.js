@@ -4,18 +4,12 @@ const  { getTrustScore, getRatingScore, editTransactionCount, editRatingScore } 
 const  { getUser } = require('../models/user.js')
 
 
-<<<<<<< HEAD
-router.get('/ratings/trustScore', function(req, res) {
-  getTrustScore();
-})
-=======
 // {
 //   transactionCount: Number,
 //   trustScore: Number,
 //   ratingArray: [contains all ratings],
 //   ratingScore: Number
 // }
->>>>>>> main
 
 router.put('/transactionCount/:id', async function(req, res) {
   const { id } = req.params;
@@ -25,6 +19,7 @@ router.put('/transactionCount/:id', async function(req, res) {
   const {  } = req.body;
 
 });
+
 
 router.put('/ratingScore/:id', function(req, res) {
   // const { id } = req.params;
