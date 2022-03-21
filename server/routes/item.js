@@ -26,7 +26,6 @@ router.post('/img', function(req, res){
   createItemWithImgArray(req.body)
   .then((ifSuccess) => console.log('item created Siva! Check database.'))
   .catch(err => console.log(err))
-
   res.sendStatus(200).end();
 });
 
@@ -47,8 +46,6 @@ router.get('/category/:category', function(req, res){
     res.status(200).send(items);
   });
 });
-
-
 
 // GET ITEM
 router.get('/:id', function(req, res){
@@ -77,10 +74,5 @@ router.delete('/:id', function(req, res){
   })
   .catch(err => console.log(err));
 });
-
-
-
-
-
 
 module.exports = router;
