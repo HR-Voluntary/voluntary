@@ -21,10 +21,6 @@
   margin-bottom: 3rem;
 }
 
-.similarImages {
-  width: 30%;
-}
-
 .sellerItemImages {
   width: 30%;
 }
@@ -44,5 +40,24 @@
 }
 
 .otherItemBox {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid grey;
+  border-radius: 5px;
+  margin: 1em;
+  padding: 1em;
+}
+
+.otherImages {
+  width: 30%;
+  border-radius: 5px;
+  align-items: stretch;
+}
+
+.otherName {
+
+}
+
+.otherDescription {
 
 }

@@ -82,6 +82,7 @@ const ProductPage = () => {
             setMainDescription={setMainDescription}
             setAllItemPictures={setAllItemPictures}
             sellerId={newProducts.sellerInfo}
+            // setMainSeller={setMainSeller}
             key={index}/>
           })
         }

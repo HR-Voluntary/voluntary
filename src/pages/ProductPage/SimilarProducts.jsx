@@ -12,17 +12,19 @@ function clickSimilarItem(e) {
   setMainName(item.name);
   setMainDescription(item.description);
   setAllItemPictures(item.image);
-  setMainSeller(item.sellerInfo);
+  // setMainSeller(item.sellerInfo);
   setPageDisplay('product');
 }
 
   // limit the description text to one line, or whatever looks goos with the
   // picture on the mini list display
   return (
-    <div onClick={clickSimilarItem}>
-      <img className={styles.similarImages} onClick={clickSimilarItem} src={Array.isArray(item.image) ? item.image[0] : item.image} alt="description"/>
-      <div>{item.name}</div>
-      <div>{item.description}</div>
+    <div onClick={clickSimilarItem} className={styles.otherItemBox}>
+      <img className={styles.otherImages} onClick={clickSimilarItem} src={Array.isArray(item.image) ? item.image[0] : item.image} alt="description"/>
+      <div>
+        <div className={styles.otherName}>{item.name}</div>
+        <div className={styles.otherDescription}>{item.description}</div>
+      </div>
     </div>
   )
 }
