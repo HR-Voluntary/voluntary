@@ -43,17 +43,20 @@ const signInWithGoogle = async () => {
     const user = res.user;
     const q = query(collection(db, "users"), where("uid", "==", user.uid));
     const docs = await getDocs(q);
-    console.log(docs.docs, 'google')
     if (docs.docs.length === 0) {
       await setDoc(doc(db, 'users', user.uid), {
         uid: user.uid,
-        trustScore: 50,
         name: user.displayName,
-        authProvider: 'google',
+        trustScore: 1,
+        authProvider: 'facebook',
         email: user.email,
         photo: user.photoURL,
         type: 'Individual',
         location: [],
+        transactionCount: 0,
+        ratingsScore: 0,
+        ratingsCount: 0,
+        active: true,
       });
     }
   } catch (err) {
@@ -68,17 +71,20 @@ const signInWithFacebook = async () => {
     const user = res.user;
     const q = query(collection(db, "users"), where("uid", "==", user.uid));
     const docs = await getDocs(q);
-    console.log(user);
     if (docs.docs.length === 0) {
       await setDoc(doc(db, 'users', user.uid), {
         uid: user.uid,
         name: user.displayName,
-        trustScore: 50,
+        trustScore: 1,
         authProvider: 'facebook',
         email: user.email,
         photo: user.photoURL,
         type: 'Individual',
         location: [],
+        transactionCount: 0,
+        ratingsScore: 0,
+        ratingsCount: 0,
+        active: true,
       });
     }
   } catch (err) {
@@ -102,13 +108,17 @@ const registerWithEmailAndPassword = async (name, email, password, type) => {
     const user = res.user;
     await setDoc(doc(db, 'users', user.uid), {
       uid: user.uid,
-      name,
-      trustScore: 50,
-      authProvider: 'local',
+      name: user.displayName,
+      trustScore: 1,
+      authProvider: 'facebook',
       email: user.email,
-      photo: '',
-      type,
+      photo: user.photoURL,
+      type: 'Individual',
       location: [],
+      transactionCount: 0,
+      ratingsScore: 0,
+      ratingsCount: 0,
+      active: true,
     })
   } catch (err) {
     console.error(err);
