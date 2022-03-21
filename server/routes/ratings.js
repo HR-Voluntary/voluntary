@@ -1,12 +1,12 @@
 var express = require('express');
 var router = express.Router();
 var { editTransactionCount, editRatingScore, getTrustScore } = require('../models/user.js');
-require('../models/ratings/js')
+require('../models/ratings.js')
 
 
 router.get('/ratings/trustScore', function(req, res) {
   getTrustScore();
-}
+});
 
 router.get('./ratings/ratingScore', function(req,res) {
   getRatingScore();
@@ -27,3 +27,4 @@ router.put('/ratings/ratingScore/:id', function(req, res) {
 // stretch goal:
 // router.put('/ratings/rating');
 
+module.exports = router;
