@@ -6,7 +6,7 @@ require('../models/ratings/js')
 
 router.get('/ratings/trustScore', function(req, res) {
   getTrustScore();
-}
+})
 
 router.get('./ratings/ratingScore', function(req,res) {
   getRatingScore();

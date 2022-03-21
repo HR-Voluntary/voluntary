@@ -93,20 +93,8 @@ const markItemSold = (id) => {
 
 // EDIT item // SIVA
 const  UpdateItem = (id,itemObject) => {
-  console.log('Iriving need this ', id)
-  // const itmObj = {
-  //   category: itemObject.category,
-  //   description: itemObject.description,
-  //   image: itemObject.image,
-  //   location: itemObject.location,
-  //   name: itemObject.name,
-  //   isActive: itemObject.isActive,
-  //   sellerInfo: itemObject.sellerInfo,
-  //   itemId: itemObject.itemId
-  //  }
+  //console.log('Iriving need this ', id)
   return updateDoc(doc(db,'items',id),itemObject);
- // return addDoc(userRef, {
-  //})
 };
 const deleteItem = (id) => {
   const docToDelete = doc(db, 'items', id);

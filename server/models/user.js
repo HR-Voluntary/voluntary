@@ -87,7 +87,6 @@ const getUser = (id) => {
       const doc = snapshot.docs.filter(doc => doc.id === id);
       return {...doc[0].data()};
     });
-<<<<<<< HEAD
 }
 //Get trustscore BY SIVA
 const getTrustScore = (id) => {
@@ -97,11 +96,6 @@ const getTrustScore = (id) => {
       return {trustScore: doc[0].data().trustScore };
     });
 }
-=======
-};
-
-
->>>>>>> main
 const thumbsUp = (user) => {
   if (user.trustScore === 100) {
     return new Error({message: 'User is at 100 and cannot be incremented'})
