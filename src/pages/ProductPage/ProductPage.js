@@ -29,6 +29,7 @@ const ProductPage = () => {
 
   function clickChat() {
     // update a value in app.js for the sellerId so that chat can access it
+    // mainSeller || product.sellerInfo
 
   }
 
@@ -115,7 +116,7 @@ const ProductPage = () => {
               <div>{renderImages()}</div>
               {/* <div>{Array.isArray(product.image) ? renderImages() : <img src={product.image} alt=""/>}</div> */}
           </div>
-          <div className={styles.otherInfoBox}>
+          <div className={styles.otherInfoMainBox}>
             <h2>{mainName || product.name}</h2>
             <div className={styles.description}>{mainDescription || product.description}</div>
             <button onClick={clickChat}><a className={styles.link} href="http://localhost:3001/ChatPage">Chat with Seller</a></button>
@@ -129,9 +130,9 @@ const ProductPage = () => {
             <img className={styles.productImg} src={mainImage || product.image} onClick={clickImage} alt=""/>
             <div>{Array.isArray(product.image) ? renderImages() : product.image}</div>
           </div>
-          <div className={styles.otherInfoBox}>
+          <div className={styles.otherInfoMainBox}>
             <h2>Similar Products</h2>
-            <div>{newProducts.length ? renderSimilarProducts() : ''}</div>
+            <div className={styles.otherItemList}>{newProducts.length ? renderSimilarProducts() : ''}</div>
           </div>
         </div>
       )
@@ -142,7 +143,7 @@ const ProductPage = () => {
             <img className={styles.productImg} src={mainImage || product.image} onClick={clickImage} alt=""/>
             <div>{Array.isArray(product.image) ? renderImages() : product.image}</div>
           </div>
-          <div className={styles.otherInfoBox}>
+          <div className={styles.otherInfoMainBox}>
             <h2>All Items from this Seller</h2>
             <div>{newProducts.length ? renderSellerProducts() : ''}</div>
           </div>

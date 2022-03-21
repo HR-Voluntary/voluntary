@@ -17,9 +17,9 @@ const SellerItems = (props) => {
 
 
   return (
-    <div onClick={clickSellerItem}>
-      <div>{item.name}</div>
+    <div onClick={clickSellerItem} className={styles.otherItemBox}>
       <img className={styles.sellerItemImages} onClick={clickSellerItem} src={Array.isArray(item.image) ? item.image[0] : item.image} alt="description"/>
+      <div>{item.name}</div>
       <div>{item.description}</div>
     </div>
   )

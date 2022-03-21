@@ -12,6 +12,7 @@ function clickSimilarItem(e) {
   setMainName(item.name);
   setMainDescription(item.description);
   setAllItemPictures(item.image);
+  setMainSeller(item.sellerInfo);
   setPageDisplay('product');
 }
 
@@ -19,8 +20,8 @@ function clickSimilarItem(e) {
   // picture on the mini list display
   return (
     <div onClick={clickSimilarItem}>
-      <div>{item.name}</div>
       <img className={styles.similarImages} onClick={clickSimilarItem} src={Array.isArray(item.image) ? item.image[0] : item.image} alt="description"/>
+      <div>{item.name}</div>
       <div>{item.description}</div>
     </div>
   )
