@@ -127,21 +127,27 @@ const thumbsDown = (user) => {
 }
 
 //POST request for User with an array of lattitude and longitude as an arry with key location
-const  UpdateUser = (userObject) => {
-  const obj = {
-    authProvider: userObject.authProvider,
-    email: userObject.email,
-    name: userObject.name,
-    photo: userObject.photo,
-    trustScore: userObject.trustScore,
-    type: userObject.type,
-    location: userObject.location,
-    uid: userObject.uid
-   }
-  return setDoc(doc(db,'users',userObject.uid),obj);
- // return addDoc(userRef, {
-  //})
+// const  UpdateUser = (userObject) => {
+//   const obj = {
+//     authProvider: userObject.authProvider,
+//     email: userObject.email,
+//     name: userObject.name,
+//     photo: userObject.photo,
+//     trustScore: userObject.trustScore,
+//     type: userObject.type,
+//     location: userObject.location,
+//     uid: userObject.uid
+//    }
+//   return setDoc(doc(db,'users',userObject.uid),obj);
+//  // return addDoc(userRef, {
+//   //})
+// };
+
+const updateUser = (id, itemObject) => {
+  //console.log('Iriving need this ', id)
+  return updateDoc(doc(db,'users',id), itemObject);
 };
+
 
 // const docToUpdate = doc(db, 'items', id);
 //   return updateDoc(docToUpdate, { isActive: false })
@@ -156,6 +162,5 @@ module.exports = {
   getUsersAndProducts,
   getItemsForUser,
   getTrustScore,
- UpdateUser,
-
+  updateUser
 }

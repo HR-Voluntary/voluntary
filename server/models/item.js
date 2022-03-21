@@ -96,10 +96,11 @@ const  UpdateItem = (id,itemObject) => {
   //console.log('Iriving need this ', id)
   return updateDoc(doc(db,'items',id),itemObject);
 };
+
 const deleteItem = (id) => {
   const docToDelete = doc(db, 'items', id);
   return deleteDoc(docToDelete);
-}
+};
 
 
 
