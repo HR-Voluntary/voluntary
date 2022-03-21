@@ -2,11 +2,13 @@ import React, {useState, useEffect} from 'react';
 import MapListing from './Map/Map.js';
 import FilterBar from './FilterBar.js';
 import axios from 'axios';
+import Listing from './Listing.js';
 
 
 const ListingPage = () => {
   let [allListings, setAllListings] = useState([]);
   let [filterListing, setFilterListing] = useState([]);
+<<<<<<< HEAD
   let [userLocation, setUserLocation] = useState([37.791200, -122.396080]);
 
   const getUserLoc = () => {
@@ -26,7 +28,13 @@ const ListingPage = () => {
     navigator.geolocation.getCurrentPosition(success, error);
   }
 
+=======
+  
+>>>>>>> d02bd1a171ae98d974fcf3dac5e985dce7074a40
 
+  useEffect(() => {
+    getListings()
+  }, [])
 
   useEffect(() => getUserLoc(), []);
 
@@ -35,38 +43,64 @@ const ListingPage = () => {
   }, [])
 
   const getListings = () => {
-    axios.get('http://localhost:3000/item/all')
+    axios.get('http://localhost:3000/user/all')
       .then(response => {
         //calculate distance from current user
         //sort by default distance
-        setAllListings(response.data)
+
+        const userData = response.data;
+        //console.log(userData);
+        let itemsForSale = [];
+        userData.forEach(user => {
+          itemsForSale = itemsForSale.concat((user.userItems.map(item => {
+            item.trustScore = user.trustScore;
+            item.sellerName = user.name;
+            return item;
+          })))
+        })
+        //console.log(itemsForSale)
+        setAllListings(itemsForSale)
+        setFilterListing(itemsForSale)
       })
   }
 
   const filterListingsByCategory = (listings, filterParam) => {
-    const filter = listings.filter(listing =>
-      listing.cateogry === filterParam
-    )
-
-    setFilterListing(filter);
+    let filtered = listings.filter(listing => {
+      if (listing.category === filterParam) {
+        return listing;
+      }
+    })
+      //console.log(filtered);
+    setFilterListing(filtered);
+    if (filterParam === 'default') {
+      setFilterListing(allListings)
+    }
   }
 
   const categoryFilterChange = (e) => {
-    console.log(e.target.value);
+    //console.log(e.target.value);
+
     filterListingsByCategory(allListings, e.target.value)
   }
 
-  // const filterListingsByTrust = (listings, filterParam) => {
-  //   const filter = listings.filter((listing) => {
+  const filterListingsByTrust = (listings, filterParam) => {
+    let filter = listings.filter((listing) => {
+      if (listing.trustScore === parseInt(filterParam)) {
+        return listing;
+      }
+      //sellers trust level equals filterParam
+    })
+    setFilterListing(filter);
+    if (filterParam === 'defaultTrust') {
+      setFilterListing(allListings)
+    }
+  }
 
-  //     //sellers trust level equals filterParam
-  //   })
-  //   setFilterListing(filter);
-  // }
+  const trustFilterChange = (e) => {
+    //console.log(e.target.value);
 
-  // const trustFilterChange = (value) => {
-  //   filterListings(allListings, value)
-  // }
+    filterListingsByTrust(allListings, e.target.value)
+  }
 
   // axios calls
   // state/states with array of data
@@ -81,9 +115,19 @@ const ListingPage = () => {
   return (
     <>
       <div>Listing Page</div>
+<<<<<<< HEAD
       <FilterBar categoryFilterChange={categoryFilterChange}/>
       <MapListing userLocation={userLocation} />
       {/* pass in stat signifiying initial distance filter */}
+=======
+      <FilterBar categoryFilterChange={categoryFilterChange} trustFilterChange={trustFilterChange}/>
+      <MapListing userLocation={userLocation} />
+      <div className="all-listings">
+      {filterListing.map(listing => {
+        return <Listing listing={listing}/>
+      })}
+      </div>
+>>>>>>> d02bd1a171ae98d974fcf3dac5e985dce7074a40
     </>
   )
 
