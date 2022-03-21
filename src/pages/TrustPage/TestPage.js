@@ -5,13 +5,19 @@ import Stars from './Stars.js';
 const TrustPage = () => {
   const [thumbSelected, setThumbSelected] = useState(false);
 
-  //if thumbSelected false
-    //render Thumbs
+  function showThumbs() {
+    return (
+      <Thumbs />
+    );
+  }
 
-  //else
-    //render Stars
+  function showStars() {
+    return (
+      <Stars />
+    );
+  }
 
-  return <div>Trusttt</div>
+  return <div>{!thumbSelected ? showThumbs() : showStars()}</div>
 };
 
 export default TrustPage;
