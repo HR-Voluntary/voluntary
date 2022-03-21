@@ -1,29 +1,40 @@
 var express = require('express');
 var router = express.Router();
-var { editTransactionCount, editRatingScore, getTrustScore } = require('../models/user.js');
-require('../models/ratings/js')
+const  { getTrustScore, getRatingScore, editTransactionCount, editRatingScore } = require('../models/ratings.js')
+const  { getUser } = require('../models/user.js')
 
 
-router.get('/ratings/trustScore', function(req, res) {
-  getTrustScore();
-}
+// {
+//   transactionCount: Number,
+//   trustScore: Number,
+//   ratingArray: [contains all ratings],
+//   ratingScore: Number
+// }
 
-router.get('./ratings/ratingScore', function(req,res) {
-  getRatingScore();
-})
-
-router.put('/ratings/transactionCount/:id', function(req, res) {
+router.put('/transactionCount/:id', async function(req, res) {
   const { id } = req.params;
-  editTransactionCount(id)
+  console.log(id);
+  const user = await getUser(id);
+  console.log(user);
+  const {  } = req.body;
 
 });
 
-router.put('/ratings/ratingScore/:id', function(req, res) {
-  const { id } = req.params;
-  editRatingScore(id)
+
+router.put('/ratingScore/:id', function(req, res) {
+  // const { id } = req.params;
+  // editRatingScore(id)
 });
 
+router.get('/trustScore', function(req, res) {
+  // getTrustScore();
+});
+
+router.get('/ratingScore', function(req,res) {
+  // getRatingScore();
+});
 
 // stretch goal:
 // router.put('/ratings/rating');
 
+module.exports = router;
