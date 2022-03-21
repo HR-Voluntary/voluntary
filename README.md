@@ -110,3 +110,22 @@ http://localhost:3000/item/:id
     }
 ]
 ```
+
+
+### Request
+
+`PUT /ratings/ratingCount/:id`
+
+http://localhost:3000/ratings/ratingCount/:id
+
+### Response
+```  
+// If positive transaction:
+{
+  "message": "Increased transaction count by 1"
+}
+// If negative transaction:
+{
+  "message": "Decremented transaction count by 1"
+}
+```
