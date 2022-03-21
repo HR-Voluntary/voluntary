@@ -32,7 +32,13 @@ router.put('/transactionCount/:id', async (req, res) => {
   let updatedData = { transactionCount: updatedCount, trustScore: updatedTrustScore };
 
   updateUser(id, updatedData)
-    .then(() => res.status(200).send({message: 'Increased transaction count by 1'}))
+    .then(() => {
+      if (number > 0) {
+        res.status(200).send({message: 'Increased transaction count by 1'});
+      } else {
+        res.status(200).send({message: 'Decreased transaction count by 1'});
+      }
+    })
     .catch((err) => res.status(400).send({message: err.message, error: err}));
   }
 });
