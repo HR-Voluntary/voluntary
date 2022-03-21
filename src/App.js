@@ -16,13 +16,11 @@ const App = () => {
 
   return (
     <div className={styles.App}>
+        <Navbar/>
         <Routes>
           <Route path='/' element={<Login />}/>
           <Route path='/Register' element={<Register />}/>
           <Route path='/Reset' element={<Reset />}/>
-        </Routes>
-        <Navbar/>
-        <Routes>
           <Route path='/ListingPage' element={<ListingPage />}/>
           <Route path='/ProductPage' element={<ProductPage />}/>
           <Route path='/ProfilePage' element={<ProfilePage />}/>

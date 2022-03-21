@@ -55,6 +55,7 @@ function Login() {
           <button
             className={styles.login__btn}
             onClick={() => logInWithEmailAndPassword(email, password)}
+            disabled={loading}
           >
             Sign In
           </button>
@@ -66,12 +67,14 @@ function Login() {
                 src={require('./utils/google.png')}
                 alt=''
                 onClick={signInWithGoogle}
+                disabled={loading}
               />
               <img
                 className={styles.login__authImg}
                 src={require('./utils/facebook.png')}
                 alt=''
                 onClick={signInWithFacebook}
+                disabled={loading}
               />
             </div>
           </div>
@@ -81,7 +84,7 @@ function Login() {
           </div>
         </div>
       </div>
-      <img src={require('./utils/Mascot.png')}></img>
+      <img src={require('./utils/Mascot.png')} alt=''></img>
     </div>
   );
 }
