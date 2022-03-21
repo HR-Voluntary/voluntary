@@ -10,6 +10,7 @@ const ListingPage = () => {
   let [allListings, setAllListings] = useState([]);
   let [filterListing, setFilterListing] = useState([]);
   let [userLocation, setUserLocation] = useState([37.791200, -122.396080]);
+  let [initialViewState, setInitialViewState] = useState(null);
 
   const getUserLoc = () => {
     const success = (position) => {
@@ -98,7 +99,12 @@ const ListingPage = () => {
     filterListingsByTrust(allListings, e.target.value)
   }
 
-  const adjustZoom = () => {
+  const adjustZoom = (filterParam) => {
+    if (filterParam === '') {
+      setInitialViewState(null);
+    }
+
+    const paramNum = Number(filterParam);
     // would still be centered around user/default location
     // set the bounds
     // if no filter is set, set bounds to null
