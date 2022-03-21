@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-//import MapListing from './Map/Map.js';
+import MapListing from './Map/Map.js';
 import FilterBar from './FilterBar.js';
 import axios from 'axios';
 import Listing from './Listing.js';
@@ -8,7 +8,7 @@ import Listing from './Listing.js';
 const ListingPage = () => {
   let [allListings, setAllListings] = useState([]);
   let [filterListing, setFilterListing] = useState([]);
-  // state signifying distance
+  
 
   useEffect(() => {
     getListings()
@@ -96,7 +96,7 @@ const ListingPage = () => {
     <>
       <div>Listing Page</div>
       <FilterBar categoryFilterChange={categoryFilterChange} trustFilterChange={trustFilterChange}/>
-
+      <MapListing userLocation={userLocation} />
       <div className="all-listings">
       {filterListing.map(listing => {
         return <Listing listing={listing}/>
