@@ -4,6 +4,7 @@ import { logout } from '../../firebase';
 import styles from './ProductPage.module.css';
 import SimilarProducts from './SimilarProducts.jsx';
 import SellerItems from './SellerItems.jsx'
+import { useLocation } from 'react-router';
 
 
 // get product from Listings page
@@ -22,9 +23,11 @@ const ProductPage = () => {
   const [mainName, setMainName] = useState('')
   const [mainDescription, setMainDescription] = useState('')
   const [mainSeller, setMainSeller] = useState('')
-  const [allItemPictures, setAllItemPictures] = useState([])
-
-  const dummyData = '5usff6HI0mIB2TTRy2Ut';
+  const [allItemPictures, setAllItemPictures] = useState([]);
+  const { state } = useLocation();
+  console.log(state)
+  // const dummyData = '5usff6HI0mIB2TTRy2Ut';
+  const dummyData = state.productId;
 
 
   function clickChat() {

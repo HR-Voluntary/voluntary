@@ -14,21 +14,24 @@ var {
 
 // CREATE ITEM
 router.post('/', function(req, res){
-  console.log(req.body);
-  createItem(req.body)
-  .then((ifSuccess) => console.log('item created! Check database.'))
-  .catch(err => console.log(err))
+  const { itemToPost } = req.body;
+  itemToPost.isActive = true;
 
-  res.sendStatus(200).end();
+  console.log(itemToPost);
+
+  createItem(itemToPost)
+  .then((ifSuccess) => res.status(200).send({ message: 'Successfully posted item', }))
+  .catch(err =>  res.sendStatus(400).end({message: 'There was an error', errorObject: err}))
 });
+
 //// SIVA DOING IT //
 //Post route for array of image Urls
 router.post('/img', function(req, res){
   console.log(req.body);
   createItemWithImgArray(req.body)
-  .then((ifSuccess) => console.log('item created Siva! Check database.'))
+  .then((ifSuccess) => res.sendStatus(200).end())
   .catch(err => console.log(err))
-  res.sendStatus(200).end();
+
 });
 
 // GET ITEMS
@@ -58,18 +61,22 @@ router.get('/:id', function(req, res){
   });
 });
 
-// MARK AS SOLD
-router.put('/:id', function(req, res){
+
+// Edit ITEM // SIVA
+router.put('/itm/:id', function(req, res){
   const { id } = req.params;
-  markItemSold(id)
+  console.log('EDITING ITEM')
+  console.log(id)
+  UpdateItem(id, req.body)
   .then(items => {
     res.status(200).send(items);
   });
 });
-// Edit ITEM // SIVA
-router.put('/itm/:id', function(req, res){
+
+// MARK AS SOLD
+router.put('/:id', function(req, res){
   const { id } = req.params;
-  UpdateItem(id, req.body)
+  markItemSold(id)
   .then(items => {
     res.status(200).send(items);
   });
