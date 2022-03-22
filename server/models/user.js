@@ -90,9 +90,13 @@ const getUser = (id) => {
 }
 //Get trustscore BY SIVA
 const getTrustScore = (id) => {
+
   return getDocs(userRef)
     .then((snapshot) => {
       const doc = snapshot.docs.filter(doc => doc.id === id);
+      if(doc[0].data().trustScore <= 0) {
+        return new Error({message: 'User is already at 0 and cannot  go lower'})
+      }
       return {trustScore: doc[0].data().trustScore };
     });
 }

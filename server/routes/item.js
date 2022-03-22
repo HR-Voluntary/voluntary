@@ -52,6 +52,7 @@ router.get('/category/:category', function(req, res){
 // GET ITEM
 router.get('/:id', function(req, res){
   const { id } = req.params;
+  //console.log('ID = ', id);
   getItem(id)
   .then(items => {
     res.status(200).send(items);
@@ -67,7 +68,7 @@ router.put('/:id', function(req, res){
   });
 });
 // Edit ITEM // SIVA
-router.put('/itm/:id', function(req, res){
+router.put('/editItm/:id', function(req, res){
   const { id } = req.params;
   UpdateItem(id, req.body)
   .then(items => {
