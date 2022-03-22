@@ -3,6 +3,7 @@ import axios from 'axios';
 import styles from './ProductPage.module.css';
 import SimilarProducts from './SimilarProducts.jsx';
 import SellerItems from './SellerItems.jsx'
+import { useNavigate } from 'react-router';
 
 
 // get product from Listings page
@@ -25,11 +26,16 @@ const ProductPage = () => {
 
   const dummyData = '5usff6HI0mIB2TTRy2Ut';
 
+  const navigate = useNavigate();
+
+  console.log(product);
 
   function clickChat() {
     // update a value in app.js for the sellerId so that chat can access it
     // mainSeller || product.sellerInfo
-
+    navigate('/ChatPage', {
+      state: { product }
+    });
   }
 
   function clickImage(e) {
@@ -119,7 +125,7 @@ const ProductPage = () => {
           <div className={styles.otherInfoMainBox}>
             <h2>{mainName || product.name}</h2>
             <div className={styles.description}>{mainDescription || product.description}</div>
-            <button onClick={clickChat}><a className={styles.link} href="http://localhost:3001/ChatPage">Chat with Seller</a></button>
+            <button onClick={clickChat}>Chat with Seller</button>
           </div>
         </div>
       )
