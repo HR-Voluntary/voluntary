@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { logout } from '../../firebase';
 import styles from './ProductPage.module.css';
 import SimilarProducts from './SimilarProducts.jsx';
 import SellerItems from './SellerItems.jsx'
@@ -158,7 +157,7 @@ const ProductPage = () => {
   function clickSimilar() {
     const category = product.category;
     setPageDisplay('similar');
-    axios.get(`http://localhost:3000/item/category/${category}`)
+    axios.get(`http://localhost:3001/item/category/${category}`)
       .then(response => {
         console.log('category response ', response)
         setNewProducts(response.data)
@@ -169,7 +168,7 @@ const ProductPage = () => {
   function clickSellerItems() {
     const sellerId = product.sellerInfo;
     setPageDisplay('sellerItems');
-    axios.get(`http://localhost:3000/user/profile/${sellerId}`)
+    axios.get(`http://localhost:3001/user/profile/${sellerId}`)
       .then(response => {
         console.log('seller items response ', response)
         setNewProducts(response.data[0].userItems)
@@ -178,7 +177,7 @@ const ProductPage = () => {
   }
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/item/${dummyData}`) // limit the get of images to fit the screen
+    axios.get(`http://localhost:3001/item/${dummyData}`) // limit the get of images to fit the screen
       .then(response => {
         console.log(response)
         setProduct(response.data)

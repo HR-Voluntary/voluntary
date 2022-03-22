@@ -20,7 +20,7 @@ const ProfilePage = () => {
   // console.log(completedImgArray)
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/user/profile/1AOjnwnoc5bxD1u3VBiaNzKYL2k1`)
+    axios.get(`http://localhost:3001/user/profile/1AOjnwnoc5bxD1u3VBiaNzKYL2k1`)
     .then(res => {
       console.log(res.data)
       setUser(res.data[0]);
@@ -28,7 +28,7 @@ const ProfilePage = () => {
     .then((res) => {
       console.log(res);
     })
-    .catch(e => console.log(e))
+    .catch(e => console.log(e, 'im not working'))
   }, [])
 
 

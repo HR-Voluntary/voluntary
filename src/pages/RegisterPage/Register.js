@@ -86,7 +86,7 @@ const Register = () => {
           </div>
           <button
             className={styles.register__btn}
-            onClick={register} // add functionality
+            onClick={() => register(name, email, password, type)} // add functionality
           >
             Sign Up
           </button>

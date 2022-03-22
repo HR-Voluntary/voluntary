@@ -7,13 +7,13 @@ import { useAuth } from '../contexts/AuthContext';
 
 const Navbar = () => {
 
-  const { user } = useAuth();
+  const { currentUser, currentUserData } = useAuth();
   const location = useLocation();
   const [currentImage, setCurrentImage] = useState(require('./utils/Mascot.png'));
 
   useEffect(() => {
-    if (user?.photoURL) {
-      setCurrentImage(user.photoURL)
+    if (currentUserData?.photo) {
+      setCurrentImage(currentUserData?.photo)
     }
   }, []);
 
@@ -36,7 +36,7 @@ const Navbar = () => {
           </Link>
         </li>
         <li className={styles.navbar_list_item}>
-          <Link className={styles.link} to='/ProfilePage'>{user?.displayName}</Link>
+          <Link className={styles.link} to='/ProfilePage'>{currentUserData?.name}</Link>
         </li>
         <li>
           <button className={styles.navbar_logout_button} onClick={ logout }><span>Logout</span></button>
