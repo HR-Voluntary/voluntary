@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './Navbar.module.css';
 import { useLocation } from 'react-router';
 import { logout } from '../firebase';
@@ -7,12 +7,21 @@ import { useAuth } from '../contexts/AuthContext';
 
 const Navbar = () => {
 
-  const { user } = useAuth();
+  const { currentUserData } = useAuth();
   const location = useLocation();
+  const [currentImage, setCurrentImage] = useState(require('./utils/Mascot.png'));
+
+  console.log(currentImage)
+
+  useEffect(() => {
+    if (currentUserData?.photo) {
+      setCurrentImage(currentUserData?.photo)
+    }
+  }, [currentUserData]);
 
   if (location.pathname === '/' || location.pathname === '/Register' || location.pathname === '/Reset') {
-    return null
-  }
+    return null;
+  };
 
   return (
     <div className={styles.navbar}>
@@ -25,11 +34,11 @@ const Navbar = () => {
       <ul className={styles.navbar_list}>
         <li className={styles.navbar_list_item}>
           <Link className={styles.link} to='/ProfilePage'>
-            <img src={user?.photoURL} alt='' className={styles.navbar_avatar} />
+            <img src={currentImage} alt='' className={styles.navbar_avatar} />
           </Link>
         </li>
         <li className={styles.navbar_list_item}>
-          <Link className={styles.link} to='/ProfilePage'>{user?.displayName}</Link>
+          <Link className={styles.link} to='/ProfilePage'>{currentUserData?.name}</Link>
         </li>
         <li>
           <button className={styles.navbar_logout_button} onClick={ logout }><span>Logout</span></button>

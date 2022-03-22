@@ -5,6 +5,10 @@ import Stars from './Stars.js';
 const TrustPage = () => {
   const [thumbSelected, setThumbSelected] = useState(false);
 
+  function selectThumb() {
+    setThumbSelected(true);
+  }
+
   function showThumbs() {
     return (
       <Thumbs />
@@ -17,7 +21,7 @@ const TrustPage = () => {
     );
   }
 
-  return <div>{!thumbSelected ? showThumbs() : showStars()}</div>
+  return <div onClick={selectThumb}>{!thumbSelected ? showThumbs() : showStars()}</div>
 };
 
 export default TrustPage;

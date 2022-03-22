@@ -1,8 +1,9 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import MapListing from './Map/Map.js';
 import FilterBar from './FilterBar.js';
 import axios from 'axios';
 import Listing from './Listing.js';
+import distance from '@turf/distance';
 import styles from './listingStyle.module.css';
 
 
@@ -10,24 +11,21 @@ const ListingPage = () => {
   let [allListings, setAllListings] = useState([]);
   let [filterListing, setFilterListing] = useState([]);
   let [userLocation, setUserLocation] = useState([37.791200, -122.396080]);
+  let [initialViewState, setInitialViewState] = useState(null);
 
   const getUserLoc = () => {
-    // after checking yelp, it seems like it's up to the user to manually change their decision about location sharing
     const success = (position) => {
       const latitude = position.coords.latitude;
       const longitude = position.coords.longitude;
       setUserLocation([latitude, longitude]);
     }
-
     const error = (error) => {
-      if (error.code !== 1){
+      if (error.code !== 1) {
         alert(`Cannot find location: ${error.message}`);
       }
     }
-
     navigator.geolocation.getCurrentPosition(success, error);
   }
-
 
   useEffect(() => {
     getListings()
@@ -40,11 +38,8 @@ const ListingPage = () => {
   }, [])
 
   const getListings = () => {
-    axios.get('http://localhost:3000/user/all')
+    axios.get('http://localhost:3001/user/all')
       .then(response => {
-        //calculate distance from current user
-        //sort by default distance
-
         const userData = response.data;
         //console.log(userData);
         let itemsForSale = [];
@@ -55,7 +50,13 @@ const ListingPage = () => {
             return item;
           })))
         })
-        //console.log(itemsForSale)
+        // ***** DO NOT DELETE *****
+        // ***Will implement sort function once data format from API is correct:
+        // itemsForSale.sort((a,b) => {
+        //   const distanceA = distance(userLocation, a.location, {units: 'miles'})
+        //   const distanceB = distance(userLocation, b.location, {units: 'miles'})
+        //   return distanceA - distanceB
+        // });
         setAllListings(itemsForSale)
         setFilterListing(itemsForSale)
       })
@@ -67,7 +68,7 @@ const ListingPage = () => {
         return listing;
       }
     })
-      //console.log(filtered);
+    //console.log(filtered);
     setFilterListing(filtered);
     if (filterParam === 'default') {
       setFilterListing(allListings)
@@ -99,20 +100,36 @@ const ListingPage = () => {
     filterListingsByTrust(allListings, e.target.value)
   }
 
-  // axios calls
-  // state/states with array of data
-  // filtering functions
-  // save user location- TBD
-  // onClick functions to navigate to individual product page
+  const adjustZoom = (filterParam) => {
+    if (filterParam === '') {
+      setInitialViewState(null);
+    }
 
+    const paramNum = Number(filterParam);
+    // would still be centered around user/default location
+    // set the bounds
+    // if no filter is set, set bounds to null
+    // class = mapboxgl-map
+    let box = document.querySelector('.mapboxgl-map');
+    let width = box.offsetWidth;
+    let height = box.offsetHeight;
+    return [width, height];
+  }
 
-
-  // function to calculate distance based on lat/long
+  const distanceFilterChange = (e) => {
+    // console.log(typeof e.target.value); // string
+    // adjustZoom(e.target.value)
+    console.log(adjustZoom());
+  }
 
   return (
     <>
       <div>Listing Page</div>
-      <FilterBar categoryFilterChange={categoryFilterChange} trustFilterChange={trustFilterChange}/>
+      {/* <div>{distance(userLocation, [41.8781, -87.6298], {units: 'miles'})}</div> */}
+      <FilterBar
+        categoryFilterChange={categoryFilterChange}
+        trustFilterChange={trustFilterChange}
+        distanceFilterChange={distanceFilterChange} />
       <MapListing userLocation={userLocation} />
       <div className={styles.allListings}>
       {filterListing.map(listing => {

@@ -12,6 +12,8 @@ const MapListing = ({ userLocation }) => {
     zoom: 12,
   });
 
+  const sampleview = null;
+
   const [selectedFacility, setSelectedFacility] = useState(null);
 
   // if (userLocation !== viewport) {
@@ -44,6 +46,7 @@ const MapListing = ({ userLocation }) => {
       <small className={styles.sampletext}>You are running this application in <b>{process.env.NODE_ENV}</b> mode.</small>
       <Map
         // initialViewState={{ ...viewport }}
+        initialViewState={sampleview}
         { ...viewState }
         onMove={evt => setViewState(evt.viewState)}
         style={{

@@ -75,7 +75,7 @@ router.put('/ratingScore/:id', function(req, res) {
 });
 
 router.get('/trustScore', function(req, res) {
-  // getTrustScore();
+  // getTrustScore(); //
 });
 
 router.get('/ratingScore', function(req,res) {

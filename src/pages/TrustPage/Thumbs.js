@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import icons from './icons.js';
+import styles from './Thumbs.module.css';
 
 const { thumbsUpWhite, thumbsDownWhite, thumbsDownFill, thumbsUpFill } = icons;
 
-const Thumbs = () => {
+const Thumbs = (props) => {
   const [hoverUp, setHoverUp] = useState(false);
-  const [hoverDown, setHoverDown] = useState(false)
+  const [hoverDown, setHoverDown] = useState(false);
   const [selectUp, setSelectUp] = useState(false);
   const [selectDown, setSelectDown] = useState(false);
   const [selectedThumb, setSelectedThumb] = useState(null);
@@ -34,6 +35,7 @@ const Thumbs = () => {
       setSelectDown(true);
     }
     //axios post request to database to add/minus transaction
+    props.onClick();
   }
 
 
@@ -44,22 +46,26 @@ const Thumbs = () => {
   return (
     <div>
       <p>Did you receive transaction?</p>
+      <div className={styles.bothThumbs}>
+        <div
+          id={'thumbsUp'}
+          className={styles.thumbsUp}
+          onMouseEnter={(e) => hoverFillThumb(e)}
+          onMouseLeave={(e) => unfillThumb(e)}
+          onClick={(e) => handleClick(e)}>
+          {hoverUp || selectUp ? thumbsUpFill : thumbsUpWhite}
+        </div>
 
-      <span
-        id={'thumbsUp'}
-        onMouseEnter={(e) => hoverFillThumb(e)}
-        onMouseLeave={(e) => unfillThumb(e)}
-        onClick={(e) => handleClick(e)}>
-        {hoverUp || selectUp ? thumbsUpFill : thumbsUpWhite}
-      </span>
+        <div
+          id={'thumbsDown'}
+          className={styles.thumbsDown}
+          onMouseEnter={(e) => hoverFillThumb(e)}
+          onMouseLeave={(e) => unfillThumb(e)}
+          onClick={(e) => handleClick(e)}>
+          {hoverDown || selectDown ? thumbsDownFill : thumbsDownWhite}
+        </div>
 
-      <span
-        id={'thumbsDown'}
-        onMouseEnter={(e) => hoverFillThumb(e)}
-        onMouseLeave={(e) => unfillThumb(e)}
-        onClick={(e) => handleClick(e)}>
-        {hoverDown || selectDown ? thumbsDownFill : thumbsDownWhite}
-      </span>
+      </div>
     </div>
   );
 };

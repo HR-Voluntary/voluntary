@@ -13,15 +13,7 @@ const itemRef = collection(db, 'items');
 
 // USER SCHEMA & CREATION
 const createItem = (userObject) => {
-  return addDoc(itemRef, {
-    category: userObject.category,
-    description: userObject.description,
-    image: userObject.image,
-    location: userObject.location,
-    name: userObject.name,
-    sellerInfo: userObject.sellerInfo,
-    isActive: userObject.isActive
-  });
+  return addDoc(itemRef, userObject);
 };
 
 //// SIVA DOING IT //
@@ -57,23 +49,20 @@ const getItem = (id) => {
   return getDocs(itemRef)
     .then((snapshot) => {
       const doc = snapshot.docs.filter(doc => id === doc.id)
-
-      return {id: doc[0].id, ...doc[0].data()};
+      return {...doc[0].data()};
     })
     .catch((err) => {
       return {  error: err, message: 'item not found!' }
     });
 };
-
+// GET items by category name
 const getItemByCategory = (category) => {
-  console.log('in CATEGORY FUNC')
-  console.log(category)
+  // console.log('in CATEGORY FUNC')
+  // console.log(category)
   return getDocs(itemRef)
     .then((snapshot) => {
       const docs = snapshot.docs.filter(doc => category === doc.data().category)
-
       let itemsByCategoryArray = [];
-
       docs.forEach(doc => {
         itemsByCategoryArray.push({...doc.data()})
       });
@@ -81,7 +70,6 @@ const getItemByCategory = (category) => {
       return itemsByCategoryArray
     });
   };
-
 
 const markItemSold = (id) => {
   const docToUpdate = doc(db, 'items', id);
@@ -92,7 +80,7 @@ const markItemSold = (id) => {
 };
 
 // EDIT item // SIVA
-const  UpdateItem = (id,itemObject) => {
+const UpdateItem = (id,itemObject) => {
   //console.log('Iriving need this ', id)
   return updateDoc(doc(db,'items',id),itemObject);
 };

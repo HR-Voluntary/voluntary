@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { logout } from '../../firebase';
 import styles from './ProductPage.module.css';
 import SimilarProducts from './SimilarProducts.jsx';
 import SellerItems from './SellerItems.jsx'
+import { useLocation } from 'react-router';
+import { useNavigate } from 'react-router';
 
 
 // get product from Listings page
@@ -32,7 +33,9 @@ const ProductPage = () => {
   function clickChat() {
     // update a value in app.js for the sellerId so that chat can access it
     // mainSeller || product.sellerInfo
-
+    navigate('/ChatPage', {
+      state: { product }
+    });
   }
 
   function clickImage(e) {
@@ -123,7 +126,7 @@ const ProductPage = () => {
           <div className={styles.otherInfoMainBox}>
             <h2>{mainName || product.name}</h2>
             <div className={styles.description}>{mainDescription || product.description}</div>
-            <button onClick={clickChat}><a className={styles.link} href="http://localhost:3001/ChatPage">Chat with Seller</a></button>
+            <button onClick={clickChat}>Chat with Seller</button>
           </div>
         </div>
       )
@@ -161,7 +164,7 @@ const ProductPage = () => {
   function clickSimilar() {
     const category = mainCategory || product.category;
     setPageDisplay('similar');
-    axios.get(`http://localhost:3000/item/category/${category}`)
+    axios.get(`http://localhost:3001/item/category/${category}`)
       .then(response => {
         console.log('category response ', response)
         setNewProducts(response.data)
@@ -172,7 +175,7 @@ const ProductPage = () => {
   function clickSellerItems() {
     const sellerId = product.sellerInfo;
     setPageDisplay('sellerItems');
-    axios.get(`http://localhost:3000/user/profile/${sellerId}`)
+    axios.get(`http://localhost:3001/user/profile/${sellerId}`)
       .then(response => {
         console.log('seller items response ', response)
         setNewProducts(response.data[0].userItems)
@@ -181,7 +184,7 @@ const ProductPage = () => {
   }
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/item/${dummyData}`) // limit the get of images to fit the screen
+    axios.get(`http://localhost:3001/item/${dummyData}`) // limit the get of images to fit the screen
       .then(response => {
         console.log(response)
         setProduct(response.data)
@@ -196,13 +199,12 @@ const ProductPage = () => {
 
   return (
     <>
-      <button><a className={styles.link} href="http://localhost:3001/ListingPage">Back to Listings</a></button>
+      <button onClick={() => navigate('/ListPage')}>Back to Listings</button>
       <button onClick={clickSimilar}>Similar Products</button>
       <button onClick={clickSellerItems}>Other Items from the Seller</button>
       <div>
         {renderPage()}
       </div>
-
     </>
   )
 }
