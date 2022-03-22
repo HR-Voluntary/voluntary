@@ -7,13 +7,13 @@ var { getUsers,
    getUsersAndProducts,
    getItemsForUser,
    getTrustScore,
-   UpdateUser,
+   updateUser,
   } = require('../models/user.js');
 
   router.put('/editUsr/:id', function(req, res){
    // console.log(req.body);
    const { id } = req.params;
-    UpdateUser(id, req.body)
+    updateUser(id, req.body)
     .then((ifSuccess) => console.log('User added Siva! Check database.'))
     .catch(err => console.log(err))
     res.sendStatus(200).end();
