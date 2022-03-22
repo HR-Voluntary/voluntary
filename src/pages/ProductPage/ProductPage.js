@@ -23,8 +23,10 @@ const ProductPage = () => {
   const [mainDescription, setMainDescription] = useState('')
   const [mainSeller, setMainSeller] = useState('')
   const [allItemPictures, setAllItemPictures] = useState([])
+  const [mainCategory, setMainCategory] = useState('')
 
-  const dummyData = '5usff6HI0mIB2TTRy2Ut';
+  // const dummyData = '5usff6HI0mIB2TTRy2Ut';
+  const dummyData = 'OUjA98VUU1VpdOGgCEcm';
 
 
   function clickChat() {
@@ -100,6 +102,7 @@ const ProductPage = () => {
           setPageDisplay={setPageDisplay}
           setMainDescription={setMainDescription}
           setAllItemPictures={setAllItemPictures}
+          setMainCategory={setMainCategory}
           sellerId={product.sellerInfo}
           key={index}/>
           })
@@ -156,7 +159,7 @@ const ProductPage = () => {
   }
 
   function clickSimilar() {
-    const category = product.category;
+    const category = mainCategory || product.category;
     setPageDisplay('similar');
     axios.get(`http://localhost:3000/item/category/${category}`)
       .then(response => {
