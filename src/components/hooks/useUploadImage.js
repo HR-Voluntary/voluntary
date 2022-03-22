@@ -4,7 +4,6 @@ import axios from 'axios';
 
 const useUploadImage = (e) => {
   const [imageArray, setImageArray] = useState([]);
-  const [completedImgArray, setCompletedImgArray] = useState([]);
 
   async function onFileChange (e) {
     e.persist();
@@ -55,7 +54,10 @@ const useUploadImage = (e) => {
       arrOfS3SuccessPutPromise.push(successCall);
     });
 
-    //WORKS:
+    //WORKS: Commented out and finished this by adding a .then()
+    // Please reference ProfilePage for complete use of function
+
+    // Legacy code: Talk to Jimmy if question
     // let arrOfS3SuccessPuts = await Promise.all(arrOfS3SuccessPutPromise);
     // // STEP 8: Once the above PUT requests resolve, arrOfS3SuccessPuts will contain all img URLs.
     // // This map returns the exact URL we can use as an img tag's source:
@@ -65,12 +67,12 @@ const useUploadImage = (e) => {
     // });
     // // console.log(s3photoUrlsArray);
     // setCompletedImgArray(s3photoUrlsArray);
-
+    setImageArray([]);
     return Promise.all(arrOfS3SuccessPutPromise);
   };
 
 
-  return { onFileChange, onFormSubmitGeneratePhotoUrl, imageArray, completedImgArray };
+  return { onFileChange, onFormSubmitGeneratePhotoUrl, imageArray };
 };
 
 export default useUploadImage;
