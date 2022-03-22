@@ -1,7 +1,7 @@
 import React,{useEffect,useState} from 'react'
 import styles from './ChatPage.module.css';
 import Chat from './Chat.js'
-import {userb} from './dummydata.js'
+// import {userb} from './dummydata.js'
 import {collection, serverTimestamp, doc, onSnapshot, orderBy, query, setDoc, getDoc } from "firebase/firestore";
 import {db,auth} from '../../firebase.js'
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -10,13 +10,18 @@ import Users from './Users'
 
 
 function ChatPage() {
+  const userb=undefined;
   const [user, loading, error] = useAuthState(auth);
   const[user1, setUser1]= useState({})
   const[user2, setUser2] =useState({})
   let [userList,setUserList] = useState([])
   useEffect(()=>{
-   setUser2(userb)
-  },[userb])
+    if(userb!==undefined){
+      setUser2(userb)
+    } else
+    console.log('triggered',userList)
+    userList.length&& setUser2(userList[0])
+  },[userb,userList])
   useEffect(()=>{
     user&&
     getDoc(doc(db,'users',user.uid)).then(res=>
@@ -24,7 +29,6 @@ function ChatPage() {
     )
   },[user])
   let changeUser = (user) => {
-    console.log('clicked',user)
     setUser2(user)
   }
   async function getDocument (coll, id,coll2,id2) {

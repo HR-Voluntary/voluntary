@@ -2,12 +2,14 @@ var express = require('express');
 var router = express.Router();
 var {
   createItem,
+  editItem,
   createItemWithImgArray,
   getItems,
   getItem,
   getItemByCategory,
   markItemSold,
-  deleteItem
+  deleteItem,
+  UpdateItem
   } = require('../models/item.js');
 
 // CREATE ITEM
@@ -26,7 +28,6 @@ router.post('/img', function(req, res){
   createItemWithImgArray(req.body)
   .then((ifSuccess) => console.log('item created Siva! Check database.'))
   .catch(err => console.log(err))
-
   res.sendStatus(200).end();
 });
 
@@ -48,8 +49,6 @@ router.get('/category/:category', function(req, res){
   });
 });
 
-
-
 // GET ITEM
 router.get('/:id', function(req, res){
   const { id } = req.params;
@@ -67,6 +66,14 @@ router.put('/:id', function(req, res){
     res.status(200).send(items);
   });
 });
+// Edit ITEM // SIVA
+router.put('/itm/:id', function(req, res){
+  const { id } = req.params;
+  UpdateItem(id, req.body)
+  .then(items => {
+    res.status(200).send(items);
+  });
+});
 
 // DELETE ITEM:
 router.delete('/:id', function(req, res){
@@ -77,10 +84,5 @@ router.delete('/:id', function(req, res){
   })
   .catch(err => console.log(err));
 });
-
-// get item by sellerInfo
-
-
-
 
 module.exports = router;

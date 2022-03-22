@@ -10,30 +10,27 @@ import ChatPage from './pages/ChatPage/ChatPage';
 import TrustPage from './pages/TrustPage/TestPage';
 import Navbar from './components/Navbar';
 import styles from './App.module.css';
-import { getAuth } from 'firebase/auth';
+import { AuthProvider } from './contexts/AuthContext';
 
 const App = () => {
 
-  const auth = getAuth();
-  const user = auth.currentUser;
-
   return (
-    <div className={styles.App}>
-        <Routes>
-          <Route path='/' element={<Login />}/>
-          <Route path='/Register' element={<Register />}/>
-          <Route path='/Reset' element={<Reset />}/>
-        </Routes>
-        <Navbar/>
-        <Routes>
-          <Route path='/ListingPage' element={<ListingPage />}/>
-          <Route path='/ProductPage' element={<ProductPage />}/>
-          <Route path='/ProfilePage' element={<ProfilePage />}/>
-          <Route path='/ChatPage' element={<ChatPage />}/>
-          <Route path='/TrustPage' element={<TrustPage />}/>
-          <Route path='/*' element={<ListingPage />}/>
-        </Routes>
-    </div>
+    <AuthProvider>
+      <div className={styles.App}>
+          <Navbar/>
+          <Routes>
+            <Route path='/' element={<Login />}/>
+            <Route path='/Register' element={<Register />}/>
+            <Route path='/Reset' element={<Reset />}/>
+            <Route path='/ListingPage' element={<ListingPage />}/>
+            <Route path='/ProductPage' element={<ProductPage />}/>
+            <Route path='/ProfilePage' element={<ProfilePage />}/>
+            <Route path='/ChatPage' element={<ChatPage />}/>
+            <Route path='/TrustPage' element={<TrustPage />}/>
+            <Route path='/*' element={<ListingPage />}/>
+          </Routes>
+      </div>
+    </AuthProvider>
   );
 }
 

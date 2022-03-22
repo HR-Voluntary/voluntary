@@ -24,9 +24,7 @@ const useUploadImage = (e) => {
     setImageArray([...imageArray].concat(arrOfBlobs));
   };
 
-  async function onFormSubmit (e) {
-    e.preventDefault();
-    e.persist();
+  async function onFormSubmitGeneratePhotoUrl (e) {
   // STEP 1: Declare an array to hold promise values of unresolved API calls:
     let arrOfS3UrlPromises = [];
   // STEP 2: Loop through imgArray (i.e. your state full of base64 images):
@@ -56,19 +54,23 @@ const useUploadImage = (e) => {
       });
       arrOfS3SuccessPutPromise.push(successCall);
     });
-    let arrOfS3SuccessPuts = await Promise.all(arrOfS3SuccessPutPromise);
-  // STEP 8: Once the above PUT requests resolve, arrOfS3SuccessPuts will contain all img URLs.
-  // This map returns the exact URL we can use as an img tag's source:
-    let s3photoUrlsArray = arrOfS3SuccessPuts.map(s3url => {
-     // This map returns the exact URL we can use as an img tag's source:
-      return s3url.config.url.split('?')[0];
-    });
-    // console.log(s3photoUrlsArray);
-    setCompletedImgArray(s3photoUrlsArray);
+
+    //WORKS:
+    // let arrOfS3SuccessPuts = await Promise.all(arrOfS3SuccessPutPromise);
+    // // STEP 8: Once the above PUT requests resolve, arrOfS3SuccessPuts will contain all img URLs.
+    // // This map returns the exact URL we can use as an img tag's source:
+    // let s3photoUrlsArray = arrOfS3SuccessPuts.map(s3url => {
+    //   // This map returns the exact URL we can use as an img tag's source:
+    //   return s3url.config.url.split('?')[0];
+    // });
+    // // console.log(s3photoUrlsArray);
+    // setCompletedImgArray(s3photoUrlsArray);
+
+    return Promise.all(arrOfS3SuccessPutPromise);
   };
 
 
-  return { onFileChange, onFormSubmit, imageArray, completedImgArray };
+  return { onFileChange, onFormSubmitGeneratePhotoUrl, imageArray, completedImgArray };
 };
 
 export default useUploadImage;

@@ -9,11 +9,11 @@ const {
   doc,
 } = require('../db.js');
 
-const userRef = collection(db, 'items');
+const itemRef = collection(db, 'items');
 
 // USER SCHEMA & CREATION
 const createItem = (userObject) => {
-  return addDoc(userRef, {
+  return addDoc(itemRef, {
     category: userObject.category,
     description: userObject.description,
     image: userObject.image,
@@ -28,7 +28,7 @@ const createItem = (userObject) => {
 //Schema for items with multiple image Urls for one item
 
 const createItemWithImgArray = (userObject) => {
-  return addDoc(userRef, {
+  return addDoc(itemRef, {
         category: userObject.category,
         description: userObject.description,
         image: userObject.image,
@@ -42,7 +42,7 @@ const createItemWithImgArray = (userObject) => {
 // THE BELOW IS EXAMPLE WORK FROM IRVING:
 
 const getItems = () => {
-  return getDocs(userRef)
+  return getDocs(itemRef)
     .then((snapshot) => {
       const itemArray = snapshot.docs.map(doc => {
         return {id: doc.id, ...doc.data()};
@@ -54,10 +54,11 @@ const getItems = () => {
 const getItem = (id) => {
   console.log('in getItem')
   console.log(id)
-  return getDocs(userRef)
+  return getDocs(itemRef)
     .then((snapshot) => {
       const doc = snapshot.docs.filter(doc => id === doc.id)
-      return {...doc[0].data()};
+
+      return {id: doc[0].id, ...doc[0].data()};
     })
     .catch((err) => {
       return {  error: err, message: 'item not found!' }
@@ -67,7 +68,7 @@ const getItem = (id) => {
 const getItemByCategory = (category) => {
   console.log('in CATEGORY FUNC')
   console.log(category)
-  return getDocs(userRef)
+  return getDocs(itemRef)
     .then((snapshot) => {
       const docs = snapshot.docs.filter(doc => category === doc.data().category)
 
@@ -90,10 +91,16 @@ const markItemSold = (id) => {
     });
 };
 
+// EDIT item // SIVA
+const  UpdateItem = (id,itemObject) => {
+  //console.log('Iriving need this ', id)
+  return updateDoc(doc(db,'items',id),itemObject);
+};
+
 const deleteItem = (id) => {
   const docToDelete = doc(db, 'items', id);
   return deleteDoc(docToDelete);
-}
+};
 
 
 
@@ -131,5 +138,6 @@ module.exports = {
   getItem,
   markItemSold,
   deleteItem,
-  createItemWithImgArray
+  createItemWithImgArray,
+  UpdateItem
 };

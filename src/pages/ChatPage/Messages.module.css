@@ -1,0 +1,25 @@
+.messageContainer{
+  overflow-y: scroll;
+  height: 80vh;
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 auto;
+}
+.fromMessage{
+  margin-left: auto;
+  margin-right:10px;
+  background-color: #FEDCC5;
+  padding:10px;
+  margin-bottom:5px;
+  border-radius: 14px;
+}
+.toMessage{
+  display: flex;
+  width: fit-content;
+  margin:0;
+  background-color: #E6E6E6;
+  padding:10px;
+  margin-bottom:5px;
+  border-radius: 14px;
+}
