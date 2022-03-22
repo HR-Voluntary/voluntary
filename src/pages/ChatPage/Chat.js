@@ -4,14 +4,12 @@ import {collection,serverTimestamp, doc, onSnapshot, orderBy, query, addDoc,setD
 import {db} from '../../firebase.js';
 import Messages from './Messages';
 
-function Chat({user1, user2}) {
+function Chat({user1, user2,product}) {
   const [messages, setMessages] = useState([]);
   const [messageText, setMessageText] = useState('');
-  console.log(user2)
   // Add a listener
   useEffect(()=> {
     if(Object.keys(user1).length && Object.keys(user2).length){
-      console.log(user2)
       const roomId = user1.uid > user2.uid ? `${user1.uid + user2.uid}` : `${user2.uid + user1.uid}`;
 
       const messagesDoc = collection(db, "messages", roomId, "chat");
@@ -54,10 +52,15 @@ function Chat({user1, user2}) {
   }
   return (
     <div className={styles.messageContainer}>
+      <div className={styles.topBar}>
       <div>
-      <div></div>
+      <div>{console.log(product)}</div>
       <div>{user2.name}</div>
       </div>
+      {product?.sellerInfo===user1.uid?<button className={styles.rateButton} >MARK AS SOLD</button>:<div>i am not selling this</div>}
+
+      </div>
+
       <Messages loggedInUser={user1} messages={messages}></Messages>
       <form className={styles.formContainer} onSubmit={sendMessage} >
         <input className={styles.textBox} type='text' name='messageText' value={messageText} onChange={onChangeTextHandler}/>

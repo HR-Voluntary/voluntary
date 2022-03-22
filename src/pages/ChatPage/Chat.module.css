@@ -18,3 +18,16 @@
   margin-left:5px;
   outline: none;
 }
+.topBar{
+  width: 90%;
+  height: 600px;
+  display: flex;
+  justify-content: space-between;
+}
+.rateButton{
+  background-color: orange;
+  border: none;
+  border-radius: 8px;
+  color:white;
+  padding:  5px 30px;
+}
