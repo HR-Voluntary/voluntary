@@ -27,7 +27,7 @@ const ProductPage = () => {
   const { state } = useLocation();
   console.log(state)
   // const dummyData = '5usff6HI0mIB2TTRy2Ut';
-  const dummyData = state.productId;
+  const dummyData = state?.productId;
 
   const navigate = useNavigate();
 

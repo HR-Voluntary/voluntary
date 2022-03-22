@@ -24,7 +24,7 @@ const ProfilePage = () => {
   const { onFileChange, onFormSubmitGeneratePhotoUrl } = useUploadImage();
 
   // Replace with dynamic data once routing set up
-  const placeholderId = userData.user.uid;
+  const placeholderId = userData?.currentUser?.uid;
   // Function that retrieves user data:
   const setUserState = (userId) => {
     axios.get(`http://localhost:3001/user/profile/${userId}`)
