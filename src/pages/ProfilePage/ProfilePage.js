@@ -28,29 +28,29 @@ const ProfilePage = () => {
   // Function that retrieves user data:
   const setUserState = (userId) => {
     axios.get(`http://localhost:3001/user/profile/${userId}`)
-    .then(res => {
-      setUser(res.data[0]);
-    })
-    .catch(e => console.log(e))
+      .then(res => {
+        setUser(res.data[0]);
+      })
+      .catch(e => console.log(e))
   }
 
   // show1 edit
   // show is list item
 
   useEffect(() => {
-    if(placeholderId){
+    if (placeholderId) {
       setUserState(placeholderId)
     }
 
-  //   axios.get(`http://localhost:3001/user/profile/1AOjnwnoc5bxD1u3VBiaNzKYL2k1`)
-  //   .then(res => {
-  //     console.log(res.data)
-  //     setUser(res.data[0]);
-  //   })
-  //   .then((res) => {
-  //     console.log(res);
-  //   })
-  //   .catch(e => console.log(e))
+    //   axios.get(`http://localhost:3001/user/profile/1AOjnwnoc5bxD1u3VBiaNzKYL2k1`)
+    //   .then(res => {
+    //     console.log(res.data)
+    //     setUser(res.data[0]);
+    //   })
+    //   .then((res) => {
+    //     console.log(res);
+    //   })
+    //   .catch(e => console.log(e))
   }, [placeholderId]);
 
 
@@ -74,103 +74,99 @@ const ProfilePage = () => {
   function handleProductDescriptionChange(e) {
     setProductDescription(e.target.value)
   }
-function handleProductCategoryChange(e) {
-  setProductCategory(e.target.value)
-}
+  function handleProductCategoryChange(e) {
+    setProductCategory(e.target.value)
+  }
 
-function onActiveClickHandler(itemId, activeStatus) {
-  axios({
-    url: `http://localhost:3001/item/itm/${itemId}`,
-    method: 'PUT',
-    data: { isActive: !activeStatus }
-  })
-  .then(() => setUserState(placeholderId))
-  .catch((e) => console.log(e));
-}
+  function onActiveClickHandler(itemId, activeStatus) {
+    axios({
+      url: `http://localhost:3001/item/itm/${itemId}`,
+      method: 'PUT',
+      data: { isActive: !activeStatus }
+    })
+      .then(() => setUserState(placeholderId))
+      .catch((e) => console.log(e));
+  }
 
-function onDeleteClickHandler(itemIdToDelete) {
-  axios({
-    url: `http://localhost:3001/item/${itemIdToDelete}`,
-    method: 'DELETE',
-    data: { id: itemIdToDelete }
-  })
-  .then(() => setUserState(placeholderId))
-  .catch((e) => console.log(e));
-}
+  function onDeleteClickHandler(itemIdToDelete) {
+    axios({
+      url: `http://localhost:3001/item/${itemIdToDelete}`,
+      method: 'DELETE',
+      data: { id: itemIdToDelete }
+    })
+      .then(() => setUserState(placeholderId))
+      .catch((e) => console.log(e));
+  }
 
-async function onEditFormSubmit(e, editProductId) {
-  e.preventDefault();
-  // const arrOfS3SuccessPuts = await onFormSubmitGeneratePhotoUrl();
-  // let s3photoUrlsArray = arrOfS3SuccessPuts.map(s3url => {
-  //   // This map returns the exact URL we can use as an img tag's source:
-  //   return s3url.config.url.split('?')[0];
-  // });
-  console.log('EDIT FORM FIRING')
+  async function onEditFormSubmit(e, editProductId) {
+    e.preventDefault();
+    // const arrOfS3SuccessPuts = await onFormSubmitGeneratePhotoUrl();
+    // let s3photoUrlsArray = arrOfS3SuccessPuts.map(s3url => {
+    //   // This map returns the exact URL we can use as an img tag's source:
+    //   return s3url.config.url.split('?')[0];
+    // });
+    console.log('EDIT FORM FIRING')
 
 
-  axios({
-    url: `http://localhost:3001/item/itm/${editProductId}`,
-    method: 'PUT',
-    data: {
+    axios({
+      url: `http://localhost:3001/item/itm/${editProductId}`,
+      method: 'PUT',
+      data: {
+        category: productCategory,
+        sellerInfo: user.id,
+        // image:s3photoUrlsArray,
+        description: productDescription,
+        name: productTitle
+      }
+    })
+      .then(() => {
+        setUserState(placeholderId);
+      })
+
+
+    setProductTitle('');
+    setProductDescription('');
+    setProductCategory('');
+    setShow1(!show1);
+  }
+
+  async function onFormSubmit(e) {
+    e.preventDefault();
+    const arrOfS3SuccessPuts = await onFormSubmitGeneratePhotoUrl();
+    let s3photoUrlsArray = arrOfS3SuccessPuts.map(s3url => {
+      // This map returns the exact URL we can use as an img tag's source:
+      return s3url.config.url.split('?')[0];
+    });
+
+    let itemToPost = {
       category: productCategory,
       sellerInfo: user.id,
-      // image:s3photoUrlsArray,
+      image: s3photoUrlsArray,
       description: productDescription,
       name: productTitle
-    }
-  })
-  .then(() => {
-    setUserState(placeholderId);
-  })
+    };
+
+    axios({
+      url: 'http://localhost:3001/item/',
+      method: 'POST',
+      data: { itemToPost }
+    })
+      .then(() => {
+        setUserState(placeholderId);
+      })
 
 
-  setProductTitle('');
-  setProductDescription('');
-  setProductCategory('');
-  setShow1(!show1);
-}
-
-async function onFormSubmit(e) {
-  e.preventDefault();
-  const arrOfS3SuccessPuts = await onFormSubmitGeneratePhotoUrl();
-  let s3photoUrlsArray = arrOfS3SuccessPuts.map(s3url => {
-    // This map returns the exact URL we can use as an img tag's source:
-    return s3url.config.url.split('?')[0];
-  });
-
-  let itemToPost = {
-    category: productCategory,
-    sellerInfo: user.id,
-    image:s3photoUrlsArray,
-    description: productDescription,
-    name: productTitle
-  };
-
-  axios({
-    url: 'http://localhost:3001/item/',
-    method: 'POST',
-    data: { itemToPost }
-  })
-  .then(() => {
-    setUserState(placeholderId);
-  })
-
-
-  setProductTitle('');
-  setProductDescription('');
-  setProductCategory('');
-  setShow(!show);
-}
+    setProductTitle('');
+    setProductDescription('');
+    setProductCategory('');
+    setShow(!show);
+  }
 
   if (user === null) {
     return null;
   } else {
     return (
       <section>
-        <div className={styles.navbar}>
-          <button onClick={() => setShow(!show)} className={styles['list-item-btn']}>List Item</button>
-        </div>
-
         <div className={styles.heading}>
           <img className={styles.pic} src={user.photo} alt="profile-pic" />
           <div className={styles['profile-name']}>
@@ -193,57 +189,60 @@ async function onFormSubmit(e) {
 
         <div className={styles.body}>
           <div className={styles['cards-container']}>
-            <h2>Listings</h2>
+            <div className={styles.listingsHeader}>
+              <h2>Listings</h2>
+              <button onClick={() => setShow(!show)}> List Item</button>
+            </div>
             <div className={styles['cards-container-two']}>
-              <Carousel verticalMode itemsToShow={4}>
+              <Carousel verticalMode itemsToShow={5}>
                 {user.userItems.map((card, i) =>
-                <div className={styles.mainContainer}>
-                  {console.log(card)}
-                  <div className={styles.dotStatusContainer}>
-                    <div className={(card.isActive) ? styles.active : styles.notActive} /> {card.isActive ? 'Item is active' : 'Item is not active'}
-                  </div>
-                  <div key={`product-${i}`} className={styles.card}>
-                    <div className={styles.imgTxtContainer}>
-                      <div className={styles.cardImgContainer}>
-                        {card.image[0] && <img src={card.image[0]} alt="Product for sale"/> }
+                  <div className={styles.mainContainer}>
+                    {console.log(card)}
+                    <div className={styles.dotStatusContainer}>
+                      <div className={(card.isActive) ? styles.active : styles.notActive} /> {card.isActive ? 'Item is active' : 'Item is not active'}
+                    </div>
+                    <div key={`product-${i}`} className={styles.card}>
+                      <div className={styles.imgTxtContainer}>
+                        <div className={styles.cardImgContainer}>
+                          {card.image[0] && <img src={card.image[0]} alt="Product for sale" />}
+                        </div>
+                        <div className={styles.cardTxtContainer}>
+                          <div className={styles.cardTitle}>{card.name}</div>
+                          <div className={styles.cardCategory}>{card.category}</div>
+                          <div className={styles.cardDescription}>{card.description}</div>
+                        </div>
                       </div>
-                      <div className={styles.cardTxtContainer}>
-                        <div className={styles.cardTitle}>{card.name}</div>
-                        <div className={styles.cardCategory}>{card.category}</div>
-                        <div className={styles.cardDescription}>{card.description}</div>
+                      <div className={styles.buttons}>
+                        <button onClick={() => {
+                          navigate("/ProductPage", { state: { productId: card.id } })
+                        }} >See Listing</button>
+                        <button onClick={() => {
+                          setShow1(!show1)
+                          setProductTitle(card.name);
+                          setProductDescription(card.description);
+                          setProductCategory(card.category);
+                          setEditProductId(card.id);
+                        }}
+                        >Edit</button>
+                        <button onClick={() => onDeleteClickHandler(card.id)}>Delete</button>
+                        <button onClick={() => onActiveClickHandler(card.id, card.isActive)}>{card.isActive ? ('Mark as Taken') : ('Mark as Active')}</button>
                       </div>
                     </div>
-                    <div className={styles.buttons}>
-                      <button onClick={() => {
-                        navigate("/ProductPage", {state: { productId: card.id }})
-                      }} >See Listing</button>
-                      <button onClick={() => {
-                        setShow1(!show1)
-                        setProductTitle(card.name);
-                        setProductDescription(card.description);
-                        setProductCategory(card.category);
-                        setEditProductId(card.id);
-                      }}
-                      >Edit</button>
-                      <button onClick={() => onDeleteClickHandler(card.id)}>Delete</button>
-                      <button onClick={() => onActiveClickHandler(card.id, card.isActive)}>{card.isActive ? ('Mark as Taken') : ('Mark as Active')}</button>
-                    </div>
                   </div>
-                </div>
                 )}
               </Carousel>
             </div>
           </div>
-          <div className={styles['cards-container']}>
-            <h2>Claimed</h2>
-            {/* <div className={styles['cards-container-two']}>
+          {/* <div className={styles['cards-container']}> */}
+          {/* <h2>Claimed</h2> */}
+          {/* <div className={styles['cards-container-two']}>
               <Carousel verticalMode itemsToShow={4}>
                 {user.claimed.map((card, i) =>
                   <div key={`claimed-${i}`} className={styles.card}></div>
                 )}
               </Carousel>
             </div> */}
-          </div>
+          {/* </div> */}
         </div>
 
 
@@ -281,7 +280,7 @@ async function onFormSubmit(e) {
             </label>
 
             <h2>Upload Picture:</h2>
-            <input type="file" multiple="multiple" onChange={onFileChange}/>
+            <input type="file" multiple="multiple" onChange={onFileChange} />
 
             <button className={styles['form-submit']} type="submit">SUBMIT</button>
           </form>
@@ -289,7 +288,7 @@ async function onFormSubmit(e) {
 
 
 
-            {/* MODAL TO ADD A PRODUCT */}
+        {/* MODAL TO ADD A PRODUCT */}
         <Modal onClose={showModal} show={show}>
           <form className={styles.formContainer} onSubmit={(e) => onFormSubmit(e)}>
 
@@ -323,7 +322,7 @@ async function onFormSubmit(e) {
             </label>
 
             <h2>Upload Picture:</h2>
-            <input type="file" multiple="multiple" onChange={onFileChange}/>
+            <input type="file" multiple="multiple" onChange={onFileChange} />
 
             <button className={styles['form-submit']} type="submit">SUBMIT</button>
           </form>
