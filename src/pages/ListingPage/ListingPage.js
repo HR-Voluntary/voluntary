@@ -44,6 +44,7 @@ const ListingPage = () => {
   //   navigator.geolocation.getCurrentPosition(success, error);
   // }
 
+  console.log(filterListing)
   const getUserLoc = () => {
     const success = (position) => {
       const location = [position.coords.latitude, position.coords.longitude];
