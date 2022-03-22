@@ -10,30 +10,44 @@ import styles from './listingStyle.module.css';
 const ListingPage = () => {
   let [allListings, setAllListings] = useState([]);
   let [filterListing, setFilterListing] = useState([]);
-  // let [userLocation, setUserLocation] = useState([37.791200, -122.396080]);
-  let [mapParams, setMapParams] = useState({
-    userLoc: null,
-    mapBounds: [[-122.507740, 37.712124], [-122.393943, 37.816169]]
-  });
+  let [userLocation, setUserLocation] = useState([37.791200, -122.396080]);
+
+  // let [mapParams, setMapParams] = useState({
+  //   userLoc: null,
+  //   mapBounds: [[-122.507740, 37.712124], [-122.393943, 37.816169]]
+  // });
   // let [userLocation, setUserLocation] = useState(null);
   // let [mapBounds, setMapBounds] = useState([[-122.507740, 37.712124], [-122.393943, 37.816169]]);
 
+  // const getUserLoc = () => {
+  //   const success = (position) => {
+  //     const location = [position.coords.longitude, position.coords.latitude];
+
+  // const sw = rhumbDestination(location, 3, -135, { units: 'miles' });
+  // const ne = rhumbDestination(location, 3, 45, { units: 'miles' });
+  // console.log(location)
+  // console.log(sw.geometry.coordinates);
+  // console.log(ne.geometry.coordinates);
+  // setMapParams({
+  //   userLoc: location,
+  //   mapBounds: [sw.geometry.coordinates, ne.geometry.coordinates]
+  // })
+
+  // setUserLocation([latitude, longitude]);
+  // set new mapBounds here  +- 3 miles block around user location OR 4 miles along the diagonal
+  //   }
+  //   const error = (error) => {
+  //     if (error.code !== 1) {
+  //       alert(`Cannot find location: ${error.message}`);
+  //     }
+  //   }
+  //   navigator.geolocation.getCurrentPosition(success, error);
+  // }
+
   const getUserLoc = () => {
     const success = (position) => {
-      const location = [position.coords.longitude, position.coords.latitude];
+      const location = [position.coords.latitude, position.coords.longitude];
 
-      const sw = rhumbDestination(location, 3, -135, { units: 'miles' });
-      const ne = rhumbDestination(location, 3, 45, { units: 'miles' });
-      // console.log(location)
-      // console.log(sw.geometry.coordinates);
-      // console.log(ne.geometry.coordinates);
-      setMapParams({
-        userLoc: location,
-        mapBounds: [sw.geometry.coordinates, ne.geometry.coordinates]
-      })
-
-      // setUserLocation([latitude, longitude]);
-      // set new mapBounds here  +- 3 miles block around user location OR 4 miles along the diagonal
     }
     const error = (error) => {
       if (error.code !== 1) {
@@ -47,7 +61,9 @@ const ListingPage = () => {
     getListings()
   }, [])
 
-  useEffect(() => getUserLoc(), []);
+  useEffect(() =>
+    getUserLoc(), []
+    );
 
   useEffect(() => {
     getListings()
