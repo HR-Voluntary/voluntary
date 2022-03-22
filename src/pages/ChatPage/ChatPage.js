@@ -6,14 +6,13 @@ import {collection, serverTimestamp, doc, onSnapshot, orderBy, query, setDoc, ge
 import {db,auth} from '../../firebase.js'
 import { useAuthState } from "react-firebase-hooks/auth";
 import Users from './Users'
-// import  {useAuth} from '../../contexts/'
+import { useLocation } from 'react-router';
 
 
-
-
-function ChatPage() {
-  // let userb=undefined;
-
+function ChatPage(  ) {
+  const { state } = useLocation();
+  console.log(state.product.sellerInfo, 'THESE ARE THE PASSED IN PARAMS');
+  const userb = { uid: state.product.sellerInfo };
   const [user, loading, error] = useAuthState(auth);
   const[user1, setUser1]= useState({})
   const[user2, setUser2] =useState({})

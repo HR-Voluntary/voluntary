@@ -1,5 +1,5 @@
 # Voluntary - Donations Made Easy
-Looking to donate locally? Voluntary brings together those looking to donate, as well as those looking to receive. 
+Looking to donate locally? Voluntary brings together those looking to donate, as well as those looking to receive.
 
 Create an account using Google or Facebook, post some items, or browse local listings in your area.
 
@@ -21,8 +21,8 @@ Create an account using Google or Facebook, post some items, or browse local lis
 * Firebase
 * React - Persistant storage
 * AWS - Raspberry Pi-hosted local network server
-* Others TBD... 
-  
+* Others TBD...
+
 ## :heavy_check_mark: Setup
 * .env file in root folder ~ example:
 ```
@@ -35,14 +35,14 @@ REACT_APP_MONGO_URI=''
 * `npm run start` to start React/Webpack server locally
 
 ## :heavy_check_mark: RESTful API
-  
+
 ## Create a New Listing
 
 ### Request
 
 `POST /item/`
 
-http://localhost:3000/item/
+http://localhost:3001/item/
 
 ### Response
 
@@ -56,15 +56,17 @@ http://localhost:3000/item/
 
 `GET /item/:id`
 
-http://localhost:3000/item/:id
+http://localhost:3001/item/:id
 
 ### Response
-```  
-[  
+```
+[
   {
+      "id": "1241sdaklja124",
       "category": "electronics",
       "sellerInfo": "1AOjnwnoc5bxD1u3VBiaNzKYL2k1",
       "location": "San Francisco, California",
+      "isActive": true,
       "image": [
           "https://imageurl.gstatic.com./images?q=tbn:ANd9GcRJwjQ2VbM6DEt8vb5xqBAs2hn9D8EjyR9TyQ&usqp=CAU",
           "https://imageurl.gstatic.com./images?q=tbn:ANd9GcRJwjQ2VbM6DEt8vb5xqBAs2hn9D8EjyR9TyQ&usqp=CAU",
@@ -83,11 +85,11 @@ http://localhost:3000/item/:id
 
 `GET /user/profile/:id`
 
-http://localhost:3000/item/:id
+http://localhost:3001/item/:id
 
 ### Response
-```  
-[  
+```
+[
    {
         "id": "YYr7QsRYHRawcKrsnoICvhGbtok1",
         "email": "irving.sotocastillo@gmail.com",
@@ -104,9 +106,66 @@ http://localhost:3000/item/:id
                 "sellerInfo": "YYr7QsRYHRawcKrsnoICvhGbtok1",
                 "location": "California",
                 "isActive": true,
-                "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJwjQ2VbM6DEt8vb5xqBAs2hn9D8EjyR9TyQ&usqp=CAU"
+                "image": [
+                    "https://imageurl.gstatic.com./images?q=tbn:ANd9GcRJwjQ2VbM6DEt8vb5xqBAs2hn9D8EjyR9TyQ&usqp=CAU",
+                    "https://imageurl.gstatic.com./images?q=tbn:ANd9GcRJwjQ2VbM6DEt8vb5xqBAs2hn9D8EjyR9TyQ&usqp=CAU",
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJwjQ2VbM6DEt8vb5xqBAs2hn9D8EjyR9TyQ&usqp=CAU",
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJwjQ2VbM6DEt8vb5xqBAs2hn9D8EjyR9TyQ&usqp=CAU"
+                 ],
             }
         ]
     }
 ]
+```
+
+### Request
+
+`PUT /ratings/transactionCount/:id`
+
+### Request Body
+```
+{
+// Positive (i.e. thumbs up)
+  "number": 1
+}
+
+// OR
+
+{
+// Negative (i.e. thumbs down)
+  "number": -1
+}
+```
+
+http://localhost:3001/ratings/ratingCount/:id
+
+### Response
+```
+// If positive transaction:
+{
+  "message": "Increased transaction count by 1"
+}
+// If negative transaction:
+{
+  "message": "Decremented transaction count by 1"
+}
+```
+
+### Request
+
+`PUT /ratings/ratingCount/:id`
+
+http://localhost:3001/ratings/ratingCount/:id
+
+### Response
+```
+{
+  "message": "ratings adjusted for user",
+  "userId": "sda31120fsjkl",
+  "updatedInformation": {
+    "ratingsCount": 5,
+    "ratingsScore": 4.5,
+    "trustScore": 2
+  }
+}
 ```
