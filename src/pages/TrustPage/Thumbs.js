@@ -6,7 +6,7 @@ const { thumbsUpWhite, thumbsDownWhite, thumbsDownFill, thumbsUpFill } = icons;
 
 const Thumbs = (props) => {
   const [hoverUp, setHoverUp] = useState(false);
-  const [hoverDown, setHoverDown] = useState(false)
+  const [hoverDown, setHoverDown] = useState(false);
   const [selectUp, setSelectUp] = useState(false);
   const [selectDown, setSelectDown] = useState(false);
   const [selectedThumb, setSelectedThumb] = useState(null);

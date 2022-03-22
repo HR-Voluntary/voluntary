@@ -13,6 +13,7 @@ const ListingPage = () => {
   let [userLocation, setUserLocation] = useState([37.791200, -122.396080]);
   let [initialViewState, setInitialViewState] = useState(null);
 
+  console.log(filterListing)
   const getUserLoc = () => {
     const success = (position) => {
       const latitude = position.coords.latitude;
@@ -120,7 +121,6 @@ const ListingPage = () => {
     // console.log(typeof e.target.value); // string
     // adjustZoom(e.target.value)
     console.log(adjustZoom());
-
   }
 
   return (

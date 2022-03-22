@@ -11,15 +11,17 @@ const Navbar = () => {
   const location = useLocation();
   const [currentImage, setCurrentImage] = useState(require('./utils/Mascot.png'));
 
+  console.log(currentImage)
+
   useEffect(() => {
     if (currentUserData?.photo) {
       setCurrentImage(currentUserData?.photo)
     }
-  }, []);
+  }, [currentUserData]);
 
   if (location.pathname === '/' || location.pathname === '/Register' || location.pathname === '/Reset') {
-    return null
-  }
+    return null;
+  };
 
   return (
     <div className={styles.navbar}>
