@@ -47,7 +47,15 @@ const ListingPage = () => {
   const getUserLoc = () => {
     const success = (position) => {
       const location = [position.coords.latitude, position.coords.longitude];
-
+      console.log(location);
+      axios({
+        method: 'put',
+        // url: `http://localhost:3001/user/edit/editUsr/${}`
+        url: 'http://localhost:3001/user/editUsr/7VOVbYFQl9gl716RJKYcU2KO8pI3',
+        data: { location: location }
+      })
+        .then(() => setUserLocation(location))
+        .catch((err) => alert(`Error updating user location: ${err.message}`));
     }
     const error = (error) => {
       if (error.code !== 1) {
@@ -63,7 +71,7 @@ const ListingPage = () => {
 
   useEffect(() =>
     getUserLoc(), []
-    );
+  );
 
   useEffect(() => {
     getListings()
@@ -82,6 +90,7 @@ const ListingPage = () => {
             return item;
           })))
         })
+
         // ***** DO NOT DELETE *****
         // ***Will implement sort function once data format from API is correct:
         // itemsForSale.sort((a,b) => {
@@ -132,52 +141,54 @@ const ListingPage = () => {
     filterListingsByTrust(allListings, e.target.value)
   }
 
-  const adjustZoom = (filterParam) => {
-    // if (filterParam === '') {
-    //   setInitialViewState(null);
-    // }
+  const filterListingsByDistance = (listings, filterParam) => {
+    if (filterParam === 'default') {
+      setFilterListing(allListings);
+    } else {
+      const filterParamNum = Number(filterParam);
+      let filter = listings.filter((listing) => {
+        if (Array.isArray(listing.location)) {
+          const dist = distance(userLocation, listing.location, {units: 'kilometers'})
+          // console.log(dist);
+          if (dist < filterParamNum) {
+            return listing;
+          }
+        }
+      });
 
-    // const paramNum = Number(filterParam);
-    // // would still be centered around user/default location
-    // // set the bounds
-    // // if no filter is set, set bounds to null
-    // // class = mapboxgl-map
-    // let box = document.querySelector('.mapboxgl-map');
-    // let width = box.offsetWidth;
-    // let height = box.offsetHeight;
-    // return [width, height];
+      setFilterListing(filter);
+
+    }
   }
 
-  const distanceFilterChange = (e) => {
-    // console.log(typeof e.target.value); // string
-    // adjustZoom(e.target.value)
-<<<<<<< HEAD
-    // console.log(adjustZoom());
+const distanceFilterChange = (e) => {
+  filterListingsByDistance(allListings, e.target.value)
+}
 
-=======
-    console.log(adjustZoom());
->>>>>>> main
-  }
-
-  return (
-    <>
-      <div>Listing Page</div>
-      {/* <div>{distance(userLocation, [41.8781, -87.6298], {units: 'miles'})}</div> */}
-      <FilterBar
-        categoryFilterChange={categoryFilterChange}
-        trustFilterChange={trustFilterChange}
-        distanceFilterChange={distanceFilterChange} />
-      <MapListing
-        // userLocation={userLocation}
-        mapParams={mapParams}
-      />
+return (
+  <>
+    {/* <div>{distance(userLocation, [41.8781, -87.6298], {units: 'miles'})}</div> */}
+    <FilterBar
+      categoryFilterChange={categoryFilterChange}
+      trustFilterChange={trustFilterChange}
+      distanceFilterChange={distanceFilterChange}
+    />
+    <div className={styles.parent}>
       <div className={styles.allListings}>
         {filterListing.map(listing => {
           return <Listing listing={listing} />
         })}
       </div>
-    </>
-  )
+      <div className={styles.map}>
+        <MapListing
+          userLocation={userLocation}
+          filterListing={filterListing}
+        // mapParams={mapParams}
+        />
+      </div>
+    </div>
+  </>
+)
 
 };
 

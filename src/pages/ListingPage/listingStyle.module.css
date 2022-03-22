@@ -1,12 +1,28 @@
+.parent {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.map {
+  flex-basis: 40%;
+  max-height: 800px;
+  /* height: 800px; */
+  min-height: 50vh;
+}
+
 .allListings {
   display: flex;
   background-color: #E7E7E7;
   gap: 2em;
   width: 40%;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   flex-direction: column;
   padding: 12px;
   align-items: center;
+  flex-basis: 50%;
+  overflow-x: scroll;
+  max-height: 100vh;
+
 }
 
 .indivListing {
