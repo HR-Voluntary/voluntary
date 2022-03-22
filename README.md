@@ -62,9 +62,11 @@ http://localhost:3000/item/:id
 ```  
 [  
   {
+      "id": "1241sdaklja124",
       "category": "electronics",
       "sellerInfo": "1AOjnwnoc5bxD1u3VBiaNzKYL2k1",
       "location": "San Francisco, California",
+      "isActive": true,
       "image": [
           "https://imageurl.gstatic.com./images?q=tbn:ANd9GcRJwjQ2VbM6DEt8vb5xqBAs2hn9D8EjyR9TyQ&usqp=CAU",
           "https://imageurl.gstatic.com./images?q=tbn:ANd9GcRJwjQ2VbM6DEt8vb5xqBAs2hn9D8EjyR9TyQ&usqp=CAU",
@@ -104,9 +106,66 @@ http://localhost:3000/item/:id
                 "sellerInfo": "YYr7QsRYHRawcKrsnoICvhGbtok1",
                 "location": "California",
                 "isActive": true,
-                "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJwjQ2VbM6DEt8vb5xqBAs2hn9D8EjyR9TyQ&usqp=CAU"
+                "image": [
+                    "https://imageurl.gstatic.com./images?q=tbn:ANd9GcRJwjQ2VbM6DEt8vb5xqBAs2hn9D8EjyR9TyQ&usqp=CAU",
+                    "https://imageurl.gstatic.com./images?q=tbn:ANd9GcRJwjQ2VbM6DEt8vb5xqBAs2hn9D8EjyR9TyQ&usqp=CAU",
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJwjQ2VbM6DEt8vb5xqBAs2hn9D8EjyR9TyQ&usqp=CAU",
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJwjQ2VbM6DEt8vb5xqBAs2hn9D8EjyR9TyQ&usqp=CAU"
+                 ],
             }
         ]
     }
 ]
+```
+
+### Request
+
+`PUT /ratings/transactionCount/:id`
+  
+### Request Body
+```
+{
+// Positive (i.e. thumbs up)
+  "number": 1
+}
+  
+// OR
+  
+{
+// Negative (i.e. thumbs down)
+  "number": -1
+}
+```
+
+http://localhost:3000/ratings/ratingCount/:id
+
+### Response
+```  
+// If positive transaction:
+{
+  "message": "Increased transaction count by 1"
+}
+// If negative transaction:
+{
+  "message": "Decremented transaction count by 1"
+}
+```
+
+### Request
+
+`PUT /ratings/ratingCount/:id`
+
+http://localhost:3000/ratings/ratingCount/:id
+
+### Response
+```  
+{
+  "message": "ratings adjusted for user",
+  "userId": "sda31120fsjkl",
+  "updatedInformation": {
+    "ratingsCount": 5,
+    "ratingsScore": 4.5,
+    "trustScore": 2
+  }
+}
 ```

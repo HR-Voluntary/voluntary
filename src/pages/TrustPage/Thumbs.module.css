@@ -1,0 +1,35 @@
+.bothThumbs {
+  display: flex;
+}
+
+.thumbsUp {
+  height: 60px;
+  width: 60px;
+}
+
+.thumbsDown {
+  height: 60px;
+  width: 60px;
+}
+
+#thumbsUpWhiteSVG {
+  margin: 5px 5px 5px 5px;
+}
+
+#thumbsDownWhiteSVG {
+  margin: 5px 5px 5px 5px;
+}
+
+.allStars {
+  display: flex;
+}
+
+.star {
+  height: 60px;
+  width: 60px;
+}
+
+#starSVG {
+  margin: 5px 5px 5px 5px;
+
+}

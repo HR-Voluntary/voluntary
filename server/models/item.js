@@ -79,10 +79,6 @@ const getItemByCategory = (category) => {
     });
   };
 
-  const  UpdateItem = (id, itemObject) => {
-    return updateDoc(doc(db,'items',id),itemObject);
-    //return setDoc(doc(db,'users',userObject.uid),obj);
-  };
 const markItemSold = (id) => {
   const docToUpdate = doc(db, 'items', id);
   return updateDoc(docToUpdate, { isActive: false })
@@ -91,10 +87,16 @@ const markItemSold = (id) => {
     });
 };
 
+// EDIT item // SIVA
+const UpdateItem = (id,itemObject) => {
+  //console.log('Iriving need this ', id)
+  return updateDoc(doc(db,'items',id),itemObject);
+};
+
 const deleteItem = (id) => {
   const docToDelete = doc(db, 'items', id);
   return deleteDoc(docToDelete);
-}
+};
 
 
 
