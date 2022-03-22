@@ -30,7 +30,7 @@ const useUploadImage = (e) => {
   // STEP 2: Loop through imgArray (i.e. your state full of base64 images):
     imageArray.forEach(img => {
       // For each image, retrieve an S3 URL to upload that image to:
-      let getUrl = axios({ method: 'GET', url: 'http://localhost:3000/s3Url' }).then(data => data.data);
+      let getUrl = axios({ method: 'GET', url: 'http://localhost:3001/s3Url' }).then(data => data.data);
       arrOfS3UrlPromises.push(getUrl);
     });
   // STEP 3: Wait for those axios requests to resolve, giving you the final S3 signed URL array:

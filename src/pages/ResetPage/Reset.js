@@ -19,6 +19,7 @@ const Reset = () => {
   return (
     <div className={styles.reset}>
       <div className={styles.reset__container}>
+        <img className={styles.mascot} src={require('./utils/Mascot.png')} alt=''></img>
         <input
           type='text'
           className={styles.reset__textBox}
