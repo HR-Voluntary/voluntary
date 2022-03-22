@@ -13,15 +13,7 @@ const itemRef = collection(db, 'items');
 
 // USER SCHEMA & CREATION
 const createItem = (userObject) => {
-  return addDoc(itemRef, {
-    category: userObject.category,
-    description: userObject.description,
-    image: userObject.image,
-    location: userObject.location,
-    name: userObject.name,
-    sellerInfo: userObject.sellerInfo,
-    isActive: userObject.isActive
-  });
+  return addDoc(itemRef, userObject);
 };
 
 //// SIVA DOING IT //

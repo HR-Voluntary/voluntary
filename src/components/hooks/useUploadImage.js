@@ -4,7 +4,6 @@ import axios from 'axios';
 
 const useUploadImage = (e) => {
   const [imageArray, setImageArray] = useState([]);
-  const [completedImgArray, setCompletedImgArray] = useState([]);
 
   async function onFileChange (e) {
     e.persist();
@@ -30,7 +29,7 @@ const useUploadImage = (e) => {
   // STEP 2: Loop through imgArray (i.e. your state full of base64 images):
     imageArray.forEach(img => {
       // For each image, retrieve an S3 URL to upload that image to:
-      let getUrl = axios({ method: 'GET', url: 'http://localhost:3000/s3Url' }).then(data => data.data);
+      let getUrl = axios({ method: 'GET', url: 'http://localhost:3001/s3Url' }).then(data => data.data);
       arrOfS3UrlPromises.push(getUrl);
     });
   // STEP 3: Wait for those axios requests to resolve, giving you the final S3 signed URL array:
@@ -55,7 +54,10 @@ const useUploadImage = (e) => {
       arrOfS3SuccessPutPromise.push(successCall);
     });
 
-    //WORKS:
+    //WORKS: Commented out and finished this by adding a .then()
+    // Please reference ProfilePage for complete use of function
+
+    // Legacy code: Talk to Jimmy if question
     // let arrOfS3SuccessPuts = await Promise.all(arrOfS3SuccessPutPromise);
     // // STEP 8: Once the above PUT requests resolve, arrOfS3SuccessPuts will contain all img URLs.
     // // This map returns the exact URL we can use as an img tag's source:
@@ -65,12 +67,12 @@ const useUploadImage = (e) => {
     // });
     // // console.log(s3photoUrlsArray);
     // setCompletedImgArray(s3photoUrlsArray);
-
+    setImageArray([]);
     return Promise.all(arrOfS3SuccessPutPromise);
   };
 
 
-  return { onFileChange, onFormSubmitGeneratePhotoUrl, imageArray, completedImgArray };
+  return { onFileChange, onFormSubmitGeneratePhotoUrl, imageArray };
 };
 
 export default useUploadImage;

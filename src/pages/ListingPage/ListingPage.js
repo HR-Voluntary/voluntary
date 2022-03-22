@@ -70,7 +70,7 @@ const ListingPage = () => {
   }, [])
 
   const getListings = () => {
-    axios.get('http://localhost:3000/user/all')
+    axios.get('http://localhost:3001/user/all')
       .then(response => {
         const userData = response.data;
         //console.log(userData);
@@ -151,8 +151,12 @@ const ListingPage = () => {
   const distanceFilterChange = (e) => {
     // console.log(typeof e.target.value); // string
     // adjustZoom(e.target.value)
+<<<<<<< HEAD
     // console.log(adjustZoom());
 
+=======
+    console.log(adjustZoom());
+>>>>>>> main
   }
 
   return (
