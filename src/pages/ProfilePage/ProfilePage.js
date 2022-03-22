@@ -35,7 +35,10 @@ const ProfilePage = () => {
   }
 
   useEffect(() => {
-  setUserState(placeholderId)
+    if(placeholderId){
+      setUserState(placeholderId)
+    }
+
   //   axios.get(`http://localhost:3001/user/profile/1AOjnwnoc5bxD1u3VBiaNzKYL2k1`)
   //   .then(res => {
   //     console.log(res.data)
@@ -45,7 +48,7 @@ const ProfilePage = () => {
   //     console.log(res);
   //   })
   //   .catch(e => console.log(e))
-  }, []);
+  }, [placeholderId]);
 
 
 
