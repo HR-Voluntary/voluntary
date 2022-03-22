@@ -76,7 +76,7 @@ router.put('/trustScore/thumbsdown/:id', (req, res) => {
     })
     .catch(() => res.status(400).end());
 });
-
+// user info
 router.get('/:id', (req, res) => {
   const { id } = req.params;
   // console.log(id);
