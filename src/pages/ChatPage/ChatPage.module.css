@@ -1,7 +1,10 @@
 .chatBody{
   display: flex;
+  margin-top: 15px;
   flex-grow: 1;
 }
 .sideBar{
-  width:25vw;
+  width:18vw;
+
+
 }
