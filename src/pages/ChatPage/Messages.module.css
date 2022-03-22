@@ -13,6 +13,7 @@
   padding:10px;
   margin-bottom:5px;
   border-radius: 14px;
+  max-width: 75%;
 }
 .toMessage{
   display: flex;
@@ -22,4 +23,5 @@
   padding:10px;
   margin-bottom:5px;
   border-radius: 14px;
+  max-width: 75%;
 }
