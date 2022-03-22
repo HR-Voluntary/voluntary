@@ -16,8 +16,8 @@ import {
   getDocs,
   collection,
   where,
-  addDoc,
   setDoc,
+  updateDoc,
 }
 from "firebase/firestore";
 
@@ -39,21 +39,30 @@ const facebookProvider = new FacebookAuthProvider();
 const googleProvider = new GoogleAuthProvider();
 
 const signInWithGoogle = async () => {
+
   try {
     const res = await signInWithPopup(auth, googleProvider);
     const user = res.user;
     const q = query(collection(db, "users"), where("uid", "==", user.uid));
     const docs = await getDocs(q);
-    console.log(docs.docs, 'google')
     if (docs.docs.length === 0) {
       await setDoc(doc(db, 'users', user.uid), {
         uid: user.uid,
-        trustScore: 50,
         name: user.displayName,
+        trustScore: 1,
         authProvider: 'google',
         email: user.email,
         photo: user.photoURL,
+        type: 'Individual',
+        location: [],
+        transactionCount: 0,
+        ratingsScore: 0,
+        ratingsCount: 0,
+        active: true,
       });
+    } else {
+      const docToUpdate = doc(db, 'users', user.uid);
+      updateDoc(docToUpdate, { active: true} );
     }
   } catch (err) {
     console.error(err);
@@ -67,16 +76,24 @@ const signInWithFacebook = async () => {
     const user = res.user;
     const q = query(collection(db, "users"), where("uid", "==", user.uid));
     const docs = await getDocs(q);
-    console.log(user);
     if (docs.docs.length === 0) {
       await setDoc(doc(db, 'users', user.uid), {
         uid: user.uid,
         name: user.displayName,
-        trustScore: 50,
-        authProvider: 'google',
+        trustScore: 1,
+        authProvider: 'facebook',
         email: user.email,
         photo: user.photoURL,
+        type: 'Individual',
+        location: [],
+        transactionCount: 0,
+        ratingsScore: 0,
+        ratingsCount: 0,
+        active: true,
       });
+    } else {
+      const docToUpdate = doc(db, 'users', user.uid);
+      updateDoc(docToUpdate, { active: true} );
     }
   } catch (err) {
     console.error(err);
@@ -87,23 +104,31 @@ const signInWithFacebook = async () => {
 const logInWithEmailAndPassword = async (email, password) => {
   try {
     await signInWithEmailAndPassword(auth, email, password);
+    const docToUpdate = doc(db, 'users', auth.currentUser.uid);
+    updateDoc(docToUpdate, { active: true } );
   } catch (err) {
     console.error(err);
     alert(err.message);
   }
 };
 
-const registerWithEmailAndPassword = async (name, email, password) => {
+const registerWithEmailAndPassword = async (name, email, password, type) => {
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
     const user = res.user;
     await setDoc(doc(db, 'users', user.uid), {
       uid: user.uid,
-      name,
-      trustScore: 50,
+      name: user.displayName,
+      trustScore: 1,
       authProvider: 'local',
       email: user.email,
-      photo: '',
+      photo: user.photoURL,
+      type: 'Individual',
+      location: [],
+      transactionCount: 0,
+      ratingsScore: 0,
+      ratingsCount: 0,
+      active: true,
     })
   } catch (err) {
     console.error(err);
@@ -122,7 +147,11 @@ const sendPasswordReset = async (email) => {
 };
 
 const logout = async () => {
- await signOut(auth);
+  const user = auth.currentUser.uid;
+  const docToUpdate = doc(db, 'users', user);
+  updateDoc(docToUpdate, { active: false } );
+
+  await signOut(auth);
 };
 
 export {

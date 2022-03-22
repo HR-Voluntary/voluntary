@@ -1,20 +1,38 @@
 import React from 'react';
-import "./Navbar.css";
-
+import styles from './Navbar.module.css';
+import { useLocation } from 'react-router';
+import { logout } from '../firebase';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 
 const Navbar = () => {
+
+  const { user } = useAuth();
+  const location = useLocation();
+
+  if (location.pathname === '/' || location.pathname === '/Register' || location.pathname === '/Reset') {
+    return null
+  }
+
   return (
-    <div className='navbar'>
-      <span className='logo'>PlaceHolder</span>
-      <ul className='navbar_list'>
-        <li className='navbar_list_item'>
-          <img src='' alt='' className='navbar_avatar' />
+    <div className={styles.navbar}>
+      <span className={styles.logo}>
+        <Link className={styles.logo} to='/ListPage'>
+          <img className={styles.image} src={require('./utils/Mascot.png')} alt=''></img>
+          <span className={styles.logoText}>Voluntary</span>
+        </Link>
+      </span>
+      <ul className={styles.navbar_list}>
+        <li className={styles.navbar_list_item}>
+          <Link className={styles.link} to='/ProfilePage'>
+            <img src={user?.photoURL} alt='' className={styles.navbar_avatar} />
+          </Link>
         </li>
-        <li className='navbar_list_item'>
-          John Doe
+        <li className={styles.navbar_list_item}>
+          <Link className={styles.link} to='/ProfilePage'>{user?.displayName}</Link>
         </li>
-        <li className='navbar_logout_button'>
-          logout
+        <li>
+          <button className={styles.navbar_logout_button} onClick={ logout }><span>Logout</span></button>
         </li>
       </ul>
     </div>

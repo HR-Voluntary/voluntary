@@ -1,0 +1,155 @@
+section {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  background-color:#FEDCC5;
+}
+
+.navbar {
+  width: 100%;
+  min-height: 60px;
+  /* border: solid 1px; */
+  background-color: red;
+  position: relative;
+}
+
+.heading {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 100vw;
+  height: 250px;
+  /* border: solid 1px; */
+}
+
+.body {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100vw;
+  height: 1000px;
+  /* border: solid 1px; */
+  background-color: #FFFFFF;
+}
+
+.cards-container {
+  width: 40%;
+  height: 100%;
+  /* border: solid 1px; */
+}
+
+.cards-container h2 {
+  margin-left: 10px;
+}
+
+.card {
+  width: 80%;
+  height: 120px;
+  border: solid 1px;
+  margin: 10px;
+}
+
+/* .rec.rec-arrow {
+  background-color: #FEDCC5;
+  margin: 0 20px;
+}
+
+.rec.rec-arrow:hover {
+  background-color: #FEDCC5;
+}
+
+.rec.rec-arrow-up:hover:enabled,
+.rec.rec-arrow-down:hover:enabled{
+    background-color: rgb(223, 144, 144);
+    box-shadow: 0 0 1px 3px var(--clr-primary-400);
+}
+
+.rec.rec-arrow-up:focus:enabled,
+.rec.rec-arrow-down:focus:enabled{
+    background-color: #FEDCC5;
+    box-shadow: 0 0 1px 3px var(--clr-primary-400);
+    color: black;
+}
+
+.rec.rec-dot {
+  display: none;
+} */
+
+.cards-container-two {
+  display: flex;
+
+}
+
+.pic {
+  /* border: solid 1px; */
+  width: 100px;
+  height: 100px;
+  border-radius: 100%;
+}
+
+.profile-name {
+  /* border: solid 1px; */
+  width: 250px;
+  height: 150px;
+  text-align: center;
+}
+
+.votes {
+  /* border: solid 1px; */
+  width: 450px;
+  height: 150px;
+  text-align: center;
+  display: flex;
+  justify-content: space-around;
+}
+
+.msg-btn {
+  /* border: solid 1px; */
+  width: 100px;
+  height: 50px;
+}
+
+.list-item-btn {
+  position: absolute;
+  top: 30%;
+  left: 90%;
+}
+
+
+/* THIS CSS BELONGS TO THE FORM CARD INSIDE DAN'S MODAL */
+
+.formContainer {
+  position: absolute;
+  top: 20%;
+  left: 25%;
+  width: 1000px;
+  height: 950px;
+  background-color: white;
+  z-index: 2;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color:#FEDCC5;
+
+}
+
+.formContainer textarea {
+  width: 350px;
+  height: 50px;
+}
+
+.form-product-title {
+  width: 350px;
+}
+
+.form-product-description {
+  width: 350px;
+}
+
+.form-submit {
+  margin-top: 20px;
+}

@@ -4,6 +4,7 @@ import FilterBar from './FilterBar.js';
 import axios from 'axios';
 import Listing from './Listing.js';
 import distance from '@turf/distance';
+import styles from './listingStyle.module.css';
 
 
 const ListingPage = () => {
@@ -131,10 +132,10 @@ const ListingPage = () => {
         trustFilterChange={trustFilterChange}
         distanceFilterChange={distanceFilterChange} />
       <MapListing userLocation={userLocation} />
-      <div className="all-listings">
-        {filterListing.map(listing => {
-          return <Listing listing={listing} />
-        })}
+      <div className={styles.allListings}>
+      {filterListing.map(listing => {
+        return <Listing listing={listing}/>
+      })}
       </div>
     </>
   )

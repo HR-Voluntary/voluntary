@@ -1,0 +1,26 @@
+.allListings {
+  display: flex;
+  background-color: #E7E7E7;
+  gap: 2em;
+  width: 40%;
+  flex-wrap: wrap;
+  flex-direction: column;
+  padding: 12px;
+  align-items: center;
+}
+
+.indivListing {
+  display: flex;
+  background-color: aliceblue;
+  border-radius: 12px;
+  gap: 3em;
+  width: 80%;
+  align-items: center;
+}
+
+.indivListingRight {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  justify-content: center;
+}

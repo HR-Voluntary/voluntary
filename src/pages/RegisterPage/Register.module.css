@@ -1,0 +1,150 @@
+.register {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  background-color:#FEDCC5;
+  background-image: url('./utils/background.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.register__container {
+  width:35%;
+  height:80%;
+  display: flex;
+  flex-direction: column;
+  opacity: 1;
+  border-radius: 40px;
+  background-color: rgb(255 255 255 / 33%);
+  padding: 30px;
+  border-width: 3px;
+  border-color: black;
+  align-items: center;
+
+}
+.register__textBox {
+  padding: 10px;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+.register__btn {
+  padding: 20px;
+  font-size: 18px;
+  margin-bottom: 10px;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  background-color: rgb(242, 80, 25);
+}
+.register__google {
+  background-color: #4285f4;
+  border-radius: 30px;
+  font-size: 30px;
+  height: 100%;
+  width: 100%;
+  padding: 12px 50px 12px 50px;
+}
+
+.register__facebook {
+  border-radius: 30px;
+  font-size: 25px;
+  height: 100%;
+  width: 100%;
+  padding: 12px 50px 12px 50px;
+}
+
+.register__text {
+  display: flex;
+  justify-content: center;
+  margin-top: 44px;
+  margin-bottom: 15px;
+}
+
+.register__passwordText {
+  margin-bottom: 2px;
+}
+
+.register__features {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin-top: 10%
+}
+
+.register__btnContainer {
+  align-self: center;
+}
+
+.register__authBtns {
+  width: 100%;
+}
+
+.register__registerText {
+  align-self: center
+}
+
+.register__emailInput {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 25px;
+  border-radius: 8px;
+  border: none;
+}
+.register__passwordInput {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 25px;
+  border-radius: 8px;
+  border: none;
+  margin-bottom: 31px;
+}
+
+.register__container h5 {
+  margin: 0;
+  margin-bottom: 11px;
+  color: #f25019;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: Abel;
+}
+
+.register__container h1 {
+  margin: 0;
+  font-size: 38px;
+  font-weight: 400;
+  margin-bottom: 26px;
+}
+
+.register_emailContainer div{
+  margin-bottom: 7px;
+}
+.register_passwordContainer div {
+  margin-bottom: 7px;
+}
+
+.register__reset {
+  margin-top: 17px;
+  margin-bottom: 41px;
+}
+
+.register__registerText {
+  margin-top: 31px;
+}
+
+.register__register {
+  margin-left: 38px;
+}
+
+.dropdown {
+  margin-bottom: 31px;
+  height: 65px;
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  padding: 0px 25px;
+}
+
+.dropdown_text {
+  margin-bottom: 7px;
+}
