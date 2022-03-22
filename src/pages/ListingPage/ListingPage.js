@@ -120,7 +120,6 @@ const ListingPage = () => {
     // console.log(typeof e.target.value); // string
     // adjustZoom(e.target.value)
     console.log(adjustZoom());
-
   }
 
   return (

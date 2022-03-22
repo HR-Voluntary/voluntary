@@ -1,9 +1,18 @@
 import React from 'react';
 import styles from './listingStyle.module.css';
+import { useNavigate } from 'react-router';
 
-const Listing = ({listing}) => {
+const Listing = ({ listing }) => {
+
+  const navigate = useNavigate();
+  const navigateToProductPage = () => {
+    navigate('/ProductPage', {
+      state: { productId: listing.id }
+    });
+  }
+
   return (
-    <div className={styles.indivListing}>
+    <div onClick={navigateToProductPage} className={styles.indivListing}>
       <img className="listing-image" src={listing.image} alt=""></img>
       <div className={styles.indivListingRight}>
         <span className="listing-loc">Location: {listing.location}</span>
