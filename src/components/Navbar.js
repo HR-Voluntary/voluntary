@@ -7,7 +7,7 @@ import { useAuth } from '../contexts/AuthContext';
 
 const Navbar = () => {
 
-  const { currentUser, currentUserData } = useAuth();
+  const { currentUserData } = useAuth();
   const location = useLocation();
   const [currentImage, setCurrentImage] = useState(require('./utils/Mascot.png'));
 
