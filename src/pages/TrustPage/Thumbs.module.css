@@ -1,3 +1,10 @@
+.popup {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 35%;
+}
+
 .bothThumbs {
   display: flex;
 }
@@ -19,6 +26,7 @@
 #thumbsDownWhiteSVG {
   margin: 5px 5px 5px 5px;
 }
+
 
 .allStars {
   display: flex;

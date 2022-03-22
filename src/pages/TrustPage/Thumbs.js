@@ -44,7 +44,7 @@ const Thumbs = (props) => {
   useEffect(() => console.log('hi'), [selectUp, selectDown]);
 
   return (
-    <div>
+    <div className={styles.popup}>
       <p>Did you receive transaction?</p>
       <div className={styles.bothThumbs}>
         <div

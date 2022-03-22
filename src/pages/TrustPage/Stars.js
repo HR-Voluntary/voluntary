@@ -31,7 +31,7 @@ const Stars = () => {
   useEffect(() => console.log('re-render', rating), [rating]);
 
   return (
-    <div>
+    <div className={styles.popup}>
       <p>How was the transaction?</p>
       <div className={styles.allStars}>
         {(finalRating || rating).map((star, index) =>
@@ -39,7 +39,7 @@ const Stars = () => {
             id={index}
             key={`star-${index}`}
             className={styles.star}
-            onMouseEnter={hoverFillStars}
+            onMouseOver={hoverFillStars}
             onMouseLeave={emptyStars}
             onClick={handleClick}
           >
