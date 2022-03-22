@@ -26,8 +26,8 @@ const ProductPage = () => {
   const [allItemPictures, setAllItemPictures] = useState([]);
   const { state } = useLocation();
   console.log(state)
-  // const dummyData = '5usff6HI0mIB2TTRy2Ut';
-  const dummyData = state?.productId;
+  const dummyData = 'ohXSr3sSQTOUwjOKiChy';
+  // const dummyData = state?.productId;
 
   const navigate = useNavigate();
 
