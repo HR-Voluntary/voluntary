@@ -34,6 +34,9 @@ const ProfilePage = () => {
     .catch(e => console.log(e))
   }
 
+  // show1 edit
+  // show is list item
+
   useEffect(() => {
     if(placeholderId){
       setUserState(placeholderId)
