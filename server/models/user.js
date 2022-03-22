@@ -90,9 +90,13 @@ const getUser = (id) => {
 }
 //Get trustscore BY SIVA
 const getTrustScore = (id) => {
+
   return getDocs(userRef)
     .then((snapshot) => {
       const doc = snapshot.docs.filter(doc => doc.id === id);
+      if(doc[0].data().trustScore <= 0) {
+        return new Error({message: 'User is already at 0 and cannot  go lower'})
+      }
       return {trustScore: doc[0].data().trustScore };
     });
 }
@@ -126,21 +130,10 @@ const thumbsDown = (user) => {
   }
 }
 
-//POST request for User with an array of lattitude and longitude as an arry with key location
-const  UpdateUser = (userObject) => {
-  const obj = {
-    authProvider: userObject.authProvider,
-    email: userObject.email,
-    name: userObject.name,
-    photo: userObject.photo,
-    trustScore: userObject.trustScore,
-    type: userObject.type,
-    location: userObject.location,
-    uid: userObject.uid
-   }
-  return setDoc(doc(db,'users',userObject.uid),obj);
- // return addDoc(userRef, {
-  //})
+//PUT request for User with an array of lattitude and longitude as an arry with key location
+const  UpdateUser = (id, userObject) => {
+  return updateDoc(doc(db,'users',id),userObject);
+  //return setDoc(doc(db,'users',userObject.uid),obj);
 };
 
 // const docToUpdate = doc(db, 'items', id);

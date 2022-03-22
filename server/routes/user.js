@@ -10,9 +10,10 @@ var { getUsers,
    UpdateUser,
   } = require('../models/user.js');
 
-  router.put('/addUsr/:id', function(req, res){
-    console.log(req.body);
-    UpdateUser(req.body)
+  router.put('/editUsr/:id', function(req, res){
+   // console.log(req.body);
+   const { id } = req.params;
+    UpdateUser(id, req.body)
     .then((ifSuccess) => console.log('User added Siva! Check database.'))
     .catch(err => console.log(err))
     res.sendStatus(200).end();
@@ -47,7 +48,6 @@ router.get('/trustScore/:id', function(req, res) {
   const { id } = req.params;
   getTrustScore(id)
   .then(score => {
-    console.log('Score = ', score);
     res.status(200).send(score);
   })
   .catch(() => res.status(400).end());
