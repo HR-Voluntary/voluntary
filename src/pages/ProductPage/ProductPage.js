@@ -200,7 +200,7 @@ const ProductPage = () => {
 
   return (
     <>
-      <button><a className={styles.link} href="http://localhost:3001/ListingPage">Back to Listings</a></button>
+      <button onClick={() => navigate('/ListPage')}>Back to Listings</button>
       <button onClick={clickSimilar}>Similar Products</button>
       <button onClick={clickSellerItems}>Other Items from the Seller</button>
       <div>

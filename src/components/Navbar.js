@@ -20,8 +20,8 @@ const Navbar = () => {
   }, [currentUserData]);
 
   if (location.pathname === '/' || location.pathname === '/Register' || location.pathname === '/Reset') {
-    return null
-  }
+    return null;
+  };
 
   return (
     <div className={styles.navbar}>
