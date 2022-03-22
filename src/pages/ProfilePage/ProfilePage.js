@@ -41,6 +41,9 @@ const ProfilePage = () => {
     .catch(e => console.log(e))
   }
 
+  // show1 edit
+  // show is list item
+
   useEffect(() => {
     if (placeholderId) {
       // Axios Call to get user/item data here:

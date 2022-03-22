@@ -16,21 +16,20 @@ import { useNavigate } from 'react-router';
 
 const ProductPage = () => {
 
-  const [pageDisplay, setPageDisplay] = useState('product')
-  const [product, setProduct] = useState([])
-  const [mainImage, setMainImage] = useState('')
-  const [newProducts, setNewProducts] = useState([])
-  const [mainName, setMainName] = useState('')
-  const [mainDescription, setMainDescription] = useState('')
-  const [mainSeller, setMainSeller] = useState('')
+  const [pageDisplay, setPageDisplay] = useState('product');
+  const [product, setProduct] = useState([]);
+  const [mainImage, setMainImage] = useState('');
+  const [newProducts, setNewProducts] = useState([]);
+  const [mainName, setMainName] = useState('');
+  const [mainDescription, setMainDescription] = useState('');
+  const [mainSeller, setMainSeller] = useState('');
   const [allItemPictures, setAllItemPictures] = useState([]);
   const { state } = useLocation();
+  console.log(state)
+  // const dummyData = 'ohXSr3sSQTOUwjOKiChy';
   const dummyData = state?.productId;
   const navigate = useNavigate();
 
-
-  console.log(product);
-  // const dummyData = '5usff6HI0mIB2TTRy2Ut';
   function clickChat() {
     // update a value in app.js for the sellerId so that chat can access it
     // mainSeller || product.sellerInfo
@@ -198,13 +197,12 @@ const ProductPage = () => {
 
   return (
     <>
-      <button><a className={styles.link} href="http://localhost:3001/ListingPage">Back to Listings</a></button>
+      <button onClick={() => navigate('/ListPage')}>Back to Listings</button>
       <button onClick={clickSimilar}>Similar Products</button>
       <button onClick={clickSellerItems}>Other Items from the Seller</button>
       <div>
         {renderPage()}
       </div>
-
     </>
   )
 }
