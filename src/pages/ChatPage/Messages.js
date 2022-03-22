@@ -19,4 +19,4 @@ function Messages({loggedInUser,messages,messRef}) {
   )
 }
 
-export default Messages
+export default Messages;

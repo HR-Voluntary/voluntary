@@ -38,7 +38,7 @@ const ListingPage = () => {
   }, [])
 
   const getListings = () => {
-    axios.get('http://localhost:3000/user/all')
+    axios.get('http://localhost:3001/user/all')
       .then(response => {
         const userData = response.data;
         //console.log(userData);

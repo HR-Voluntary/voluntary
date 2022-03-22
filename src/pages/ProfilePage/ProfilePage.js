@@ -27,7 +27,7 @@ const ProfilePage = () => {
   const placeholderId = userData.user.uid;
   // Function that retrieves user data:
   const setUserState = (userId) => {
-    axios.get(`http://localhost:3000/user/profile/${userId}`)
+    axios.get(`http://localhost:3001/user/profile/${userId}`)
     .then(res => {
       setUser(res.data[0]);
     })
@@ -36,7 +36,7 @@ const ProfilePage = () => {
 
   useEffect(() => {
   setUserState(placeholderId)
-  //   axios.get(`http://localhost:3000/user/profile/1AOjnwnoc5bxD1u3VBiaNzKYL2k1`)
+  //   axios.get(`http://localhost:3001/user/profile/1AOjnwnoc5bxD1u3VBiaNzKYL2k1`)
   //   .then(res => {
   //     console.log(res.data)
   //     setUser(res.data[0]);
@@ -74,7 +74,7 @@ function handleProductCategoryChange(e) {
 
 function onActiveClickHandler(itemId, activeStatus) {
   axios({
-    url: `http://localhost:3000/item/itm/${itemId}`,
+    url: `http://localhost:3001/item/itm/${itemId}`,
     method: 'PUT',
     data: { isActive: !activeStatus }
   })
@@ -84,7 +84,7 @@ function onActiveClickHandler(itemId, activeStatus) {
 
 function onDeleteClickHandler(itemIdToDelete) {
   axios({
-    url: `http://localhost:3000/item/${itemIdToDelete}`,
+    url: `http://localhost:3001/item/${itemIdToDelete}`,
     method: 'DELETE',
     data: { id: itemIdToDelete }
   })
@@ -103,7 +103,7 @@ async function onEditFormSubmit(e, editProductId) {
 
 
   axios({
-    url: `http://localhost:3000/item/itm/${editProductId}`,
+    url: `http://localhost:3001/item/itm/${editProductId}`,
     method: 'PUT',
     data: {
       category: productCategory,
@@ -141,7 +141,7 @@ async function onFormSubmit(e) {
   };
 
   axios({
-    url: 'http://localhost:3000/item/',
+    url: 'http://localhost:3001/item/',
     method: 'POST',
     data: { itemToPost }
   })
@@ -322,7 +322,6 @@ async function onFormSubmit(e) {
             <button className={styles['form-submit']} type="submit">SUBMIT</button>
           </form>
         </Modal>
-
       </section>
     )
   }

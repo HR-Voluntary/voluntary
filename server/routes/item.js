@@ -13,7 +13,7 @@ var {
   } = require('../models/item.js');
 
 // CREATE ITEM
-router.post('/', function(req, res){
+router.post('/', function(req, res) {
   const { itemToPost } = req.body;
   itemToPost.isActive = true;
 
@@ -21,7 +21,7 @@ router.post('/', function(req, res){
 
   createItem(itemToPost)
   .then((ifSuccess) => res.status(200).send({ message: 'Successfully posted item', }))
-  .catch(err =>  res.sendStatus(400).end({message: 'There was an error', errorObject: err}))
+  .catch(err =>  res.sendStatus(400).end({message: 'There was an error', errorObject: err}));
 });
 
 //// SIVA DOING IT //
@@ -55,6 +55,7 @@ router.get('/category/:category', function(req, res){
 // GET ITEM
 router.get('/:id', function(req, res){
   const { id } = req.params;
+  //console.log('ID = ', id);
   getItem(id)
   .then(items => {
     res.status(200).send(items);

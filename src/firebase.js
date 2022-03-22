@@ -114,22 +114,41 @@ const logInWithEmailAndPassword = async (email, password) => {
 
 const registerWithEmailAndPassword = async (name, email, password, type) => {
   try {
-    const res = await createUserWithEmailAndPassword(auth, email, password);
-    const user = res.user;
-    await setDoc(doc(db, 'users', user.uid), {
-      uid: user.uid,
-      name: user.displayName,
-      trustScore: 1,
-      authProvider: 'local',
-      email: user.email,
-      photo: user.photoURL,
-      type: 'Individual',
-      location: [],
-      transactionCount: 0,
-      ratingsScore: 0,
-      ratingsCount: 0,
-      active: true,
-    })
+    if (type === 'Organization') {
+      const res = await createUserWithEmailAndPassword(auth, email, password);
+      const user = res.user;
+      await setDoc(doc(db, 'users', user.uid), {
+        uid: user.uid,
+        name,
+        trustScore: 4,
+        authProvider: 'local',
+        email: user.email,
+        photo: user.photoURL,
+        type,
+        location: [],
+        transactionCount: 0,
+        ratingsScore: 100,
+        ratingsCount: 0,
+        active: true,
+      })
+    } else {
+      const res = await createUserWithEmailAndPassword(auth, email, password);
+      const user = res.user;
+      await setDoc(doc(db, 'users', user.uid), {
+        uid: user.uid,
+        name,
+        trustScore: 1,
+        authProvider: 'local',
+        email: user.email,
+        photo: user.photoURL,
+        type,
+        location: [],
+        transactionCount: 0,
+        ratingsScore: 0,
+        ratingsCount: 0,
+        active: true,
+      })
+    }
   } catch (err) {
     console.error(err);
     alert(err.message);
