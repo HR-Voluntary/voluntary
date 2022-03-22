@@ -28,7 +28,6 @@ const ProductPage = () => {
   console.log(state)
   // const dummyData = 'ohXSr3sSQTOUwjOKiChy';
   const dummyData = state?.productId;
-
   const navigate = useNavigate();
 
   function clickChat() {
