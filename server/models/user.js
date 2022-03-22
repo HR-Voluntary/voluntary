@@ -80,8 +80,6 @@ const getItemsForUser = async (id) => {
       return item.uid === id;
     })
   };
-//getItemsForUser();
-
 
 const getUser = (id) => {
   return getDocs(userRef)
@@ -89,9 +87,15 @@ const getUser = (id) => {
       const doc = snapshot.docs.filter(doc => doc.id === id);
       return {...doc[0].data()};
     });
-};
-
-
+}
+//Get trustscore BY SIVA
+const getTrustScore = (id) => {
+  return getDocs(userRef)
+    .then((snapshot) => {
+      const doc = snapshot.docs.filter(doc => doc.id === id);
+      return {trustScore: doc[0].data().trustScore };
+    });
+}
 const thumbsUp = (user) => {
   if (user.trustScore === 100) {
     return new Error({message: 'User is at 100 and cannot be incremented'})
@@ -122,6 +126,28 @@ const thumbsDown = (user) => {
   }
 }
 
+//POST request for User with an array of lattitude and longitude as an arry with key location
+// const  UpdateUser = (userObject) => {
+//   const obj = {
+//     authProvider: userObject.authProvider,
+//     email: userObject.email,
+//     name: userObject.name,
+//     photo: userObject.photo,
+//     trustScore: userObject.trustScore,
+//     type: userObject.type,
+//     location: userObject.location,
+//     uid: userObject.uid
+//    }
+//   return setDoc(doc(db,'users',userObject.uid),obj);
+//  // return addDoc(userRef, {
+//   //})
+// };
+
+const updateUser = (id, itemObject) => {
+  //console.log('Iriving need this ', id)
+  return updateDoc(doc(db,'users',id), itemObject);
+};
+
 
 // const docToUpdate = doc(db, 'items', id);
 //   return updateDoc(docToUpdate, { isActive: false })
@@ -129,11 +155,12 @@ const thumbsDown = (user) => {
 //     return success;
 // });
 module.exports = {
-  // createUser,
   getUsers,
   getUser,
   thumbsUp,
   thumbsDown,
   getUsersAndProducts,
   getItemsForUser,
+  getTrustScore,
+  updateUser
 }
