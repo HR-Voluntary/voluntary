@@ -1,32 +1,39 @@
 import React, { useState, useEffect } from 'react';
-import Map, { Marker, Popup } from 'react-map-gl';
+import Map, { Marker, Popup, ScaleControl } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import facilitiesData from './data/healthcarefacilities.js';
 import styles from './Map.module.css';
 
 
-const MapListing = ({ userLocation }) => {
+const MapListing = ({ mapParams }) => {
+  // const [viewState, setViewState] = useState(mapParams.mapBounds);
   const [viewState, setViewState] = useState({
-    latitude: userLocation[0],
-    longitude: userLocation[1],
-    zoom: 12,
+    bounds: mapParams.mapBounds
   });
-
-  const sampleview = null;
-
   const [selectedFacility, setSelectedFacility] = useState(null);
 
-  // if (userLocation !== viewport) {
-    // setViewPort  = ()
-  // }
+  // const [viewState, setViewState] = useState({
+  //   latitude: userLocation[0],
+  //   longitude: userLocation[1],
+  //   zoom: 12,
+  // });
+
+  // const sampleview = { longitude: 120.9605, latitude: 23.6978, zoom: 12 };
+  // const sampleview = { bounds: [[-73.9876, 40.7661], [-73.9397, 40.8002]] }; // [[long, lat], [long, lat]]
+
+  // useEffect(() => {
+  //   setViewState({
+  //     latitude: userLocation[0],
+  //     longitude: userLocation[1],
+  //     zoom: 12,
+  //   })
+  // }, [userLocation])
 
   useEffect(() => {
     setViewState({
-      latitude: userLocation[0],
-      longitude: userLocation[1],
-      zoom: 12,
-    })
-  }, [userLocation])
+      bounds: mapParams.mapBounds
+    });
+  }, [mapParams])
 
   useEffect(() => {
     const listener = (e) => {
@@ -45,9 +52,8 @@ const MapListing = ({ userLocation }) => {
     <div>
       <small className={styles.sampletext}>You are running this application in <b>{process.env.NODE_ENV}</b> mode.</small>
       <Map
-        // initialViewState={{ ...viewport }}
-        initialViewState={sampleview}
-        { ...viewState }
+        {...viewState}
+        // bounds={viewState}
         onMove={evt => setViewState(evt.viewState)}
         style={{
           width: '85vw',
@@ -59,6 +65,7 @@ const MapListing = ({ userLocation }) => {
         mapStyle="mapbox://styles/mapbox/streets-v11"
         mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
       >
+        <ScaleControl />
         {facilitiesData.data.map((facility) => (
           <Marker
             key={facility[0]}

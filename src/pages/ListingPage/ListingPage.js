@@ -4,20 +4,36 @@ import FilterBar from './FilterBar.js';
 import axios from 'axios';
 import Listing from './Listing.js';
 import distance from '@turf/distance';
+import rhumbDestination from '@turf/rhumb-destination';
 import styles from './listingStyle.module.css';
-
 
 const ListingPage = () => {
   let [allListings, setAllListings] = useState([]);
   let [filterListing, setFilterListing] = useState([]);
-  let [userLocation, setUserLocation] = useState([37.791200, -122.396080]);
-  let [initialViewState, setInitialViewState] = useState(null);
+  // let [userLocation, setUserLocation] = useState([37.791200, -122.396080]);
+  let [mapParams, setMapParams] = useState({
+    userLoc: null,
+    mapBounds: [[-122.507740, 37.712124], [-122.393943, 37.816169]]
+  });
+  // let [userLocation, setUserLocation] = useState(null);
+  // let [mapBounds, setMapBounds] = useState([[-122.507740, 37.712124], [-122.393943, 37.816169]]);
 
   const getUserLoc = () => {
     const success = (position) => {
-      const latitude = position.coords.latitude;
-      const longitude = position.coords.longitude;
-      setUserLocation([latitude, longitude]);
+      const location = [position.coords.longitude, position.coords.latitude];
+
+      const sw = rhumbDestination(location, 3, -135, { units: 'miles' });
+      const ne = rhumbDestination(location, 3, 45, { units: 'miles' });
+      // console.log(location)
+      // console.log(sw.geometry.coordinates);
+      // console.log(ne.geometry.coordinates);
+      setMapParams({
+        userLoc: location,
+        mapBounds: [sw.geometry.coordinates, ne.geometry.coordinates]
+      })
+
+      // setUserLocation([latitude, longitude]);
+      // set new mapBounds here  +- 3 miles block around user location OR 4 miles along the diagonal
     }
     const error = (error) => {
       if (error.code !== 1) {
@@ -101,25 +117,25 @@ const ListingPage = () => {
   }
 
   const adjustZoom = (filterParam) => {
-    if (filterParam === '') {
-      setInitialViewState(null);
-    }
+    // if (filterParam === '') {
+    //   setInitialViewState(null);
+    // }
 
-    const paramNum = Number(filterParam);
-    // would still be centered around user/default location
-    // set the bounds
-    // if no filter is set, set bounds to null
-    // class = mapboxgl-map
-    let box = document.querySelector('.mapboxgl-map');
-    let width = box.offsetWidth;
-    let height = box.offsetHeight;
-    return [width, height];
+    // const paramNum = Number(filterParam);
+    // // would still be centered around user/default location
+    // // set the bounds
+    // // if no filter is set, set bounds to null
+    // // class = mapboxgl-map
+    // let box = document.querySelector('.mapboxgl-map');
+    // let width = box.offsetWidth;
+    // let height = box.offsetHeight;
+    // return [width, height];
   }
 
   const distanceFilterChange = (e) => {
     // console.log(typeof e.target.value); // string
     // adjustZoom(e.target.value)
-    console.log(adjustZoom());
+    // console.log(adjustZoom());
 
   }
 
@@ -131,11 +147,14 @@ const ListingPage = () => {
         categoryFilterChange={categoryFilterChange}
         trustFilterChange={trustFilterChange}
         distanceFilterChange={distanceFilterChange} />
-      <MapListing userLocation={userLocation} />
+      <MapListing
+        // userLocation={userLocation}
+        mapParams={mapParams}
+      />
       <div className={styles.allListings}>
-      {filterListing.map(listing => {
-        return <Listing listing={listing}/>
-      })}
+        {filterListing.map(listing => {
+          return <Listing listing={listing} />
+        })}
       </div>
     </>
   )
