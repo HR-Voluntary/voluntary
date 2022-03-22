@@ -24,7 +24,8 @@ const ProductPage = () => {
   const [mainSeller, setMainSeller] = useState('')
   const [allItemPictures, setAllItemPictures] = useState([])
 
-  const dummyData = '5usff6HI0mIB2TTRy2Ut';
+  const dummyData = "WkWYb3puTlGieB9ivQDP"
+  ;
 
   const navigate = useNavigate();
 

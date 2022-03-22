@@ -1,7 +1,7 @@
 import React,{useEffect,useState} from 'react'
 import styles from './ChatPage.module.css';
 import Chat from './Chat.js'
-import {userb} from './dummydata.js'
+// import {userb} from './dummydata.js'
 import {collection, serverTimestamp, doc, onSnapshot, orderBy, query, setDoc, getDoc } from "firebase/firestore";
 import {db,auth} from '../../firebase.js'
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -11,8 +11,9 @@ import { useLocation } from 'react-router';
 
 function ChatPage(  ) {
   const { state } = useLocation();
-  console.log(state.product.sellerInfo, 'THESE ARE THE PASSED IN PARAMS');
-  const userb = { uid: state.product.sellerInfo };
+  // console.log(state.product.sellerInfo, 'THESE ARE THE PASSED IN PARAMS');
+  const userb = {uid:state?.product?.sellerInfo};
+  console.log(userb)
   const [user, loading, error] = useAuthState(auth);
   const[user1, setUser1]= useState({})
   const[user2, setUser2] =useState({})
@@ -28,12 +29,12 @@ function ChatPage(  ) {
 
   },[user])
   useEffect(()=>{
-    if(userb!==undefined){
+    if(userb.uid!==undefined){
       getDoc(doc(db,'users',userb.uid)).then(res=>
         setUser2(res.data())
       )
     }
-  },[userb])
+  },[])
 
   useEffect(() => {
     if(Object.keys(user1).length && Object.keys(user2)){
@@ -41,8 +42,6 @@ function ChatPage(  ) {
       renderList(user1)
     }
    }, [user1])
-
-
 
 
   let changeUser = (user) => {
