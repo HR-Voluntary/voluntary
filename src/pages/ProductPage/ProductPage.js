@@ -116,7 +116,7 @@ const ProductPage = () => {
       return (
         <div className={styles.fullPage}>
           <div className={styles.mainProductPicBox}>
-            <img className={styles.productImg} src={mainImage || product.image} alt=""/>
+            <img className={styles.productImg} src={mainImage} alt=""/>
               <div>{renderImages()}</div>
               {/* <div>{Array.isArray(product.image) ? renderImages() : <img src={product.image} alt=""/>}</div> */}
           </div>
@@ -132,7 +132,7 @@ const ProductPage = () => {
         <div className={styles.fullPage}>
           <div className={styles.mainProductPicBox}>
             <img className={styles.productImg} src={mainImage || product.image} onClick={clickImage} alt=""/>
-            <div>{Array.isArray(product.image) ? renderImages() : product.image}</div>
+            <div>{Array.isArray(product.image) ? renderImages() : product.image[0]}</div>
           </div>
           <div className={styles.otherInfoMainBox}>
             <h2>Similar Products</h2>
@@ -145,7 +145,7 @@ const ProductPage = () => {
         <div className={styles.fullPage}>
           <div className={styles.mainProductPicBox}>
             <img className={styles.productImg} src={mainImage || product.image} onClick={clickImage} alt=""/>
-            <div>{Array.isArray(product.image) ? renderImages() : product.image}</div>
+            <div>{Array.isArray(product.image) ? renderImages() : product.image[0]}</div>
           </div>
           <div className={styles.otherInfoMainBox}>
             <h2>All Items from this Seller</h2>
@@ -185,6 +185,7 @@ const ProductPage = () => {
       .then(response => {
         console.log(response)
         setProduct(response.data)
+        setMainImage(response.data.image[0])
       })
       .catch(err => console.log(err))
   }, [])

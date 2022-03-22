@@ -8,7 +8,8 @@ const { item, setMainImage, setMainName, setMainDescription, setMainSeller, setP
 
 
 function clickSimilarItem(e) {
-  setMainImage(e.target.src);
+  // setMainImage(e.target.src);
+  setMainImage(item.image[0]);
   setMainName(item.name);
   setMainDescription(item.description);
   setAllItemPictures(item.image);
@@ -20,7 +21,8 @@ function clickSimilarItem(e) {
   // picture on the mini list display
   return (
     <div onClick={clickSimilarItem} className={styles.otherItemBox}>
-      <img className={styles.otherImages} onClick={clickSimilarItem} src={Array.isArray(item.image) ? item.image[0] : item.image} alt="description"/>
+      {/* <img className={styles.otherImages} onClick={clickSimilarItem} src={Array.isArray(item.image) ? item.image[0] : item.image} alt="description"/> */}
+      <img className={styles.otherImages} onClick={clickSimilarItem} src={item.image[0]} alt=""/>
       <div>
         <div className={styles.otherName}>{item.name}</div>
         <div className={styles.otherDescription}>{item.description}</div>
