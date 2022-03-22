@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router';
 // are all images going to be in the form of an array, even if it's just one?
   // I have logic to handle both cases since that is what the data is right now.
 
+
 const ProductPage = () => {
 
   const [pageDisplay, setPageDisplay] = useState('product')
@@ -25,9 +26,12 @@ const ProductPage = () => {
   const [mainSeller, setMainSeller] = useState('')
   const [allItemPictures, setAllItemPictures] = useState([])
   const [mainCategory, setMainCategory] = useState('')
-
+  const { state } = useLocation();
+  // console.log(state)
   // const dummyData = '5usff6HI0mIB2TTRy2Ut';
   const dummyData = 'OUjA98VUU1VpdOGgCEcm';
+  // const dummyData = state?.productId;
+  const navigate = useNavigate();
 
 
   function clickChat() {
