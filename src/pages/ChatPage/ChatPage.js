@@ -12,6 +12,10 @@ import { useLocation } from 'react-router';
 function ChatPage() {
   const { state } = useLocation();
   const userb = {uid:state?.product?.sellerInfo};
+<<<<<<< HEAD
+=======
+  // console.log(userb)
+>>>>>>> main
   const [user, loading, error] = useAuthState(auth);
   const[user1, setUser1]= useState({})
   const[user2, setUser2] =useState({})
@@ -64,6 +68,10 @@ function ChatPage() {
   async function addUserstoLists(user1, user2) {
     if(Object.keys(user1).length && Object.keys(user2).length){
       try{
+<<<<<<< HEAD
+=======
+        // console.log('wee in')
+>>>>>>> main
         let toUserConversation= await getDocument('conversations', user1.uid, 'to',user2.uid);
         if(!toUserConversation){
           await setDoc(doc(db, 'conversations', user1.uid, 'to', user2.uid), { ...user2,item:state.productId,lastInteracted: serverTimestamp()})
@@ -72,7 +80,7 @@ function ChatPage() {
         if(!fromUserConversation){
           await setDoc(doc(db, 'conversations', user2.uid, 'to', user1.uid), { ...user1,item:state.productId,lastInteracted: serverTimestamp()})
         }}catch(e){
-          console.log('errror',e)
+          // console.log('errror',e)
         }
     }
   }
@@ -92,7 +100,7 @@ function ChatPage() {
         });
       }
     } catch(e){
-      console.log("errrrror",e)
+      // console.log("errrrror",e)
     }
   }
   let renderChat = ()=> {

@@ -12,7 +12,7 @@ const Stars = () => {
     let fillTo = parseInt(e.target.id);
     let copyRating = [...rating];
     for (let i = 0; i <= fillTo; i++) {
-      console.log('old value 1', copyRating);
+      // console.log('old value 1', copyRating);
       copyRating[i] = !copyRating[i];
     }
     setRating(copyRating);
