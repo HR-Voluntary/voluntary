@@ -55,9 +55,6 @@ export function AuthProvider({ children }) {
     });
   }, []);
 
-  console.log(allUsers, 'ALL USERS');
-  console.log(allItemsForSale, 'ALL ITEMS');
-
   const value = {
     currentUser,
     currentUserData,

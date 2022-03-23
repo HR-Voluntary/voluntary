@@ -86,7 +86,8 @@ const ProductPage = () => {
                     <img src={product.image[0]} alt="product"/>
                   </div>
                   <div className={newStyles.supportingImageBox}>
-                    {product.image.map((img, i) =>
+                    {console.log(product, 'THIS IS PRODUCT')}
+                    {product?.image.map((img, i) =>
                         <div key={i} className={newStyles.supportingImageContainer}>
                           <img src={img} alt="product"/>
                         </div>
