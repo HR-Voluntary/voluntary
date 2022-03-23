@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import AllRatings from './AllRatings.js'
 
 const fromIrving = {type: 'buyer', transaction: 'complete', uid: '1AOjnwnoc5bxD1u3VBiaNzKYL2k1'};
