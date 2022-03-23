@@ -70,13 +70,14 @@ function Chat({user1, user2,userList,product,productId}) {
 
   let onSellerClick =async (productId) => {
     const docToUpdate = doc(db, 'items', productId);
-    await updateDoc(docToUpdate, { isActive: false })
+    await updateDoc(docToUpdate, { isActive: false,
+    buyer:user2.uid })
    //load sarahs thing seller, user2
 
   }
   let onBuyerClick =async (productId) => {
     const docToUpdate = doc(db, 'items', productId);
-    await updateDoc(docToUpdate, { isRated: true })
+    await updateDoc(docToUpdate, { bought: true })
    //load sarahs thing seller, user2
 
   }
@@ -85,11 +86,11 @@ function Chat({user1, user2,userList,product,productId}) {
 
 
 
-    if(product?.sellerInfo===user1?.uid && user1!==user2 &&itemId===productId && item.isActive ){
+    if(product?.sellerInfo===user1?.uid && user1.uid!==user2.uid &&itemId===productId && item.isActive ){
       return(
         <button onClick={()=>{onSellerClick(productId)}} className={styles.rateButton} >MARK AS SOLD</button>
       )
-    } else if(itemId===productId && item.isActive===false && item.isRated===undefined ){
+    } else if(itemId===productId && user2.uid===item.buyer && item.isActive===false && item.isRated===undefined ){
       return(<button onClick={()=>{onBuyerClick(productId)}} className={styles.rateButtonBuyer} >RATE BUYER</button>)
     }
      else {
