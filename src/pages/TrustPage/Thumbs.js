@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import icons from './icons.js';
 import styles from './Thumbs.module.css';
+import axios from 'axios';
 
 const { thumbsUpWhite, thumbsDownWhite, thumbsDownFill, thumbsUpFill } = icons;
 
@@ -11,10 +12,20 @@ const Thumbs = (props) => {
   const [selectDown, setSelectDown] = useState(false);
   const [selectedThumb, setSelectedThumb] = useState(null);
 
+  function whichThumbsText(user) {
+    if (user === 'buyer') {
+      return 'Did you receive your transaction?'
+    }
+
+    if (user === 'seller') {
+      return 'Did you complete your transaction?'
+    }
+  }
+
   function hoverFillThumb(e) {
-    if (e.target.id === 'thumbsUp') {
+    if (e.target.id === '1') {
       setHoverUp(true);
-    } else if (e.target.id === 'thumbsDown') {
+    } else if (e.target.id === '-1') {
       setHoverDown(true);
     }
   }
@@ -29,26 +40,30 @@ const Thumbs = (props) => {
 
   function handleClick(e) {
     e.preventDefault();
-    if (e.currentTarget.id === 'thumbsUp') {
+    if (e.currentTarget.id === '1') {
       setSelectUp(true);
-    } else if (e.currentTarget.id === 'thumbsDown') {
+    } else if (e.currentTarget.id === '-1') {
       setSelectDown(true);
     }
-    //axios post request to database to add/minus transaction
-    props.onClick();
+
+    axios.put(`http://localhost:3001/ratings/transactionCount/${props.userInfo.uid}`, {
+      data: { number: parseInt(e.currentTarget.id) }
+    })
+    .then(console.log('added to db!'))
+    .catch(console.log('error thumbs'))
+
+    props.onClick(e);
   }
 
 
-  //Text should say: "Did you receive transaction" for buyer
-  //Text should say: "Did you coomplete transaction" for seller
   useEffect(() => console.log('hi'), [selectUp, selectDown]);
 
   return (
     <div className={styles.popup}>
-      <p>Did you receive transaction?</p>
+      <p>{whichThumbsText(props.userInfo.type)}</p>
       <div className={styles.bothThumbs}>
         <div
-          id={'thumbsUp'}
+          id='1'
           className={styles.thumbsUp}
           onMouseEnter={(e) => hoverFillThumb(e)}
           onMouseLeave={(e) => unfillThumb(e)}
@@ -57,7 +72,7 @@ const Thumbs = (props) => {
         </div>
 
         <div
-          id={'thumbsDown'}
+          id='-1'
           className={styles.thumbsDown}
           onMouseEnter={(e) => hoverFillThumb(e)}
           onMouseLeave={(e) => unfillThumb(e)}

@@ -1,27 +1,46 @@
-import React, {useState, useEffect} from 'react';
-import Thumbs from './Thumbs.js';
-import Stars from './Stars.js';
+import React, { useState, useEffect } from 'react';
+import Modal from 'react-bootstrap/Modal';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import AllRatings from './AllRatings.js'
 
-const TrustPage = () => {
-  const [thumbSelected, setThumbSelected] = useState(false);
+const fromIrving = {type: 'buyer', transaction: 'complete', uid: '1AOjnwnoc5bxD1u3VBiaNzKYL2k1'};
 
-  function selectThumb() {
-    setThumbSelected(true);
+function ReviewsModal() {
+  const [show, setShow] = useState(false);
+
+  function toggleModal() {
+    setShow(!show);
   }
 
-  function showThumbs() {
-    return (
-      <Thumbs />
-    );
-  }
+  return (
+    <>
+      <button onClick={toggleModal}>
+        Mark As Sold
+      </button>
 
-  function showStars() {
-    return (
-      <Stars />
-    );
-  }
+      <Modal
+        show={show}
+        onHide={() => setShow(false)}
+        dialogClassName="modal-90w"
+        aria-labelledby="example-custom-modal-styling-title"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="example-custom-modal-styling-title">
+            Custom Modal Styling
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <AllRatings onClick={toggleModal} userInfo={fromIrving}/>
+        </Modal.Body>
+      </Modal>
+    </>
+  );
+}
 
-  return <div onClick={selectThumb}>{!thumbSelected ? showThumbs() : showStars()}</div>
-};
+export default ReviewsModal;
 
-export default TrustPage;
+
+
+
+
+

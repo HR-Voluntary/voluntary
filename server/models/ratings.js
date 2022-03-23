@@ -71,6 +71,9 @@ const getTrustScore = () => {
 
 const editRatingsScore = (currRatingScore, currCount, newRating) => {
   // CALCULATE new average formula = ((oldAverageRating * counter) + newrating) / counter++)
+  if (currRatingScore === null) {
+    currRatingScore = 0;
+  }
 
   const newAvg = ((currRatingScore * currCount) + newRating) / (currCount + 1);
 
