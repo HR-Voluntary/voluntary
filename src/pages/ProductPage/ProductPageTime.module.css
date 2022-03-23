@@ -1,0 +1,137 @@
+.container {
+  display: flex;
+  border: 1px solid black;
+  flex: 1;
+}
+
+.focusContainer {
+  border: 1px solid black;
+  flex: 4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.relatedContainer {
+  border: 1px solid black;
+  flex: 1;
+  min-width: 400px;
+  overflow: hidden;
+  overflow-y: auto;
+  max-height: 1150px;
+}
+
+.mainProductContainer {
+  border: 1px solid black;
+  /* background-color: #333; */
+  width: 80%;
+  height: 80%;
+  border-radius: 10px;
+  display: flex;
+  max-height: 1000px;
+}
+
+.mainProductContentContainer {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  flex: 1;
+}
+.mainTextContentContainer {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  flex: 1;
+}
+
+.imageBox {
+  flex: 4;
+  border: 1px solid black;
+  margin: 25px;
+  width: 700px;
+  overflow: hidden;
+}
+
+.imageBox img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.supportingImageBox {
+  flex: 1;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border: 1px solid black;
+  margin: 25px;
+  gap: 10px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  /* white-space: nowrap; */
+  max-width: 700px;
+}
+
+.supportingImageContainer {
+  height: 150px;
+  width: 150px;
+}
+
+.supportingImageContainer img {
+  height: 150px;
+  width: 150px;
+  object-fit: cover;
+}
+
+.detailsBox {
+  flex: 1;
+  border: 1px solid black;
+  margin: 25px;
+}
+
+.otherItemsBox {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  border: 1px solid black;
+  margin: 25px;
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+.otherItemsContainer {
+  display: flex;
+  border: 1px solid black;
+  width: 100%;
+  height: 150px;
+}
+
+.otherItemsContainer img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.relatedItem {
+  display: flex;
+  border: 1px solid black;
+  width: 100%;
+  height: 150px;
+  margin-top: 25px;
+}
+.relatedItemImageBox {
+  display: flex;
+  border: 1px solid black;
+  height: 150px;
+  width: 150px;
+}
+.relatedItemImage {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.relatedText {
+
+}

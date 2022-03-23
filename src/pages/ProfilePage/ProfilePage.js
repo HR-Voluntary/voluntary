@@ -120,6 +120,7 @@ const ProfilePage = () => {
     let s3photoUrlsArray = arrOfS3SuccessPuts.map(s3url => {
       return s3url.config.url.split('?')[0];
     });
+      console.log(s3photoUrlsArray)
     let itemToPost = {
       category: productCategory,
       sellerInfo: user.id,
@@ -146,9 +147,9 @@ const ProfilePage = () => {
   } else {
     return (
       <section>
-        <div className={styles.navbar}>
+        {/* <div className={styles.navbar}>
           <button onClick={() => setPostModalWindow(!postModalWindow)} className={styles['list-item-btn']}>List Item</button>
-        </div>
+        </div> */}
 
         <div className={styles.heading}>
           <img className={styles.pic} src={user.photo} alt="profile-pic" />
