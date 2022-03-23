@@ -23,10 +23,6 @@ const Stars = (props) => {
     let fillTo = parseInt(e.target.id);
     let copyRating = [...rating];
     for (let i = 0; i <= fillTo; i++) {
-<<<<<<< HEAD
-      // console.log('old value 1', copyRating);
-=======
->>>>>>> 19eee45 (Fully functional and correctly puts data to db)
       copyRating[i] = !copyRating[i];
     }
     setRating(copyRating);
