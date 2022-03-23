@@ -35,6 +35,10 @@ const MapListing = ({ userLocation, filterListing }) => {
       longitude: userLocation[1],
       zoom: 12,
     })
+    setUserLoc({
+      latitude: userLocation[0],
+      longitude: userLocation[1],
+    })
   }, [userLocation])
 
   // useEffect(() => {
@@ -95,14 +99,15 @@ const MapListing = ({ userLocation, filterListing }) => {
         }
       })}
 
-      <Marker
-        latitude={userLoc.latitude}
-        longitude={userLoc.longitude}
-      // latitude={37.3585429}
-      // longitude={-122.132725}
-      >
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Map_marker.svg/390px-Map_marker.svg.png?20150513095621" alt="location" style={{ width: '15px', height: '32px' }} />
-      </Marker>
+      {userLoc.latitude && (
+        <Marker
+          latitude={userLoc.latitude}
+          longitude={userLoc.longitude}
+        >
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Map_marker.svg/390px-Map_marker.svg.png?20150513095621" alt="location" style={{ width: '15px', height: '32px' }} />
+        </Marker>
+      )}
+
 
       {selectedListing && (
         <Popup
