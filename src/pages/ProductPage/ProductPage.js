@@ -18,8 +18,8 @@ const ProductPage = () => {
 
   // const dummyArray = [1,2,3,4];
   // const rockwell = [1, 1, 1, 1, 1, 1, 1];
-  // const productIdFromRouter = state?.productId;
-  const productIdFromRouter = "Ujl14tOWenPtkTyJvRE9";
+  const productIdFromRouter = state?.productId;
+  // const productIdFromRouter = "Ujl14tOWenPtkTyJvRE9";
 
   function findItem (dataArray) {
     for (let i = 0; i < dataArray.length; i++) {
@@ -40,7 +40,11 @@ const ProductPage = () => {
       }
     });
     setCategoryItems(sameCategoryItems)
-  }
+  };
+
+  function onChatClick(product){
+    navigate('/ChatPage', { state: { product, productId: product.id } })
+  };
 
   useEffect(() => {
     axios.get('http://localhost:3001/user/all')
@@ -97,7 +101,7 @@ const ProductPage = () => {
                     <div>Sold by {product.sellerName}</div>
                     <div>Trust Score: {product.trustScore}</div>
                     <h3>{product.description}</h3>
-                    <button>Chat</button>
+                    <button onClick={() => onChatClick(product)}>Chat</button>
                   </div>
                   <div className={newStyles.otherItemsBox}>
                     <h2>Other Items from the Seller</h2>
@@ -141,6 +145,8 @@ const ProductPage = () => {
 }
 
 export default ProductPage;
+
+
 
 
 // const ProductPage = () => {
