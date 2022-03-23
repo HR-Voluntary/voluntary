@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Map, { Marker, Popup, ScaleControl } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import facilitiesData from './data/healthcarefacilities.js';
+import distance from '@turf/distance';
+// import facilitiesData from './data/healthcarefacilities.js';
 import styles from './Map.module.css';
 
 
@@ -24,7 +25,7 @@ const MapListing = ({ userLocation, filterListing }) => {
 
   const [selectedListing, setSelectedListing] = useState(null);
 
-  // console.log(filterListing);
+  console.log(filterListing);
 
   // const sampleview = { longitude: 120.9605, latitude: 23.6978, zoom: 12 };
   // const sampleview = { bounds: [[-73.9876, 40.7661], [-73.9397, 40.8002]] }; // [[long, lat], [long, lat]]
@@ -120,7 +121,14 @@ const MapListing = ({ userLocation, filterListing }) => {
         >
           <div>
             <h2>{selectedListing.name}</h2>
-            <p>{selectedListing.description}</p>
+            <div>{`Category: ${selectedListing.category}`}</div>
+            <div>{`Donator: ${selectedListing.sellerName}`}</div>
+            <div>{`Description: ${selectedListing.description}`}</div>
+            <div>{`Approximately ${Math.floor(distance(userLocation, selectedListing.location, {units: 'kilometers'}))} km(s) away`}</div>
+
+            {/* small image? */}
+            {/* distance away */}
+            {/* seller name */}
           </div>
         </Popup>
       )}

@@ -4,7 +4,7 @@ import FilterBar from './FilterBar.js';
 import axios from 'axios';
 import Listing from './Listing.js';
 import distance from '@turf/distance';
-import rhumbDestination from '@turf/rhumb-destination';
+// import rhumbDestination from '@turf/rhumb-destination';
 import styles from './listingStyle.module.css';
 
 const ListingPage = () => {
