@@ -22,7 +22,7 @@ router.get('/all', function(req, res) {
   console.log('I AM WORKING');
   getUsersAndProducts()
   .then(users => {
-    console.log(users);
+    // console.log(users);
     res.status(200).send(users);
   });
 });
