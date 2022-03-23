@@ -133,5 +133,8 @@
   object-fit: cover;
 }
 .relatedText {
-
+  /* white-space: nowrap; */
+  /* word-wrap: break-word; */
+  overflow: hidden;
+  /* text-overflow: ellipsis; */
 }
