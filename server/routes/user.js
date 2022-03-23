@@ -18,6 +18,7 @@ var { getUsers,
     .catch(err => console.log(err))
     res.sendStatus(200).end();
   });
+
 router.get('/all', function(req, res) {
   console.log('I AM WORKING');
   getUsersAndProducts()

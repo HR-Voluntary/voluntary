@@ -1,18 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import icons from './icons.js';
 import styles from './Thumbs.module.css';
+import axios from 'axios';
 
 const { emptyStar, filledStar } = icons;
 
-const Stars = () => {
+const Stars = (props) => {
   const [rating, setRating] = useState([false, false, false, false, false]);
   const [finalRating, setFinalRating] = useState(null);
+
+  function whichStarsText(user) {
+    if (user === 'buyer') {
+      return 'Please rate seller'
+    }
+
+    if (user === 'seller') {
+      return 'Please rate other party'
+    }
+  }
 
   function hoverFillStars(e) {
     let fillTo = parseInt(e.target.id);
     let copyRating = [...rating];
     for (let i = 0; i <= fillTo; i++) {
-      // console.log('old value 1', copyRating);
       copyRating[i] = !copyRating[i];
     }
     setRating(copyRating);
@@ -26,20 +36,30 @@ const Stars = () => {
     e.preventDefault();
     let selectedRating = [...rating];
     setFinalRating(selectedRating);
+    let finalStars = selectedRating.filter(rating => rating);
+    let sendRating = finalStars.length;
+
+    axios.put(`http://localhost:3001/ratings/ratingCount/${props.userInfo.uid}`, {
+      data: { rating: sendRating }
+    })
+    .then(console.log('added rating to db!'))
+    .catch(console.log('error rating'))
+
+    props.onClick1();
   }
 
-  useEffect(() => console.log('re-render', rating), [rating]);
+  useEffect(() => {}, [rating]);
 
   return (
-    <div>
-      <p>How was the transaction?</p>
+    <div className={styles.popup}>
+      <p>{whichStarsText(props.userInfo.type)}</p>
       <div className={styles.allStars}>
         {(finalRating || rating).map((star, index) =>
           <div
             id={index}
             key={`star-${index}`}
             className={styles.star}
-            onMouseEnter={hoverFillStars}
+            onMouseOver={hoverFillStars}
             onMouseLeave={emptyStars}
             onClick={handleClick}
           >
