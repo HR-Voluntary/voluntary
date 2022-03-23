@@ -31,12 +31,13 @@ const getUsersAndProducts = async () => {
       });
       return itemArray;
     })
+    // console.log(itemArray[0]);
 
   const userArray = await getDocs(userRef)
     .then((snapshot) => {
       const userArray = snapshot.docs.map(doc => {
         const userSpecificItemArray = itemArray.filter(item => {
-          return item.sellerInfo === doc.data().uid
+          return item.sellerInfo === doc.id
         })
         return { id: doc.id, ...doc.data(), userItems: userSpecificItemArray};
       })
@@ -168,3 +169,4 @@ module.exports = {
   getTrustScore,
   updateUser
 }
+
