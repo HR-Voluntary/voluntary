@@ -44,11 +44,10 @@ const ListingPage = () => {
   //   navigator.geolocation.getCurrentPosition(success, error);
   // }
 
-  console.log(filterListing)
+  // console.log(filterListing)
   const getUserLoc = () => {
     const success = (position) => {
       const location = [position.coords.latitude, position.coords.longitude];
-      console.log(location);
       axios({
         method: 'put',
         // url: `http://localhost:3001/user/edit/editUsr/${}`
@@ -149,7 +148,7 @@ const ListingPage = () => {
       const filterParamNum = Number(filterParam);
       let filter = listings.filter((listing) => {
         if (Array.isArray(listing.location)) {
-          const dist = distance(userLocation, listing.location, {units: 'kilometers'})
+          const dist = distance(userLocation, listing.location, { units: 'kilometers' })
           // console.log(dist);
           if (dist < filterParamNum) {
             return listing;
@@ -162,34 +161,35 @@ const ListingPage = () => {
     }
   }
 
-const distanceFilterChange = (e) => {
-  filterListingsByDistance(allListings, e.target.value)
-}
+  const distanceFilterChange = (e) => {
+    filterListingsByDistance(allListings, e.target.value)
+  }
 
-return (
-  <>
-    {/* <div>{distance(userLocation, [41.8781, -87.6298], {units: 'miles'})}</div> */}
-    <FilterBar
-      categoryFilterChange={categoryFilterChange}
-      trustFilterChange={trustFilterChange}
-      distanceFilterChange={distanceFilterChange}
-    />
+  return (
     <div className={styles.parent}>
-      <div className={styles.allListings}>
-        {filterListing.map(listing => {
-          return <Listing listing={listing} />
-        })}
-      </div>
-      <div className={styles.map}>
-        <MapListing
-          userLocation={userLocation}
-          filterListing={filterListing}
-        // mapParams={mapParams}
+      <div className={styles.filterBarParent}>
+        <FilterBar
+          categoryFilterChange={categoryFilterChange}
+          trustFilterChange={trustFilterChange}
+          distanceFilterChange={distanceFilterChange}
         />
       </div>
+      <div className={styles.parentMapListings}>
+        <div className={styles.allListings}>
+          {filterListing.map(listing => {
+            return <Listing listing={listing} />
+          })}
+        </div>
+        <div className={styles.map}>
+          <MapListing
+            userLocation={userLocation}
+            filterListing={filterListing}
+          // mapParams={mapParams}
+          />
+        </div>
+      </div>
     </div>
-  </>
-)
+  )
 
 };
 
