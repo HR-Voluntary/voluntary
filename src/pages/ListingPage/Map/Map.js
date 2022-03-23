@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Map, { Marker, Popup, ScaleControl } from 'react-map-gl';
+import PopupData from './PopupData.js';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import distance from '@turf/distance';
 // import facilitiesData from './data/healthcarefacilities.js';
@@ -119,17 +120,10 @@ const MapListing = ({ userLocation, filterListing }) => {
             setSelectedListing(null)
           }}
         >
-          <div>
-            <h2>{selectedListing.name}</h2>
-            <div>{`Category: ${selectedListing.category}`}</div>
-            <div>{`Donator: ${selectedListing.sellerName}`}</div>
-            <div>{`Description: ${selectedListing.description}`}</div>
-            <div>{`Approximately ${Math.floor(distance(userLocation, selectedListing.location, {units: 'kilometers'}))} km(s) away`}</div>
-
-            {/* small image? */}
-            {/* distance away */}
-            {/* seller name */}
-          </div>
+          <PopupData
+            userLoc={userLoc}
+            selectedListing={selectedListing}
+          />
         </Popup>
       )}
     </Map>
