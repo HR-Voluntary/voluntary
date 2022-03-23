@@ -1,51 +1,64 @@
-import styles from './Chat.module.css'
-import React, {useState,useEffect} from 'react'
-import {collection,serverTimestamp, doc, onSnapshot, orderBy, query, getDoc,updateDoc, addDoc,setDoc} from "firebase/firestore";
-import {db} from '../../firebase.js';
-import Messages from './Messages';
+import styles from "./Chat.module.css";
+import React, { useState, useEffect } from "react";
+import {
+  collection,
+  serverTimestamp,
+  doc,
+  onSnapshot,
+  orderBy,
+  query,
+  getDoc,
+  updateDoc,
+  addDoc,
+  setDoc,
+} from "firebase/firestore";
+import { db } from "../../firebase.js";
+import Messages from "./Messages";
 
-function Chat({user1, user2,userList,product,productId}) {
+function Chat({ user1, user2, userList, product, productId }) {
   const [messages, setMessages] = useState([]);
-  const [messageText, setMessageText] = useState('');
-  const [itemId, setItemId] = useState('')
-  const [item, setItem] =useState({})
+  const [messageText, setMessageText] = useState("");
+  const [itemId, setItemId] = useState("");
+  const [item, setItem] = useState({});
 
   // Add a listener
-  useEffect(()=>{
-    if(productId){
-      let unsubscribe =onSnapshot(doc(db, "items", productId),(doc) => {
-        setItem(doc.data())
+  useEffect(() => {
+    if (productId) {
+      let unsubscribe = onSnapshot(doc(db, "items", productId), (doc) => {
+        setItem(doc.data());
       });
-      return unsubscribe
-
+      return unsubscribe;
     }
-
-
-
-  },[productId])
-  useEffect(()=> {
-    if(Object.keys(user1).length && Object.keys(user2).length){
-      const roomId = user1.uid > user2.uid ? `${user1.uid + user2.uid}` : `${user2.uid + user1.uid}`;
-      getDoc(doc(db, 'conversations', user1?.uid, 'to', user2?.uid)).then((res)=>{setItemId(res.data().item)})
+  }, [productId]);
+  useEffect(() => {
+    if (Object.keys(user1).length && Object.keys(user2).length) {
+      const roomId =
+        user1.uid > user2.uid
+          ? `${user1.uid + user2.uid}`
+          : `${user2.uid + user1.uid}`;
+      getDoc(doc(db, "conversations", user1?.uid, "to", user2?.uid)).then(
+        (res) => {
+          setItemId(res.data().item);
+        }
+      );
       const messagesDoc = collection(db, "messages", roomId, "chat");
       const q = query(messagesDoc, orderBy("createdAt", "asc"));
-      let unsubscribe =onSnapshot(q, (querySnapshot) => {
+      let unsubscribe = onSnapshot(q, (querySnapshot) => {
         let messages = [];
-        querySnapshot.forEach((doc)=>{
-          messages.push(doc.data())
+        querySnapshot.forEach((doc) => {
+          messages.push(doc.data());
         });
         setMessages(messages);
       });
-      return unsubscribe
-
-
-
+      return unsubscribe;
     }
+  }, [user1, user2]);
 
-  },[user1,user2])
-
-  async function addMessageToConversation(){
-    const roomId = user1?.uid > user2?.uid ? `${user1?.uid + user2?.uid}` : `${user2?.uid + user1?.uid}`;
+  async function addMessageToConversation() {
+    const roomId =
+      user1?.uid > user2?.uid
+        ? `${user1?.uid + user2?.uid}`
+        : `${user2?.uid + user1?.uid}`;
     // const messagesDoc = collection(db,'messages', roomId, 'chat');
     await addDoc(collection(db, "messages", roomId, "chat"), {
       messageText,
@@ -54,18 +67,24 @@ function Chat({user1, user2,userList,product,productId}) {
       createdAt: serverTimestamp(),
       image: "",
     });
-    await setDoc(doc(db, 'conversations', user1.uid, 'to', user2.uid), { ...user2,lastInteracted: serverTimestamp()})
-    await setDoc(doc(db, 'conversations', user2.uid, 'to', user1.uid), {...user1,lastInteracted: serverTimestamp()})
+    await setDoc(doc(db, "conversations", user1.uid, "to", user2.uid), {
+      ...user2,
+      lastInteracted: serverTimestamp(),
+    });
+    await setDoc(doc(db, "conversations", user2.uid, "to", user1.uid), {
+      ...user1,
+      lastInteracted: serverTimestamp(),
+    });
   }
 
-  function onChangeTextHandler(e){
+  function onChangeTextHandler(e) {
     setMessageText(e.target.value);
   }
 
   async function sendMessage(e) {
     e.preventDefault();
     addMessageToConversation(messageText);
-    setMessageText('')
+    setMessageText("");
   }
 
   let onSellerClick =async (productId) => {
@@ -93,13 +112,7 @@ function Chat({user1, user2,userList,product,productId}) {
     } else if(itemId===productId && user1.uid===item.buyer && item.isActive===false && item.isRated===undefined ){
       return(<button onClick={()=>{onBuyerClick(productId)}} className={styles.rateButtonBuyer} >RATE SELLER</button>)
     }
-     else {
-      return(
-        <div></div>
-      )
-    }
-
-  }
+  };
   return (
     <div className={styles.messageContainer}>
       <div className={styles.topBar}>
@@ -113,13 +126,18 @@ function Chat({user1, user2,userList,product,productId}) {
       </div>
 
       <Messages loggedInUser={user1} messages={messages}></Messages>
-      <form className={styles.formContainer} onSubmit={sendMessage} >
-        <input className={styles.textBox} type='text' name='messageText' value={messageText} onChange={onChangeTextHandler}/>
-        <input type='submit' value='submit'></input>
+      <form className={styles.formContainer} onSubmit={sendMessage}>
+        <input
+          className={styles.textBox}
+          type="text"
+          name="messageText"
+          value={messageText}
+          onChange={onChangeTextHandler}
+        />
+        <input type="submit" value="submit"></input>
       </form>
     </div>
-
-  )
+  );
 }
 
-export default Chat
+export default Chat;
