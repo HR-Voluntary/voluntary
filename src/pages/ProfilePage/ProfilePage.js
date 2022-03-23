@@ -168,9 +168,8 @@ const ProfilePage = () => {
               <h4>lv. {user.trustScore}</h4>
             </div>
           </div>
-          <button className={styles['msg-btn']}>Message</button>
+          <button onClick={() => navigate('/ChatPage')} className={styles['msg-btn']}>Message</button>
         </div>
-
         <div className={styles.body}>
           <div className={styles['cards-container']}>
             <h2>Listings</h2>
