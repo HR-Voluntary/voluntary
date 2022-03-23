@@ -160,30 +160,12 @@ export default ProductPage;
 //   // const dummyData = state?.productId;
 //   const navigate = useNavigate();
 
-<<<<<<< HEAD
-  useEffect(() => {
-    console.log('new item clicked')
-  }, [mainName])
-
-  return (
-    <>
-      <button onClick={() => navigate('/ListingPage')}>Back to Listings</button>
-      <button onClick={clickSimilar}>Similar Products</button>
-      <button onClick={clickSellerItems}>Other Items from the Seller</button>
-      <div>
-        {renderPage()}
-      </div>
-    </>
-  )
-}
-=======
->>>>>>> main
 
 //   function clickChat() {
 //     // update a value in app.js for the sellerId so that chat can access it
 //     // mainSeller || product.sellerInfo
 //     navigate('/ChatPage', {
-//       state: { product }
+//       state: { product, productId: productId }
 //     });
 //   }
 

@@ -25,7 +25,6 @@ const Navbar = () => {
   const userData = useAuth();
   const placeholderId = userData?.currentUser?.uid;
 
-<<<<<<< HEAD
   const setUserState = (userId) => {
     axios.get(`http://localhost:3001/user/profile/${userId}`)
     .then(res => {
@@ -37,9 +36,6 @@ const Navbar = () => {
   const toggleModal = () => {
     setShowModalWindow(!showModalWindow);
   };
-=======
-  // console.log(currentImage)
->>>>>>> main
 
   useEffect(() => {
     if (currentUserData?.photo) {
@@ -93,7 +89,6 @@ const Navbar = () => {
   }
 
   return (
-<<<<<<< HEAD
     <>
       <div className={styles.navbar}>
         <span className={styles.logo}>
@@ -104,19 +99,6 @@ const Navbar = () => {
               alt=""
             ></img>
             <span className={styles.logoText}>Voluntary</span>
-=======
-    <div className={styles.navbar}>
-      <span className={styles.logo}>
-        <Link className={styles.logo} to='/ListingPage'>
-          <img className={styles.image} src={require('./utils/Mascot.png')} alt=''></img>
-          <span className={styles.logoText}>Voluntary</span>
-        </Link>
-      </span>
-      <ul className={styles.navbar_list}>
-        <li className={styles.navbar_list_item}>
-          <Link className={styles.link} to='/ProfilePage'>
-            <img src={currentImage} alt='' className={styles.navbar_avatar} />
->>>>>>> main
           </Link>
         </span>
         <ul className={styles.navbar_list}>
