@@ -12,7 +12,7 @@ const Listing = ({ listing }) => {
   }
 
   return (
-    <div className={styles.indivListing}>
+    <div id={listing.id} className={styles.indivListing}>
       <div className={styles.imageContainer}>
       <img className={styles.listingImage} src={listing.image} alt=""></img>
       </div>
