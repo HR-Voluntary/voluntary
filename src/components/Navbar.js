@@ -11,7 +11,7 @@ const Navbar = () => {
   const location = useLocation();
   const [currentImage, setCurrentImage] = useState(require('./utils/Mascot.png'));
 
-  console.log(currentImage)
+  // console.log(currentImage)
 
   useEffect(() => {
     if (currentUserData?.photo) {

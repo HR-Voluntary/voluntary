@@ -7,11 +7,11 @@ import Messages from './Messages';
 function Chat({user1, user2}) {
   const [messages, setMessages] = useState([]);
   const [messageText, setMessageText] = useState('');
-  console.log(user2)
+  // console.log(user2)
   // Add a listener
   useEffect(()=> {
     if(Object.keys(user1).length && Object.keys(user2).length){
-      console.log(user2)
+      // console.log(user2)
       const roomId = user1.uid > user2.uid ? `${user1.uid + user2.uid}` : `${user2.uid + user1.uid}`;
 
       const messagesDoc = collection(db, "messages", roomId, "chat");
@@ -27,7 +27,7 @@ function Chat({user1, user2}) {
       return unsubscribe
 
     } else{
-      console.log(user2)
+      // console.log(user2)
     }
 
   },[user1,user2])

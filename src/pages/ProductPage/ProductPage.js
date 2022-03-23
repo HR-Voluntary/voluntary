@@ -1,113 +1,149 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router';
+import { useAuth } from '../../contexts/AuthContext';
 import axios from 'axios';
 import styles from './ProductPage.module.css';
 import newStyles from './ProductPageTime.module.css';
 import SimilarProducts from './SimilarProducts.jsx';
 import SellerItems from './SellerItems.jsx'
-import { useLocation } from 'react-router';
-import { useNavigate } from 'react-router';
-
-
-// get product from Listings page
-// if they click get similar products or more from seller
-  // it will bring up a list of thos products in the place of the description
-// clicking on any image will bring up the prodcut display for that image
-// are all images going to be in the form of an array, even if it's just one?
-  // I have logic to handle both cases since that is what the data is right now.
-
 
 const ProductPage = () => {
-  const dummyArray = [1,2,3,4];
-  const rockwell = [1, 1, 1, 1, 1, 1, 1];
+  //Logged in User Data:
+  const userData = useAuth();
+  const { state } = useLocation();
+  const navigate = useNavigate();
+  const [allItems, setAllItems] = useState([]);
+  const [categoryItems, setCategoryItems] = useState([]);
+  const [product, setProduct] = useState('');
+
+  // const dummyArray = [1,2,3,4];
+  // const rockwell = [1, 1, 1, 1, 1, 1, 1];
+  // const productIdFromRouter = state?.productId;
+  const productIdFromRouter = "Ujl14tOWenPtkTyJvRE9";
+
+  function findItem (dataArray) {
+    for (let i = 0; i < dataArray.length; i++) {
+      if (dataArray[i].id === productIdFromRouter) {
+        setProduct(dataArray[i]);
+        return dataArray[i];
+      }
+    }
+  };
+
+  function onItemClickHandler (id) {
+    const matchedItem = allItems.filter(item => item.id === id);
+
+    setProduct(matchedItem[0]);
+    const sameCategoryItems = allItems.filter(item => {
+      if (item.id !== productIdFromRouter && item.category === matchedItem[0].category) {
+        return item;
+      }
+    });
+    setCategoryItems(sameCategoryItems)
+  }
+
+  useEffect(() => {
+    axios.get('http://localhost:3001/user/all')
+    .then(response => {
+      // console.log(response)
+        const userData = response.data;
+        // console.log('main data ', userData);
+        let itemsForSale = [];
+        userData.forEach(user => {
+          user.userItems.forEach(item => {
+            item.trustScore = user.trustScore;
+            item.sellerName = user.name;
+            item.userItems = user.userItems;
+            itemsForSale.push(item);
+          })
+        });
+
+      setAllItems(itemsForSale)
+      const focusItem = findItem(itemsForSale);
+      const sameCategoryItems = itemsForSale.filter(item => {
+        if (item.id !== productIdFromRouter && item.category === focusItem.category) {
+          return item;
+        }
+      });
+      setCategoryItems(sameCategoryItems)
+    });
+  }, [])
 
 
-
-
-
-  return (
-    <div className={newStyles.container}>
-      <div className={newStyles.focusContainer}>
-          <div className={newStyles.mainProductContainer}>
-              <div className={newStyles.mainProductContentContainer}>
-
-                <div className={newStyles.imageBox}>
-                  <img src={'https://bit.ly/358bwoM'} alt="product"/>
-                </div>
-
-                <div className={newStyles.supportingImageBox}>
-                  {dummyArray.map(img =>
-                      <div className={newStyles.supportingImageContainer}>
-                        <img src={'https://bit.ly/358bwoM'} alt="product"/>
-                      </div>
-                    )}
-                </div>
-
-              </div>
-              <div className={newStyles.mainProductContentContainer}>
-
-                <div className={newStyles.detailsBox}>
-                  <h1>This is a product title</h1>
-                  <div>Category</div>
-                  <div>Name</div>
-                  <div>TrustScore</div>
-                  <h3>lorem ipsum sdaasdfj dsafjkl sdfalkasdf lsda fjsd lasdklasdfjklasdflasd lasd dsdjaasdl sdlasd dfsalkfdksal ldslflsdflda sdalfal lorem ipsum sdaasdfj dsafjkl sdfalkasdf lsda fjsd lasdklasdfjklasdflasd lasd dsdjaasdl sdlasd dfsalkfdksal ldslflsdflda sdalfallorem ipsum sdaasdfj dsafjkl sdfalkasdf lsda fjsd lasdklasdfjklasdflasd lasd dsdjaasdl sdlasd dfsalkfdksal ldslflsdflda sdalfallorem ipsum sdaasdfj dsafjkl sdfalkasdf lsda fjsd lasdklasdfjklasdflasd lasd dsdjaasdl sdlasd dfsalkfdksal ldslflsdflda sdalfal</h3>
-                  <button>Chat</button>
-                </div>
-
-                <div className={newStyles.otherItemsBox}>
-                  <h2>Other Items from the Seller</h2>
-                  {rockwell.map(img =>
-                      <div className={newStyles.otherItemsContainer}>
-                        <div className={newStyles.supportingImageContainer}>
-                          <img src={'https://bit.ly/358bwoM'} alt="product"/>
+  if (product === '') {
+    return null;
+  } else {
+    return (
+      <div className={newStyles.container}>
+        <div className={newStyles.focusContainer}>
+            <div className={newStyles.mainProductContainer}>
+                <div className={newStyles.mainProductContentContainer}>
+                  <div className={newStyles.imageBox}>
+                    <img src={product.image[0]} alt="product"/>
+                  </div>
+                  <div className={newStyles.supportingImageBox}>
+                    {product.image.map((img, i) =>
+                        <div key={i} className={newStyles.supportingImageContainer}>
+                          <img src={img} alt="product"/>
                         </div>
-                        <div className={newStyles.textContainer}>
-                          <h3>Product Title</h3>
-                          <div>Product Description</div>
-                        </div>
-                      </div>
-                    )}
-                </div>
-
-              </div>
-
-
-
-
-
-              {/* <div className={newStyles.mainTextContentContainer}>
-                <div className={newStyles.textBox}>
-                  <div className={newStyles.textContent}>
+                      )}
                   </div>
                 </div>
-              </div> */}
-          </div>
 
-      </div>
-
-      <div className={newStyles.relatedContainer}>
-        <h2>Related Items</h2>
-        {rockwell.map(img =>
-        <div className={newStyles.relatedItem}>
-          <div className={newStyles.relatedItemImageBox}>
-            <img className={newStyles.relatedItemImage} src={'https://bit.ly/358bwoM'} alt="product"/>
-          </div>
-          <div className={newStyles.relatedText}>
-            <h3>Product Name</h3>
-            <div>info</div>
-          </div>
+                <div className={newStyles.mainProductContentContainer}>
+                  <div className={newStyles.detailsBox}>
+                    <h1>Product: {product.name}</h1>
+                    <div>Category: {product.category}</div>
+                    <div>Sold by {product.sellerName}</div>
+                    <div>Trust Score: {product.trustScore}</div>
+                    <h3>{product.description}</h3>
+                    <button>Chat</button>
+                  </div>
+                  <div className={newStyles.otherItemsBox}>
+                    <h2>Other Items from the Seller</h2>
+                    {product.userItems.map(prod => {
+                        // console.log(product)
+                       return (
+                         <div key={prod.id} onClick={() => onItemClickHandler(prod.id)}className={newStyles.otherItemsContainer}>
+                          <div className={newStyles.supportingImageContainer}>
+                            <img src={prod.image[0]} alt="product"/>
+                          </div>
+                          <div className={newStyles.textContainer}>
+                            <h3>{prod.name}</h3>
+                            <div>{prod.description}</div>
+                          </div>
+                        </div>
+                          )
+                        }
+                      )}
+                  </div>
+                </div>
+            </div>
         </div>
-        )}
+        <div className={newStyles.relatedContainer}>
+          <h2>Related Items</h2>
+          {categoryItems.map(item =>
+          <div key={item.id} onClick={() => onItemClickHandler(item.id)} className={newStyles.relatedItem}>
+            <div className={newStyles.relatedItemImageBox}>
+              <img className={newStyles.relatedItemImage} src={item.image[0]} alt="product"/>
+            </div>
+            <div className={newStyles.relatedText}>
+              <h3>{item.name}</h3>
+              <div>Sold by {item.sellerName}</div>
+              <div>{item.description}</div>
+            </div>
+          </div>
+          )}
+        </div>
       </div>
-    </div>
-  )
+    )
+  }
 }
 
 export default ProductPage;
 
 
 // const ProductPage = () => {
-
 //   const [pageDisplay, setPageDisplay] = useState('product')
 //   const [product, setProduct] = useState([])
 //   const [mainImage, setMainImage] = useState('')
