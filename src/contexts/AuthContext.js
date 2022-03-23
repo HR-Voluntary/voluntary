@@ -27,11 +27,11 @@ export function AuthProvider({ children }) {
         setCurrentUser(user);
         const q = query(collection(db, "users"), where("uid", "==", user?.uid));
         const docs = await getDocs(q);
-        setCurrentUserData(docs.docs[0].data())
+        setCurrentUserData(docs.docs[0].data());
       } else {
-        if (!user) return navigate('/');
+        if (!user) return navigate("/");
       }
-    })
+    });
   }, []);
 
   const value = {
@@ -39,9 +39,5 @@ export function AuthProvider({ children }) {
     currentUserData,
   };
 
-  return (
-    <AuthContext.Provider value={value}>
-      { children }
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

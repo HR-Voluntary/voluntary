@@ -146,9 +146,9 @@ const ProfilePage = () => {
   } else {
     return (
       <section>
-        <div className={styles.navbar}>
+        {/* <div className={styles.navbar}>
           <button onClick={() => setPostModalWindow(!postModalWindow)} className={styles['list-item-btn']}>List Item</button>
-        </div>
+        </div> */}
 
         <div className={styles.heading}>
           <img className={styles.pic} src={user.photo} alt="profile-pic" />

@@ -1,22 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { useNavigate } from 'react-router-dom';
-import {
-  auth,
-  registerWithEmailAndPassword,
-} from "../../firebase";
-import styles from './Register.module.css';
+import React, { useEffect, useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useNavigate } from "react-router-dom";
+import { auth, registerWithEmailAndPassword } from "../../firebase";
+import styles from "./Register.module.css";
 
 const Register = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
   const [user, loading, error] = useAuthState(auth);
-  const [type, setType] = useState('Individual');
+  const [type, setType] = useState("Individual");
   const navigate = useNavigate();
 
   const register = () => {
-    if (!name) alert('Please enter name');
+    if (!name) alert("Please enter name");
     registerWithEmailAndPassword(name, email, password, type);
   };
 
@@ -24,9 +21,9 @@ const Register = () => {
     if (loading) return; // maybe trigger loading screen
 
     if (user) {
-      navigate('/ListingPage')
+      navigate("/ListingPage");
     }
-  }, [user, loading]) // LOOK AT THIS IF SHIT BREAKS
+  }, [user, loading]); // LOOK AT THIS IF SHIT BREAKS
 
   return (
     <div className={styles.register}>
@@ -37,38 +34,35 @@ const Register = () => {
           <div className={styles.register_passwordContainer}>
             <div>Name</div>
             <input
-              type='text'
+              type="text"
               className={styles.register__passwordInput}
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder='Name'
+              placeholder="Name"
               required
-            >
-            </input>
+            ></input>
           </div>
           <div className={styles.register_passwordContainer}>
             <div>Email</div>
             <input
-              type='email'
+              type="email"
               className={styles.register__passwordInput}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder='Email'
+              placeholder="Email"
               required
-            >
-            </input>
+            ></input>
           </div>
           <div className={styles.register_passwordContainer}>
             <div>Password</div>
             <input
-              type='password'
+              type="password"
               className={styles.register__passwordInput}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder='Password'
+              placeholder="Password"
               required
-            >
-            </input>
+            ></input>
           </div>
           <div>
             <div className={styles.dropdown_text}>Account Type</div>
@@ -79,8 +73,8 @@ const Register = () => {
                 className={styles.dropdown}
                 required
               >
-                <option value='Individual'>Individual</option>
-                <option value='Organization'>Organization</option>
+                <option value="Individual">Individual</option>
+                <option value="Organization">Organization</option>
               </select>
             </div>
           </div>
@@ -92,9 +86,9 @@ const Register = () => {
           </button>
         </div>
       </div>
-      <img src={require('./utils/Mascot.png')} alt=''></img>
+      <img src={require("./utils/Mascot.png")} alt=""></img>
     </div>
   );
-}
+};
 
 export default Register;
