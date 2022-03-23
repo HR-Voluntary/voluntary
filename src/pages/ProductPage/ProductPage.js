@@ -18,8 +18,8 @@ const ProductPage = () => {
 
   // const dummyArray = [1,2,3,4];
   // const rockwell = [1, 1, 1, 1, 1, 1, 1];
-  // const productIdFromRouter = state?.productId;
-  const productIdFromRouter = "Ujl14tOWenPtkTyJvRE9";
+  const productIdFromRouter = state?.productId;
+  // const productIdFromRouter = "Ujl14tOWenPtkTyJvRE9";
 
   function findItem (dataArray) {
     for (let i = 0; i < dataArray.length; i++) {
