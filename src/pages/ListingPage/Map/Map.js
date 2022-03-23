@@ -17,6 +17,11 @@ const MapListing = ({ userLocation, filterListing }) => {
     zoom: 12,
   });
 
+  const [userLoc, setUserLoc] = useState({
+    latitude: userLocation[0],
+    longitude: userLocation[1],
+  });
+
   const [selectedListing, setSelectedListing] = useState(null);
 
   // console.log(filterListing);
@@ -83,28 +88,37 @@ const MapListing = ({ userLocation, filterListing }) => {
                 }}
                 style={{ width: '50px', height: '50px' }}
               >
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Map_marker.svg/390px-Map_marker.svg.png?20150513095621" alt="facility" style={{ width: '15px', height: '32px' }} />
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Map_marker.svg/390px-Map_marker.svg.png?20150513095621" alt="location" style={{ width: '15px', height: '32px' }} />
               </button>
             </Marker>
           )
         }
       })}
 
+      <Marker
+        latitude={userLoc.latitude}
+        longitude={userLoc.longitude}
+      // latitude={37.3585429}
+      // longitude={-122.132725}
+      >
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Map_marker.svg/390px-Map_marker.svg.png?20150513095621" alt="location" style={{ width: '15px', height: '32px' }} />
+      </Marker>
+
       {selectedListing && (
-          <Popup
-            latitude={selectedListing.location[0]}
-            longitude={selectedListing.location[1]}
-            closeOnClick={false}
-            onClose={() => {
-              setSelectedListing(null)
-            }}
-          >
-            <div>
-              <h2>{selectedListing.name}</h2>
-              <p>{selectedListing.description}</p>
-            </div>
-          </Popup>
-        )}
+        <Popup
+          latitude={selectedListing.location[0]}
+          longitude={selectedListing.location[1]}
+          closeOnClick={false}
+          onClose={() => {
+            setSelectedListing(null)
+          }}
+        >
+          <div>
+            <h2>{selectedListing.name}</h2>
+            <p>{selectedListing.description}</p>
+          </div>
+        </Popup>
+      )}
     </Map>
   )
 };
