@@ -79,10 +79,8 @@ function Chat({user1, user2,userList,product,productId}) {
   }
 
   let renderButton = () =>{
-    // console.log(item===productId)
-    // console.log('iamsellerinfo', product?.sellerInfo, 'user.uid', user1?.uid)
-    // console.log(product?.sellerInfo===user1.uid)
-    console.log(item.isActive, item.isRated)
+
+
 
     if(product?.sellerInfo===user1?.uid && user1!==user2 &&itemId===productId && item.isActive ){
       return(

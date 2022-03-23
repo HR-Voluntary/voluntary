@@ -48,7 +48,7 @@ function ChatPage() {
     setUser2(user)
   }
   let setItemtoUser= async(user1,user2)=>{
-   console.log()
+
     await setDoc(doc(db, 'conversations', user1.uid, 'to', user2.uid), { ...user2,item:state.productId,lastInteracted: serverTimestamp()})
     await setDoc(doc(db, 'conversations', user2.uid, 'to', user1.uid), { ...user1,item:state.productId,lastInteracted: serverTimestamp()})
   }
