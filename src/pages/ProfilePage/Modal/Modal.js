@@ -7,8 +7,10 @@ const Modal = (props) => {
 
   useEffect(() => {
     if (elInput.current !== null) {
-      elInput.current.style.left = '50%';
+      // elInput.current.style.left = '50%';
       elInput.current.style.display = 'flex';
+      elInput.current.style.justifyContent = 'center';
+      elInput.current.style.alignItems = 'center';
     }
   }, [props.onClose]);
 

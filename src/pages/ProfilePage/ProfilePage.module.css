@@ -126,19 +126,23 @@ section {
 
 .formContainer {
   position: absolute;
-  top: 20%;
-  left: 25%;
-  width: 1000px;
-  height: 950px;
+  top: 12.5%;
+  /* left: 30%; */
+  /* width: 1000px; */
+  /* height: 850px; */
   background-color: white;
   z-index: 2;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
+  padding: 30px;
   background-color:#FEDCC5;
+  border-radius: 20px;
+}
 
+.form-product-margin {
+  margin-top: 5%;
 }
 
 .formContainer textarea {
@@ -148,14 +152,27 @@ section {
 
 .form-product-title {
   width: 350px;
+  font-size: 15px;
+  padding: 20px;
+  border-radius: 12px;
+  border: none;
 }
 
 .form-product-description {
   width: 350px;
+  font-size: 15px;
+  padding: 20px;
+  border-radius: 20px;
+  border: none;
 }
 
 .form-submit {
   margin-top: 20px;
+}
+
+.form-picture {
+  padding: 10px;
+  margin-left: 6%;
 }
 
 /* CARD */
