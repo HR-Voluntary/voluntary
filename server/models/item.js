@@ -45,7 +45,7 @@ const getItems = () => {
 
 const getItem = (id) => {
   console.log('in getItem')
-  console.log(id)
+  // console.log(id)
   return getDocs(itemRef)
     .then((snapshot) => {
       const doc = snapshot.docs.filter(doc => id === doc.id)
@@ -66,7 +66,7 @@ const getItemByCategory = (category) => {
       docs.forEach(doc => {
         itemsByCategoryArray.push({...doc.data()})
       });
-      console.log(itemsByCategoryArray)
+      // console.log(itemsByCategoryArray)
       return itemsByCategoryArray
     });
   };
