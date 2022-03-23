@@ -23,10 +23,10 @@ const Navbar = () => {
   const [user, setUser] = useState(null);
 
   const userData = useAuth();
-  const placeholderId = userData?.currentUser?.uid;
+  const userIdFromAuth = userData?.currentUser?.uid;
 
   const setUserState = (userId) => {
-    axios.get(`http://localhost:3001/user/profile/${userId}`)
+    axios.get(`http://localhost:3001/user/profile/${user}`)
     .then(res => {
       setUser(res.data[0]);
     })
@@ -40,6 +40,9 @@ const Navbar = () => {
   useEffect(() => {
     if (currentUserData?.photo) {
       setCurrentImage(currentUserData?.photo);
+    }
+    if (userIdFromAuth) {
+      setUser(userIdFromAuth)
     }
   }, [currentUserData]);
 
@@ -61,7 +64,7 @@ const Navbar = () => {
     });
     let itemToPost = {
       category: productCategory,
-      sellerInfo: user?.id,
+      sellerInfo: userIdFromAuth,
       image:s3photoUrlsArray,
       description: productDescription,
       name: productTitle
@@ -72,7 +75,7 @@ const Navbar = () => {
       data: { itemToPost }
     })
     .then(() => {
-      setUserState(placeholderId);
+      setUserState(userIdFromAuth);
     })
     setProductTitle('');
     setProductDescription('');
