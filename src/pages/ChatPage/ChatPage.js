@@ -13,7 +13,7 @@ function ChatPage(  ) {
   const { state } = useLocation();
   // console.log(state.product.sellerInfo, 'THESE ARE THE PASSED IN PARAMS');
   const userb = {uid:state?.product?.sellerInfo};
-  console.log(userb)
+  // console.log(userb)
   const [user, loading, error] = useAuthState(auth);
   const[user1, setUser1]= useState({})
   const[user2, setUser2] =useState({})
@@ -57,7 +57,7 @@ function ChatPage(  ) {
   async function addUserstoLists(user1, user2) {
     if(Object.keys(user1).length && Object.keys(user2).length){
       try{
-        console.log('wee in')
+        // console.log('wee in')
         let toUserConversation= await getDocument('conversations', user1.uid, 'to',user2.uid);
         if(!toUserConversation){
           await setDoc(doc(db, 'conversations', user1.uid, 'to', user2.uid), {uid:user2.uid,name:user2.name,photo:user2.photo||'',lastInteracted: serverTimestamp()})
@@ -66,7 +66,7 @@ function ChatPage(  ) {
         if(!fromUserConversation){
         await setDoc(doc(db, 'conversations', user2.uid, 'to', user1.uid), {uid:user1.uid,name:user1.name,photo:user1.photo||'',lastInteracted: serverTimestamp()})
         }}catch(e){
-          console.log('errror',e)
+          // console.log('errror',e)
         }
     }
   }
@@ -86,7 +86,7 @@ function ChatPage(  ) {
         });
       }
     } catch(e){
-      console.log("errrrror",e)
+      // console.log("errrrror",e)
     }
   }
 
