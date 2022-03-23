@@ -1,9 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { logInWithEmailAndPassword, auth, signInWithGoogle, signInWithFacebook } from "../../firebase";
+import {
+  logInWithEmailAndPassword,
+  auth,
+  signInWithGoogle,
+  signInWithFacebook,
+} from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import styles from './Login.module.css';
+import styles from "./Login.module.css";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -15,7 +20,7 @@ function Login() {
       // maybe trigger loading screen
       return;
     }
-    if (user) navigate('/ListingPage');
+    if (user) navigate("/ListingPage");
   }, [user, loading]); // LOOK AT THIS IS SHIT STARTS BREAKING
 
   return (
@@ -27,30 +32,28 @@ function Login() {
           <div className={styles.login_emailContainer}>
             <div>Email</div>
             <input
-              type='email'
+              type="email"
               className={styles.login__emailInput}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder='Email'
+              placeholder="Email"
               required
-            >
-            </input>
+            ></input>
           </div>
           <div className={styles.login_passwordContainer}>
             <div>Password</div>
             <input
-              type='password'
+              type="password"
               className={styles.login__passwordInput}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder='Password'
+              placeholder="Password"
               required
-            >
-            </input>
+            ></input>
           </div>
-            <div className={styles.login__reset}>
-              <Link to="/Reset">Forgot Password</Link>
-            </div>
+          <div className={styles.login__reset}>
+            <Link to="/Reset">Forgot Password</Link>
+          </div>
           <button
             className={styles.login__btn}
             onClick={() => logInWithEmailAndPassword(email, password)}
@@ -63,15 +66,15 @@ function Login() {
             <div className={styles.login__authBtns}>
               <img
                 className={styles.login__authImg}
-                src={require('./utils/google.png')}
-                alt=''
+                src={require("./utils/google.png")}
+                alt=""
                 onClick={signInWithGoogle}
                 disabled={loading}
               />
               <img
                 className={styles.login__authImg}
-                src={require('./utils/facebook.png')}
-                alt=''
+                src={require("./utils/facebook.png")}
+                alt=""
                 onClick={signInWithFacebook}
                 disabled={loading}
               />
@@ -79,13 +82,15 @@ function Login() {
           </div>
           <div className={styles.login__registerText}>
             Don't have an account yet?
-            <Link className={styles.login__register} to="/Register">Register</Link> for free
+            <Link className={styles.login__register} to="/Register">
+              Register
+            </Link>{" "}
+            for free
           </div>
         </div>
       </div>
-      <img src={require('./utils/Mascot.png')} alt=''></img>
+      <img src={require("./utils/Mascot.png")} alt=""></img>
     </div>
   );
 }
 export default Login;
-

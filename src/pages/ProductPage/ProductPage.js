@@ -171,7 +171,7 @@ export default ProductPage;
 //     // update a value in app.js for the sellerId so that chat can access it
 //     // mainSeller || product.sellerInfo
 //     navigate('/ChatPage', {
-//       state: { product }
+//       state: { product, productId: productId }
 //     });
 //   }
 
