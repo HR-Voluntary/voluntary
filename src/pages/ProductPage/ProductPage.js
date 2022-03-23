@@ -43,6 +43,7 @@ const ProductPage = () => {
     setMainImage(e.target.src);
     setPageDisplay('product');
   }
+ 
 
 
   function renderImages() {
