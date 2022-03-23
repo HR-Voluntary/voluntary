@@ -1,24 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import Map, { Marker, Popup } from 'react-map-gl';
+import Map, { Marker, Popup, ScaleControl } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import facilitiesData from './data/healthcarefacilities.js';
 import styles from './Map.module.css';
 
 
-const MapListing = ({ userLocation }) => {
+const MapListing = ({ userLocation, filterListing }) => {
+  // const [viewState, setViewState] = useState(mapParams.mapBounds);
+  // const [viewState, setViewState] = useState({
+  //   bounds: mapParams.mapBounds
+  // });
+
   const [viewState, setViewState] = useState({
     latitude: userLocation[0],
     longitude: userLocation[1],
     zoom: 12,
   });
 
-  const sampleview = null;
+  const [selectedListing, setSelectedListing] = useState(null);
 
-  const [selectedFacility, setSelectedFacility] = useState(null);
+  // console.log(filterListing);
 
-  // if (userLocation !== viewport) {
-    // setViewPort  = ()
-  // }
+  // const sampleview = { longitude: 120.9605, latitude: 23.6978, zoom: 12 };
+  // const sampleview = { bounds: [[-73.9876, 40.7661], [-73.9397, 40.8002]] }; // [[long, lat], [long, lat]]
 
   useEffect(() => {
     setViewState({
@@ -28,10 +32,16 @@ const MapListing = ({ userLocation }) => {
     })
   }, [userLocation])
 
+  // useEffect(() => {
+  //   setViewState({
+  //     bounds: mapParams.mapBounds
+  //   });
+  // }, [mapParams])
+
   useEffect(() => {
     const listener = (e) => {
       if (e.key === 'Escape') {
-        setSelectedFacility(null);
+        setSelectedListing(null);
       }
     };
     window.addEventListener('keydown', listener);
@@ -42,58 +52,60 @@ const MapListing = ({ userLocation }) => {
   }, []);
 
   return (
-    <div>
-      <small className={styles.sampletext}>You are running this application in <b>{process.env.NODE_ENV}</b> mode.</small>
-      <Map
-        // initialViewState={{ ...viewport }}
-        initialViewState={sampleview}
-        { ...viewState }
-        onMove={evt => setViewState(evt.viewState)}
-        style={{
-          width: '85vw',
-          height: '85vh',
-          margin: 'auto',
-          border: 'solid',
-          borderColor: 'black'
-        }}
-        mapStyle="mapbox://styles/mapbox/streets-v11"
-        mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-      >
-        {facilitiesData.data.map((facility) => (
-          <Marker
-            key={facility[0]}
-            latitude={facility[13][1]}
-            longitude={facility[13][2]}
-          >
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                setSelectedFacility(facility)
-              }}
-              style={{ width: '50px', height: '50px' }}
+    <Map
+      {...viewState}
+      // bounds={viewState}
+      onMove={evt => setViewState(evt.viewState)}
+      style={{
+        width: '100%',
+        height: '100%',
+        margin: 'auto',
+        border: 'solid',
+        borderColor: 'black'
+      }}
+      mapStyle="mapbox://styles/mapbox/streets-v11"
+      mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+    >
+      <ScaleControl />
+      {filterListing.map((listing) => {
+        // if (listing.location) {
+        if (Array.isArray(listing.location)) {
+          return (
+            <Marker
+              // key={listing[0]}
+              latitude={listing.location[0]}
+              longitude={listing.location[1]}
             >
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Map_marker.svg/390px-Map_marker.svg.png?20150513095621" alt="facility" style={{ width: '15px', height: '32px' }} />
-            </button>
-          </Marker>
-        ))}
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  setSelectedListing(listing)
+                }}
+                style={{ width: '50px', height: '50px' }}
+              >
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Map_marker.svg/390px-Map_marker.svg.png?20150513095621" alt="facility" style={{ width: '15px', height: '32px' }} />
+              </button>
+            </Marker>
+          )
+        }
+      })}
 
-        {selectedFacility && (
+      {selectedListing && (
           <Popup
-            latitude={selectedFacility[13][1]}
-            longitude={selectedFacility[13][2]}
+            latitude={selectedListing.location[0]}
+            longitude={selectedListing.location[1]}
             closeOnClick={false}
             onClose={() => {
-              setSelectedFacility(null)
+              setSelectedListing(null)
             }}
           >
             <div>
-              <h2>{selectedFacility[10]}</h2>
-              <p>{selectedFacility[13][0]}</p>
+              <h2>{selectedListing.name}</h2>
+              <p>{selectedListing.description}</p>
             </div>
           </Popup>
         )}
-      </Map>
-    </div>
+    </Map>
   )
 };
 

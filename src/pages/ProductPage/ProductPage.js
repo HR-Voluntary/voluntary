@@ -198,7 +198,7 @@ const ProductPage = () => {
 
   return (
     <>
-      <button onClick={() => navigate('/ListPage')}>Back to Listings</button>
+      <button onClick={() => navigate('/ListingPage')}>Back to Listings</button>
       <button onClick={clickSimilar}>Similar Products</button>
       <button onClick={clickSellerItems}>Other Items from the Seller</button>
       <div>
