@@ -34,6 +34,7 @@ const ProductPage = () => {
   function onItemClickHandler (id) {
     setMainImage('');
     const matchedItem = allItems.filter(item => item.id === id);
+    console.log(product)
 
     setProduct(matchedItem[0]);
     const sameCategoryItems = allItems.filter(item => {
