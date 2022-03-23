@@ -87,70 +87,42 @@ function Chat({ user1, user2, userList, product, productId }) {
     setMessageText("");
   }
 
-  let onSellerClick = async (productId) => {
-    const docToUpdate = doc(db, "items", productId);
-    await updateDoc(docToUpdate, { isActive: false, buyer: user2.uid });
-    //load sarahs thing seller, user2
-  };
-  let onBuyerClick = async (productId) => {
-    const docToUpdate = doc(db, "items", productId);
-    await updateDoc(docToUpdate, { bought: true });
-    //load sarahs thing seller, user2
-  };
+  let onSellerClick =async (productId) => {
+    const docToUpdate = doc(db, 'items', productId);
+    await updateDoc(docToUpdate, { isActive: false,
+    buyer:user2.uid })
+   //load sarahs thing seller, user2
 
-  let renderButton = () => {
-    if (
-      product?.sellerInfo === user1?.uid &&
-      user1.uid !== user2.uid &&
-      itemId === productId &&
-      item.isActive
-    ) {
-      return (
-        <button
-          onClick={() => {
-            onSellerClick(productId);
-          }}
-          className={styles.rateButton}
-        >
-          MARK AS SOLD
-        </button>
-      );
-    } else if (
-      itemId === productId &&
-      user1.uid === item.buyer &&
-      item.isActive === false &&
-      item.isRated === undefined
-    ) {
-      return (
-        <button
-          onClick={() => {
-            onBuyerClick(productId);
-          }}
-          className={styles.rateButtonBuyer}
-        >
-          RATE BUYER
-        </button>
-      );
-    } else {
-      return <div></div>;
+  }
+  let onBuyerClick =async (productId) => {
+    const docToUpdate = doc(db, 'items', productId);
+    await updateDoc(docToUpdate, { bought: true })
+   //load sarahs thing seller, user2
+
+  }
+
+  let renderButton = () =>{
+
+
+
+    if(product?.sellerInfo===user1?.uid && user1.uid!==user2.uid &&itemId===productId && item.isActive ){
+      return(
+        <button onClick={()=>{onSellerClick(productId)}} className={styles.rateButton} >MARK AS SOLD</button>
+      )
+    } else if(itemId===productId && user1.uid===item.buyer && item.isActive===false && item.isRated===undefined ){
+      return(<button onClick={()=>{onBuyerClick(productId)}} className={styles.rateButtonBuyer} >RATE SELLER</button>)
     }
   };
   return (
     <div className={styles.messageContainer}>
       <div className={styles.topBar}>
-        <div>
-          {userList.find((user) => {
-            if (user.uid === user2.uid) {
-              return user.uid;
-            }
-          })?.active ? (
-            <div className={styles.green}></div>
-          ) : (
-            <div className={styles.red}></div>
-          )}
-          <div>{user2.name}</div>
-        </div>
-        {renderButton()}
+      <div>
+      {userList.find((user)=>{if(user.uid===user2.uid){return user.uid}})?.active?<div className={styles.green}></div>:<div className={styles.red}></div>}
+      {item&&<div>{item.name}</div>}
+      <div>{user2.name}</div>
+      </div>
+      {renderButton()}
+
       </div>
 
       <Messages loggedInUser={user1} messages={messages}></Messages>
