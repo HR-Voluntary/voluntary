@@ -17,17 +17,24 @@ const FilterBar = ({categoryFilterChange, trustFilterChange, distanceFilterChang
         <option value='1'>1+</option>
       </select>
       <select name='location' onChange={distanceFilterChange}>
-        <option value=''>Filter by Location</option>
-        <option value='1'>1 mile</option>
-        <option value='5'>5 miles</option>
-        <option value='10'>10 miles</option>
-        <option value='20'>20 miles</option>
-        <option value='50'>50 miles</option>
+        <option value='default'>Filter by Location</option>
+        <option value='1'>1 km</option>
+        <option value='2'>2 km</option>
+        <option value='10'>10 km</option>
+        <option value='20'>20 km</option>
+        <option value='50'>50 km</option>
+        <option value='100'>100 km</option>
       </select>
       <select name='category' onChange={categoryFilterChange}>
         <option value='default'>Filter by Category</option>
-        <option value='electronics'>Electronics</option>
         <option value='automotive'>Automotive</option>
+        <option value='clothing'>Clothing</option>
+        <option value='collectibles'>Collectibles</option>
+        <option value='electronics'>Electronics</option>
+        <option value='food'>Food</option>
+        <option value='furniture'>Furniture</option>
+        <option value='kitchen'>Kitchen</option>
+        <option value='toys'>Toys</option>
       </select>
     </div>
   )

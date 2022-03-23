@@ -1,72 +1,145 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router'
 import Carousel from 'react-elastic-carousel';
 import styles from './ProfilePage.module.css';
 import Modal from './Modal/Modal.js';
 import './ProfilePageCarousel.css';
 import axios from 'axios';
 import { Buffer } from 'buffer';
-import useUploadImage from '../../components/hooks/useUploadImage'
+import useUploadImage from '../../components/hooks/useUploadImage';
+import { useAuth } from '../../contexts/AuthContext';
+
+// Components:
+import ProfileProductCard from './ProfileProductCard';
+import EditForm from './EditForm';
+import PostForm from './PostForm';
+
 
 const ProfilePage = () => {
   const [user, setUser] = useState(null);
-  const [show, setShow] = useState(false);
+  const [postModalWindow, setPostModalWindow] = useState(false);
+  const [editModalWindow, setEditModalWindow] = useState(false);
   const [productTitle, setProductTitle] = useState('');
   const [productDescription, setProductDescription] = useState('');
   const [productCategory, setProductCategory] = useState('');
+  const [editProductId, setEditProductId] = useState('');
+  const navigate = useNavigate();
 
-  // Photo Upload Custom Hook:
-  const { onFileChange, onFormSubmitGeneratePhotoUrl, completedImgArray } = useUploadImage();
+  // S3 photo hook:
+  const { onFileChange, onFormSubmitGeneratePhotoUrl } = useUploadImage();
 
-  // console.log(completedImgArray)
+  const userData = useAuth();
+  // Replace with dynamic data once routing set up
+  const placeholderId = userData?.currentUser?.uid;
 
-  useEffect(() => {
-    axios.get(`http://localhost:3000/user/profile/1AOjnwnoc5bxD1u3VBiaNzKYL2k1`)
+  // Function that retrieves user data:
+  const setUserState = (userId) => {
+    axios.get(`http://localhost:3001/user/profile/${userId}`)
     .then(res => {
-      console.log(res.data)
       setUser(res.data[0]);
     })
-    .then((res) => {
-      console.log(res);
-    })
     .catch(e => console.log(e))
-  }, [])
+  }
 
+  // show1 edit
+  // show is list item
 
-  function showModal() {
-    setShow(!show);
+  useEffect(() => {
+    if (placeholderId) {
+      // Axios Call to get user/item data here:
+      setUserState(placeholderId)
+    }
+  }, [placeholderId]);
+
+  function showPostProductModal() {
+    setPostModalWindow(!postModalWindow);
+  };
+
+  function showEditModal() {
+    setEditModalWindow(!editModalWindow);
+    setProductTitle('');
+    setProductDescription('');
+    setProductCategory('');
+    setEditProductId('');
   };
 
   function handleProductTitleChange(e) {
     setProductTitle(e.target.value)
   }
-
   function handleProductDescriptionChange(e) {
     setProductDescription(e.target.value)
   }
-function handleProductCategoryChange(e) {
-  setProductCategory(e.target.value)
-}
+  function handleProductCategoryChange(e) {
+    setProductCategory(e.target.value)
+  }
 
-async function onFormSubmit(e) {
-  e.preventDefault();
-  const arrOfS3SuccessPuts = await onFormSubmitGeneratePhotoUrl();
-  let s3photoUrlsArray = arrOfS3SuccessPuts.map(s3url => {
-    // This map returns the exact URL we can use as an img tag's source:
-    return s3url.config.url.split('?')[0];
-  });
-  console.log(s3photoUrlsArray);
-  let itemToPost = {
-    category: productCategory,
-    sellerInfo: user.id,
-    image:s3photoUrlsArray,
-    description: productDescription,
-    name: productTitle
-  };
-  console.log(itemToPost);
-  setProductTitle('');
-  setProductDescription('');
-  setProductCategory('');
-}
+  function onActiveClickHandler(itemId, activeStatus) {
+    axios({
+      url: `http://localhost:3001/item/itm/${itemId}`,
+      method: 'PUT',
+      data: { isActive: !activeStatus }
+    })
+    .then(() => setUserState(placeholderId))
+    .catch((e) => console.log(e));
+  }
+
+  function onDeleteClickHandler(itemIdToDelete) {
+    axios({
+      url: `http://localhost:3001/item/${itemIdToDelete}`,
+      method: 'DELETE',
+      data: { id: itemIdToDelete }
+    })
+    .then(() => setUserState(placeholderId))
+    .catch((e) => console.log(e));
+  }
+
+  async function onEditFormSubmit(e, editProductId) {
+    e.preventDefault();
+    axios({
+      url: `http://localhost:3001/item/itm/${editProductId}`,
+      method: 'PUT',
+      data: {
+        category: productCategory,
+        sellerInfo: user.id,
+        description: productDescription,
+        name: productTitle
+      }
+    })
+    .then(() => {
+      setUserState(placeholderId);
+    });
+    setProductTitle('');
+    setProductDescription('');
+    setProductCategory('');
+    setEditModalWindow(!editModalWindow);
+  }
+
+  async function onFormSubmit(e) {
+    e.preventDefault();
+    const arrOfS3SuccessPuts = await onFormSubmitGeneratePhotoUrl();
+    let s3photoUrlsArray = arrOfS3SuccessPuts.map(s3url => {
+      return s3url.config.url.split('?')[0];
+    });
+    let itemToPost = {
+      category: productCategory,
+      sellerInfo: user.id,
+      image:s3photoUrlsArray,
+      description: productDescription,
+      name: productTitle
+    };
+    axios({
+      url: 'http://localhost:3001/item/',
+      method: 'POST',
+      data: { itemToPost }
+    })
+    .then(() => {
+      setUserState(placeholderId);
+    })
+    setProductTitle('');
+    setProductDescription('');
+    setProductCategory('');
+    setPostModalWindow(!postModalWindow);
+  }
 
   if (user === null) {
     return null;
@@ -74,8 +147,9 @@ async function onFormSubmit(e) {
     return (
       <section>
         <div className={styles.navbar}>
-          <button className={styles['list-item-btn']}>List Item</button>
+          <button onClick={() => setPostModalWindow(!postModalWindow)} className={styles['list-item-btn']}>List Item</button>
         </div>
+
         <div className={styles.heading}>
           <img className={styles.pic} src={user.photo} alt="profile-pic" />
           <div className={styles['profile-name']}>
@@ -95,52 +169,70 @@ async function onFormSubmit(e) {
           </div>
           <button className={styles['msg-btn']}>Message</button>
         </div>
+
         <div className={styles.body}>
           <div className={styles['cards-container']}>
             <h2>Listings</h2>
             <div className={styles['cards-container-two']}>
               <Carousel verticalMode itemsToShow={4}>
-                {user.userItems.map((card, i) =>
-                  <div key={`product-${i}`} className={styles.card}></div>
+                {user.userItems.map((card, index) =>
+                  <ProfileProductCard
+                    card={card}
+                    index={index}
+                    navigate={navigate}
+                    setEditModalWindow={setEditModalWindow}
+                    editModalWindow={editModalWindow}
+                    setProductTitle={setProductTitle}
+                    setProductDescription={setProductDescription}
+                    setProductCategory={setProductCategory}
+                    setEditProductId={setEditProductId}
+                    onDeleteClickHandler={onDeleteClickHandler}
+                    onActiveClickHandler={onActiveClickHandler}
+                  />
                 )}
               </Carousel>
             </div>
           </div>
-          <div className={styles['cards-container']}>
+          {/* <div className={styles['cards-container']}>
             <h2>Claimed</h2>
-            {/* <div className={styles['cards-container-two']}>
+            <div className={styles['cards-container-two']}>
               <Carousel verticalMode itemsToShow={4}>
                 {user.claimed.map((card, i) =>
                   <div key={`claimed-${i}`} className={styles.card}></div>
                 )}
               </Carousel>
-            </div> */}
-          </div>
+            </div>
+          </div> */}
         </div>
 
-        {/* Modal Form */}
-        <button onClick={() => setShow(!show)}>OPEN MODAL TEST BUTTON</button>
-        <Modal onClose={showModal} show={show}>
-          <form className={styles.formContainer} onSubmit={(e) => onFormSubmit(e)}>
-            <label>
-              <h2>Product Title:</h2>
-              <input className={styles['form-product-title']} type="text" value={productTitle} onChange={handleProductTitleChange} />
-            </label>
+        {/* MODAL TO EDIT A PRODUCT */}
+        <Modal onClose={showEditModal} show={editModalWindow}>
+          <EditForm
+            onEditFormSubmit={onEditFormSubmit}
+            editProductId={editProductId}
+            productTitle={productTitle}
+            handleProductTitleChange={handleProductTitleChange}
+            productDescription={productDescription}
+            handleProductDescriptionChange={handleProductDescriptionChange}
+            productCategory={productCategory}
+            handleProductCategoryChange={handleProductCategoryChange}
+            onFileChange={onFileChange}
+          />
+        </Modal>
 
-            <label>
-              <h2>Product Description:</h2>
-              <textarea className={styles['form-product-description']} type="text" value={productDescription} onChange={handleProductDescriptionChange} />
-            </label>
-
-            <label>
-              <h2>Category:</h2>
-              <input className={styles['form-product-title']} type="text" value={productCategory} onChange={handleProductCategoryChange} />
-            </label>
-            <h2>Upload Picture:</h2>
-            <input type="file" multiple="multiple" onChange={onFileChange}/>
-            <button className={styles['form-submit']} type="submit">SUBMIT</button>
-          </form>
-
+        {/* MODAL TO ADD A PRODUCT */}
+        <Modal onClose={showPostProductModal} show={postModalWindow}>
+          <PostForm
+            onFormSubmit={onFormSubmit}
+            productTitle={productTitle}
+            handleProductTitleChange={handleProductTitleChange}
+            productDescription={productDescription}
+            onChange={handleProductDescriptionChange}
+            handleProductDescriptionChange={handleProductDescriptionChange}
+            productCategory={productCategory}
+            handleProductCategoryChange={handleProductCategoryChange}
+            onFileChange={onFileChange}
+          />
         </Modal>
       </section>
     )

@@ -1,6 +1,6 @@
 import React,{useEffect,useRef} from 'react'
 import styles from './Messages.module.css'
-function Messages({loggedInUser,messages,messRef}) {
+function Messages({loggedInUser,messages}) {
   let mesRef = useRef(null);
 
   let scrollToBottom = () => {
@@ -11,6 +11,7 @@ function Messages({loggedInUser,messages,messRef}) {
   },[messages])
 
   return (
+
     <div ref={mesRef} className={styles.messageContainer}>
       {messages.map((message, i) => {
         return <div className={message.from.name===loggedInUser.name?styles.fromMessage: styles.toMessage} key={i}>{message.messageText}</div>
@@ -19,4 +20,4 @@ function Messages({loggedInUser,messages,messRef}) {
   )
 }
 
-export default Messages
+export default Messages;
