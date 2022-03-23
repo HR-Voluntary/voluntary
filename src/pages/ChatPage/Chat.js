@@ -12,11 +12,14 @@ function Chat({user1, user2,userList,product,productId}) {
 
   // Add a listener
   useEffect(()=>{
-    let unsubscribe =onSnapshot(doc(db, "items", productId),(doc) => {
-      setItem(doc.data())
+    if(productId){
+      let unsubscribe =onSnapshot(doc(db, "items", productId),(doc) => {
+        setItem(doc.data())
+      });
+      return unsubscribe
 
-    });
-    return unsubscribe
+    }
+
 
 
   },[productId])
@@ -101,7 +104,7 @@ function Chat({user1, user2,userList,product,productId}) {
     <div className={styles.messageContainer}>
       <div className={styles.topBar}>
       <div>
-      {userList.find((user)=>{if(user.uid===user2.uid){return user.uid}}).active?<div className={styles.green}></div>:<div className={styles.red}></div>}
+      {userList.find((user)=>{if(user.uid===user2.uid){return user.uid}})?.active?<div className={styles.green}></div>:<div className={styles.red}></div>}
       <div>{user2.name}</div>
       </div>
       {renderButton()}

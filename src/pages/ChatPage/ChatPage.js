@@ -23,12 +23,12 @@ function ChatPage() {
       )
       if(user2){
         setItemtoUser(user1,user2)
-
       }
     }
   },[user1])
 
   useEffect(()=>{
+    console.log(user)
     user&&
    getDoc(doc(db,'users',user.uid)).then((res)=>{
     setUser1(res.data())
@@ -48,13 +48,13 @@ function ChatPage() {
     setUser2(user)
   }
   let setItemtoUser= async(user1,user2)=>{
-
+    console.log(user1,user2)
     await setDoc(doc(db, 'conversations', user1.uid, 'to', user2.uid), { ...user2,item:state.productId,lastInteracted: serverTimestamp()})
     await setDoc(doc(db, 'conversations', user2.uid, 'to', user1.uid), { ...user1,item:state.productId,lastInteracted: serverTimestamp()})
   }
 
-  async function getDocument (coll, id,coll2,id2) {
-    const snap = await getDoc(doc(db, coll, id, coll2, id2))
+  async function getDocument (coll, uid,coll2,id2) {
+    const snap = await getDoc(doc(db, coll, uid, coll2, id2))
     if (snap.exists())
       return snap.data()
     else
