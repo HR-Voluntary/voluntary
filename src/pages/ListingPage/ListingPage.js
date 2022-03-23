@@ -104,6 +104,7 @@ const ListingPage = () => {
   }
 
   const filterListingsByCategory = (listings, filterParam) => {
+    console.log(listings)
     let filtered = listings.filter(listing => {
       if (listing.category === filterParam) {
         return listing;
@@ -124,7 +125,7 @@ const ListingPage = () => {
 
   const filterListingsByTrust = (listings, filterParam) => {
     let filter = listings.filter((listing) => {
-      if (listing.trustScore === parseInt(filterParam)) {
+      if (listing.trustScore >= parseInt(filterParam)) {
         return listing;
       }
       //sellers trust level equals filterParam
