@@ -15,6 +15,7 @@ const ProductPage = () => {
   const [allItems, setAllItems] = useState([]);
   const [categoryItems, setCategoryItems] = useState([]);
   const [product, setProduct] = useState('');
+  const [mainImage, setMainImage] = useState('');
 
   // const dummyArray = [1,2,3,4];
   // const rockwell = [1, 1, 1, 1, 1, 1, 1];
@@ -31,6 +32,7 @@ const ProductPage = () => {
   };
 
   function onItemClickHandler (id) {
+    setMainImage('');
     const matchedItem = allItems.filter(item => item.id === id);
     console.log(product)
 
@@ -46,6 +48,10 @@ const ProductPage = () => {
   function onChatClick(product){
     navigate('/ChatPage', { state: { product, productId: product.id } })
   };
+
+  function clickSupportingImage(e) {
+    setMainImage(e.target.src);
+  }
 
   useEffect(() => {
     axios.get('http://localhost:3001/user/all')
@@ -84,13 +90,14 @@ const ProductPage = () => {
             <div className={newStyles.mainProductContainer}>
                 <div className={newStyles.mainProductContentContainer}>
                   <div className={newStyles.imageBox}>
-                    <img src={product.image[0]} alt="product"/>
+                    <img src={mainImage || product.image[0]} alt="product"/>
                   </div>
                   <div className={newStyles.supportingImageBox}>
                     {console.log(product, 'THIS IS PRODUCT')}
                     {product?.image.map((img, i) =>
                         <div key={i} className={newStyles.supportingImageContainer}>
-                          <img src={img} alt="product"/>
+                          {/* <img src={img} alt="product"/> */}
+                          <img onClick={clickSupportingImage} src={img} alt="product"/>
                         </div>
                       )}
                   </div>
@@ -103,7 +110,7 @@ const ProductPage = () => {
                     <div>Sold by {product.sellerName}</div>
                     <div>Trust Score: {product.trustScore}</div>
                     <h3>{product.description}</h3>
-                    <button onClick={() => onChatClick(product)}>Chat</button>
+                    <button onClick={() => onChatClick(product)}>Chat with Seller</button>
                   </div>
                   <div className={newStyles.otherItemsBox}>
                     <h2>Other Items from the Seller</h2>
@@ -136,6 +143,7 @@ const ProductPage = () => {
             <div className={newStyles.relatedText}>
               <h3>{item.name}</h3>
               <div>Sold by {item.sellerName}</div>
+              <div>Trust Score: {item.trustScore}</div>
               <div>{item.description}</div>
             </div>
           </div>
