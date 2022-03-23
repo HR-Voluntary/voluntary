@@ -4,21 +4,59 @@ import FilterBar from './FilterBar.js';
 import axios from 'axios';
 import Listing from './Listing.js';
 import distance from '@turf/distance';
+import rhumbDestination from '@turf/rhumb-destination';
 import styles from './listingStyle.module.css';
-
 
 const ListingPage = () => {
   let [allListings, setAllListings] = useState([]);
   let [filterListing, setFilterListing] = useState([]);
   let [userLocation, setUserLocation] = useState([37.791200, -122.396080]);
-  let [initialViewState, setInitialViewState] = useState(null);
+
+  // let [mapParams, setMapParams] = useState({
+  //   userLoc: null,
+  //   mapBounds: [[-122.507740, 37.712124], [-122.393943, 37.816169]]
+  // });
+  // let [userLocation, setUserLocation] = useState(null);
+  // let [mapBounds, setMapBounds] = useState([[-122.507740, 37.712124], [-122.393943, 37.816169]]);
+
+  // const getUserLoc = () => {
+  //   const success = (position) => {
+  //     const location = [position.coords.longitude, position.coords.latitude];
+
+  // const sw = rhumbDestination(location, 3, -135, { units: 'miles' });
+  // const ne = rhumbDestination(location, 3, 45, { units: 'miles' });
+  // console.log(location)
+  // console.log(sw.geometry.coordinates);
+  // console.log(ne.geometry.coordinates);
+  // setMapParams({
+  //   userLoc: location,
+  //   mapBounds: [sw.geometry.coordinates, ne.geometry.coordinates]
+  // })
+
+  // setUserLocation([latitude, longitude]);
+  // set new mapBounds here  +- 3 miles block around user location OR 4 miles along the diagonal
+  //   }
+  //   const error = (error) => {
+  //     if (error.code !== 1) {
+  //       alert(`Cannot find location: ${error.message}`);
+  //     }
+  //   }
+  //   navigator.geolocation.getCurrentPosition(success, error);
+  // }
 
   // console.log(filterListing)
   const getUserLoc = () => {
     const success = (position) => {
-      const latitude = position.coords.latitude;
-      const longitude = position.coords.longitude;
-      setUserLocation([latitude, longitude]);
+      const location = [position.coords.latitude, position.coords.longitude];
+      console.log(location);
+      axios({
+        method: 'put',
+        // url: `http://localhost:3001/user/edit/editUsr/${}`
+        url: 'http://localhost:3001/user/editUsr/7VOVbYFQl9gl716RJKYcU2KO8pI3',
+        data: { location: location }
+      })
+        .then(() => setUserLocation(location))
+        .catch((err) => alert(`Error updating user location: ${err.message}`));
     }
     const error = (error) => {
       if (error.code !== 1) {
@@ -32,7 +70,9 @@ const ListingPage = () => {
     getListings()
   }, [])
 
-  useEffect(() => getUserLoc(), []);
+  useEffect(() =>
+    getUserLoc(), []
+  );
 
   useEffect(() => {
     getListings()
@@ -51,6 +91,7 @@ const ListingPage = () => {
             return item;
           })))
         })
+
         // ***** DO NOT DELETE *****
         // ***Will implement sort function once data format from API is correct:
         // itemsForSale.sort((a,b) => {
@@ -101,44 +142,54 @@ const ListingPage = () => {
     filterListingsByTrust(allListings, e.target.value)
   }
 
-  const adjustZoom = (filterParam) => {
-    if (filterParam === '') {
-      setInitialViewState(null);
+  const filterListingsByDistance = (listings, filterParam) => {
+    if (filterParam === 'default') {
+      setFilterListing(allListings);
+    } else {
+      const filterParamNum = Number(filterParam);
+      let filter = listings.filter((listing) => {
+        if (Array.isArray(listing.location)) {
+          const dist = distance(userLocation, listing.location, {units: 'kilometers'})
+          // console.log(dist);
+          if (dist < filterParamNum) {
+            return listing;
+          }
+        }
+      });
+
+      setFilterListing(filter);
+
     }
-
-    const paramNum = Number(filterParam);
-    // would still be centered around user/default location
-    // set the bounds
-    // if no filter is set, set bounds to null
-    // class = mapboxgl-map
-    let box = document.querySelector('.mapboxgl-map');
-    let width = box.offsetWidth;
-    let height = box.offsetHeight;
-    return [width, height];
   }
 
-  const distanceFilterChange = (e) => {
-    // console.log(typeof e.target.value); // string
-    // adjustZoom(e.target.value)
-    console.log(adjustZoom());
-  }
+const distanceFilterChange = (e) => {
+  filterListingsByDistance(allListings, e.target.value)
+}
 
-  return (
-    <>
-      <div>Listing Page</div>
-      {/* <div>{distance(userLocation, [41.8781, -87.6298], {units: 'miles'})}</div> */}
-      <FilterBar
-        categoryFilterChange={categoryFilterChange}
-        trustFilterChange={trustFilterChange}
-        distanceFilterChange={distanceFilterChange} />
-      <MapListing userLocation={userLocation} />
+return (
+  <>
+    {/* <div>{distance(userLocation, [41.8781, -87.6298], {units: 'miles'})}</div> */}
+    <FilterBar
+      categoryFilterChange={categoryFilterChange}
+      trustFilterChange={trustFilterChange}
+      distanceFilterChange={distanceFilterChange}
+    />
+    <div className={styles.parent}>
       <div className={styles.allListings}>
-      {filterListing.map(listing => {
-        return <Listing listing={listing}/>
-      })}
+        {filterListing.map(listing => {
+          return <Listing listing={listing} />
+        })}
       </div>
-    </>
-  )
+      <div className={styles.map}>
+        <MapListing
+          userLocation={userLocation}
+          filterListing={filterListing}
+        // mapParams={mapParams}
+        />
+      </div>
+    </div>
+  </>
+)
 
 };
 
