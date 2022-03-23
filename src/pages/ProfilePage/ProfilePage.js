@@ -120,6 +120,7 @@ const ProfilePage = () => {
     let s3photoUrlsArray = arrOfS3SuccessPuts.map(s3url => {
       return s3url.config.url.split('?')[0];
     });
+      console.log(s3photoUrlsArray)
     let itemToPost = {
       category: productCategory,
       sellerInfo: user.id,
