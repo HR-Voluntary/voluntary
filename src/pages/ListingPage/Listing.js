@@ -13,7 +13,9 @@ const Listing = ({ listing }) => {
 
   return (
     <div onClick={navigateToProductPage} className={styles.indivListing}>
+      <div className={styles.listingImage}>
       <img className="listing-image" src={listing.image} alt=""></img>
+      </div>
       <div className={styles.indivListingRight}>
         <span className="listing-loc">Location: {listing.location}</span>
         <span className="listing-descp">Descripton: {listing.description}</span>
