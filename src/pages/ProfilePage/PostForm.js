@@ -1,6 +1,5 @@
 import React from "react";
-
-import styles from "./ProfilePage.module.css";
+import styles from './PostForm.module.css';
 
 const PostForm = ({
   onFormSubmit,
