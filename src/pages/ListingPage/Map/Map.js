@@ -90,7 +90,7 @@ const MapListing = ({ userLocation, filterListing, changeHighlightedListing }) =
               >
                 <img
                   // src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Map_marker.svg/390px-Map_marker.svg.png?20150513095621"
-                  src={require("../utils/mapPinV2.png")}
+                  src={require("../utils/mapPinV2.1darker.png")}
                   alt="location"
                   // src={require("../utils/mapPin.svg")}
                   // src={require("../utils/mapPin.svg")}
