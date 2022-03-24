@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './listingStyle.module.css';
 import { useNavigate } from 'react-router';
 
-const Listing = ({ listing }) => {
+const Listing = ({ listing, highlightedListing }) => {
 
   const navigate = useNavigate();
   const navigateToProductPage = () => {
@@ -11,10 +11,12 @@ const Listing = ({ listing }) => {
     });
   }
 
+  console.log(highlightedListing);
+
   return (
-    <div id={listing.id} className={styles.indivListing}>
+    <div id={listing.id} className={listing.id === highlightedListing ? styles.highlightListing : styles.indivListing}>
       <div className={styles.imageContainer}>
-      <img className={styles.listingImage} src={listing.image} alt=""></img>
+        <img className={styles.listingImage} src={listing.image} alt=""></img>
       </div>
       <div className={styles.indivListingRight}>
         <h2 className="listing-category" onClick={navigateToProductPage}>{listing.name}</h2>

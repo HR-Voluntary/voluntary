@@ -11,6 +11,7 @@ const ListingPage = () => {
   let [allListings, setAllListings] = useState([]);
   let [filterListing, setFilterListing] = useState([]);
   let [userLocation, setUserLocation] = useState([37.791200, -122.396080]);
+  let [highlightedListing, setHighlightedListing] = useState(null);
 
   // let [mapParams, setMapParams] = useState({
   //   userLoc: null,
@@ -110,7 +111,6 @@ const ListingPage = () => {
         return listing;
       }
     })
-    //console.log(filtered);
     setFilterListing(filtered);
     if (filterParam === 'default') {
       setFilterListing(allListings)
@@ -118,8 +118,6 @@ const ListingPage = () => {
   }
 
   const categoryFilterChange = (e) => {
-    //console.log(e.target.value);
-
     filterListingsByCategory(allListings, e.target.value)
   }
 
@@ -166,6 +164,11 @@ const ListingPage = () => {
     filterListingsByDistance(allListings, e.target.value)
   }
 
+  const changeHighlightedListing = (listing) => {
+    // console.log(listing);
+    setHighlightedListing(listing);
+  }
+
   return (
     <div className={styles.parent}>
       <div className={styles.filterBarParent}>
@@ -178,13 +181,14 @@ const ListingPage = () => {
       <div className={styles.parentMapListings}>
         <div className={styles.allListings}>
           {filterListing.map(listing => {
-            return <Listing listing={listing} />
+            return <Listing listing={listing} highlightedListing={highlightedListing}/>
           })}
         </div>
         <div className={styles.map}>
           <MapListing
             userLocation={userLocation}
             filterListing={filterListing}
+            changeHighlightedListing={changeHighlightedListing}
           // mapParams={mapParams}
           />
         </div>

@@ -14,23 +14,39 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }) {
-  const [currentUser, setCurrentUser] = useState(null);
   const [currentUserData, setCurrentUserData] = useState({});
-  const [allUsers, setAllUsers] = useState([]);
   const [allItemsForSale, setAllItemsForSale] = useState([]);
   const [hasRated,setHasRated] = useState(false);
   const [modal, setModal] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [allUsers, setAllUsers] = useState([]);
+  const [userProfile, setUserProfile] = useState([]);
+  const [userActiveItems, setUserActiveItems] = useState([]);
+  const [userInactiveItems, setUserInactiveItems] = useState([]);
   const auth = getAuth();
 
   const navigate = useNavigate();
+
+  const loadProfileDataFromApi = (userIdFromAuth) => {
+    axios.get(`http://localhost:3001/user/profile/${userIdFromAuth}`)
+    .then(res => {
+      setUserProfile(res.data[0]);
+      const userItems = res.data[0].userItems;
+      const activeItems = userItems.filter(item => item.isActive)
+      const inactiveItems = userItems.filter(item => !item.isActive)
+      setUserActiveItems(activeItems);
+      setUserInactiveItems(inactiveItems);
+    })
+    .catch(e => console.log(e))
+  };
 
   useEffect(() => {
     axios.get('http://localhost:3001/user/all')
       .then(response => {
           const userData = response.data;
           setAllUsers(userData);
-          // setState to all Users
           let itemsForSale = [];
+
           userData.forEach(user => {
             user.userItems.forEach(item => {
               item.trustScore = user.trustScore;
@@ -39,10 +55,10 @@ export function AuthProvider({ children }) {
               itemsForSale.push(item);
             })
           });
-          // setState to itemsForSale
+
           setAllItemsForSale(itemsForSale);
       });
-  }, [])
+  }, []);
 
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
@@ -57,6 +73,11 @@ export function AuthProvider({ children }) {
     });
   }, []);
 
+  useEffect(() => {
+    const loggedInUserId = currentUserData.id;
+    loadProfileDataFromApi(loggedInUserId);
+  }, [currentUserData]);
+
   const value = {
     currentUser,
     currentUserData,
@@ -66,6 +87,12 @@ export function AuthProvider({ children }) {
     setHasRated,
     modal,
     setModal,
+    userProfile,
+    setUserActiveItems,
+    setUserInactiveItems,
+    userActiveItems,
+    userInactiveItems,
+    loadProfileDataFromApi,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
