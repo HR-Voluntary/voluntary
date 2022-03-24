@@ -8,6 +8,7 @@ import axios from 'axios';
 import { Buffer } from 'buffer';
 import useUploadImage from '../../components/hooks/useUploadImage';
 import { useAuth } from '../../contexts/AuthContext';
+import newStyles from './ProfilePageNew.module.css';
 
 // Components:
 import ProfileProductCard from './ProfileProductCard';
@@ -16,7 +17,6 @@ import PostForm from './PostForm';
 
 
 const ProfilePage = () => {
-  const [user, setUser] = useState(null);
   const [postModalWindow, setPostModalWindow] = useState(false);
   const [editModalWindow, setEditModalWindow] = useState(false);
   const [productTitle, setProductTitle] = useState('');
@@ -25,31 +25,28 @@ const ProfilePage = () => {
   const [editProductId, setEditProductId] = useState('');
   const navigate = useNavigate();
 
-  // S3 photo hook:
+  // S3 photo hook. When a user opens a POST ITEM modal and uploads a photo, onFileChange changes uploaded photo from Image data to Base64-encoded data, which is what we need in order to post to S3. The onFormSubmit data retrieves S3 POST URLs from S3, makes a POST request for each Photo/S3 URL pair, and returns a completed S3 Photo URL array that we can then POST to our ITEM/PRODUCT backend.
   const { onFileChange, onFormSubmitGeneratePhotoUrl } = useUploadImage();
 
-  const userData = useAuth();
-  // Replace with dynamic data once routing set up
-  const placeholderId = userData?.currentUser?.uid;
+  const {
+    allItemsForSale,
+    allUsers,
+    currentUser,
+    currentUserData,
+    setUserActiveItems,
+    setUserInactiveItems,
+    userProfile,
+    userActiveItems,
+    userInactiveItems,
+    loadProfileDataFromApi
+  } = useAuth();
 
-  // Function that retrieves user data:
-  const setUserState = (userId) => {
-    axios.get(`http://localhost:3001/user/profile/${userId}`)
-    .then(res => {
-      setUser(res.data[0]);
-    })
-    .catch(e => console.log(e))
-  }
-
-  // show1 edit
-  // show is list item
-
-  useEffect(() => {
-    if (placeholderId) {
-      // Axios Call to get user/item data here:
-      setUserState(placeholderId)
-    }
-  }, [placeholderId]);
+  const clearForms = () => {
+    setProductTitle('');
+    setProductDescription('');
+    setProductCategory('');
+    setEditProductId('');
+  };
 
   function showPostProductModal() {
     setPostModalWindow(!postModalWindow);
@@ -57,10 +54,7 @@ const ProfilePage = () => {
 
   function showEditModal() {
     setEditModalWindow(!editModalWindow);
-    setProductTitle('');
-    setProductDescription('');
-    setProductCategory('');
-    setEditProductId('');
+    clearForms();
   };
 
   function handleProductTitleChange(e) {
@@ -79,20 +73,39 @@ const ProfilePage = () => {
       method: 'PUT',
       data: { isActive: !activeStatus }
     })
-    .then(() => setUserState(placeholderId))
+    .then(() => {
+      const userSpecificItems = userProfile.userItems;
+      userSpecificItems.map(item => {
+        if (item.id === itemId) {
+          item.isActive = !activeStatus;
+          return item;
+        } else {
+          return item;
+        }
+      });
+
+      const activeItems = userSpecificItems.filter(item => item.isActive)
+      const inactiveItems = userSpecificItems.filter(item => !item.isActive)
+      setUserActiveItems(activeItems);
+      setUserInactiveItems(inactiveItems);
+    })
     .catch((e) => console.log(e));
   }
 
+  // CRUD operation. loadProfileDataFromApi gets user data and sets state, which re-renders this page:
   function onDeleteClickHandler(itemIdToDelete) {
     axios({
       url: `http://localhost:3001/item/${itemIdToDelete}`,
       method: 'DELETE',
       data: { id: itemIdToDelete }
     })
-    .then(() => setUserState(placeholderId))
+    .then(() => {
+      loadProfileDataFromApi(userProfile.id);
+    })
     .catch((e) => console.log(e));
   }
 
+  // CRUD operation. loadProfileDataFromApi gets user data and sets state, which re-renders this page:
   async function onEditFormSubmit(e, editProductId) {
     e.preventDefault();
     axios({
@@ -100,30 +113,28 @@ const ProfilePage = () => {
       method: 'PUT',
       data: {
         category: productCategory,
-        sellerInfo: user.id,
+        sellerInfo: userProfile.id,
         description: productDescription,
         name: productTitle
       }
     })
     .then(() => {
-      setUserState(placeholderId);
+      loadProfileDataFromApi(userProfile.id);
     });
-    setProductTitle('');
-    setProductDescription('');
-    setProductCategory('');
+    clearForms();
     setEditModalWindow(!editModalWindow);
-  }
+  };
 
+  // CRUD operation. loadProfileDataFromApi gets user data and sets state, which re-renders this page:
   async function onFormSubmit(e) {
     e.preventDefault();
     const arrOfS3SuccessPuts = await onFormSubmitGeneratePhotoUrl();
     let s3photoUrlsArray = arrOfS3SuccessPuts.map(s3url => {
       return s3url.config.url.split('?')[0];
     });
-      console.log(s3photoUrlsArray)
     let itemToPost = {
       category: productCategory,
-      sellerInfo: user.id,
+      sellerInfo: userProfile.id,
       image:s3photoUrlsArray,
       description: productDescription,
       name: productTitle
@@ -134,76 +145,94 @@ const ProfilePage = () => {
       data: { itemToPost }
     })
     .then(() => {
-      setUserState(placeholderId);
+      loadProfileDataFromApi(userProfile.id);
     })
-    setProductTitle('');
-    setProductDescription('');
-    setProductCategory('');
+    clearForms();
     setPostModalWindow(!postModalWindow);
-  }
+  };
 
-  if (user === null) {
+  if (userProfile === null) {
     return null;
   } else {
     return (
       <section>
-        {/* <div className={styles.navbar}>
-          <button onClick={() => setPostModalWindow(!postModalWindow)} className={styles['list-item-btn']}>List Item</button>
-        </div> */}
+        <div className={newStyles.focusContainer}>
+            <div className={newStyles.mainProductContainer}>
+                <div className={newStyles.mainProductContentContainer}>
 
-        <div className={styles.heading}>
-          <img className={styles.pic} src={user.photo} alt="profile-pic" />
-          <div className={styles['profile-name']}>
-            <h2>{user.name}</h2>
-            <h4>{user.type}</h4>
-            <h4>{user.location}</h4>
-          </div>
-          <div className={styles.votes}>
-            <div>
-              <h2>Trust Votes</h2>
-              <h4>{user.ratingsScore} votes</h4>
-            </div>
-            <div>
-              <h2>Trust Level</h2>
-              <h4>lv. {user.trustScore}</h4>
-            </div>
-          </div>
-          <button className={styles['msg-btn']}>Message</button>
-        </div>
+                  <h3>Previously Donated Products</h3>
 
-        <div className={styles.body}>
-          <div className={styles['cards-container']}>
-            <h2>Listings</h2>
-            <div className={styles['cards-container-two']}>
-              <Carousel verticalMode itemsToShow={4}>
-                {user.userItems.map((card, index) =>
-                  <ProfileProductCard
-                    card={card}
-                    index={index}
-                    navigate={navigate}
-                    setEditModalWindow={setEditModalWindow}
-                    editModalWindow={editModalWindow}
-                    setProductTitle={setProductTitle}
-                    setProductDescription={setProductDescription}
-                    setProductCategory={setProductCategory}
-                    setEditProductId={setEditProductId}
-                    onDeleteClickHandler={onDeleteClickHandler}
-                    onActiveClickHandler={onActiveClickHandler}
-                  />
-                )}
-              </Carousel>
+
+                  {userInactiveItems.map(item => {
+                    return (
+                      <div className={newStyles.row}>
+                      <div className={newStyles.imageContainer}>
+                        <img src={item.image[0]} alt="Inactive Products"/>
+                      </div>
+                      <div className={newStyles.textContainer}>
+                        <h3>{ item.name }</h3>
+                        <div className={newStyles.category}>{ item.category }</div>
+                        <div
+                          className={newStyles.textDescription}
+                        >
+                          { item.description }
+                        </div>
+                        <div className={newStyles.buttonContainer}>
+                          <button onClick={() => onActiveClickHandler(item.id, item.isActive)}>Active</button>
+                          <button onClick={() => {
+                          setEditModalWindow(!editModalWindow)
+                          setProductTitle(item.name);
+                          setProductDescription(item.description);
+                          setProductCategory(item.category);
+                          setEditProductId(item.id);
+                          }}>
+                          Edit
+                          </button>
+                          <button onClick={() => onDeleteClickHandler(item.id)}>Delete</button>
+                        </div>
+                      </div>
+                    </div>
+                      );
+                    }
+                  )}
+                </div>
+
+                <div className={newStyles.mainProductContentContainer}>
+                  <h3>Currently Active Products</h3>
+                  {userActiveItems.map(item => {
+                    return (
+                      <div className={newStyles.row}>
+                      <div className={newStyles.imageContainer}>
+                        <img src={item.image[0]} alt="Inactive Products"/>
+                      </div>
+                      <div className={newStyles.textContainer}>
+                        <h3>{ item.name }</h3>
+                        <div className={newStyles.category}>{ item.category }</div>
+                        <div
+                          className={newStyles.textDescription}
+                        >
+                          { item.description }
+                        </div>
+                        <div className={newStyles.buttonContainer}>
+                          <button onClick={() => onActiveClickHandler(item.id, item.isActive)}>Active</button>
+                          <button onClick={() => {
+                          setEditModalWindow(!editModalWindow)
+                          setProductTitle(item.name);
+                          setProductDescription(item.description);
+                          setProductCategory(item.category);
+                          setEditProductId(item.id);
+                          }}>
+                          Edit
+                          </button>
+                          <button onClick={() => onDeleteClickHandler(item.id)}>Delete</button>
+                        </div>
+                      </div>
+                    </div>
+                      );
+                    }
+                  )}
+                </div>
             </div>
-          </div>
-          {/* <div className={styles['cards-container']}>
-            <h2>Claimed</h2>
-            <div className={styles['cards-container-two']}>
-              <Carousel verticalMode itemsToShow={4}>
-                {user.claimed.map((card, i) =>
-                  <div key={`claimed-${i}`} className={styles.card}></div>
-                )}
-              </Carousel>
-            </div>
-          </div> */}
         </div>
 
         {/* MODAL TO EDIT A PRODUCT */}
@@ -236,7 +265,85 @@ const ProfilePage = () => {
           />
         </Modal>
       </section>
-    )
+    );
+    // return (
+    //   <section>
+    //     <div className={styles.heading}>
+    //       <img className={styles.pic} src={userProfile.photo} alt="profile-pic" />
+    //       <div className={styles['profile-name']}>
+    //         <h2>{userProfile.name}</h2>
+    //         <h4>{userProfile.type}</h4>
+    //         <h4>{userProfile.location}</h4>
+    //       </div>
+    //       <div className={styles.votes}>
+    //         <div>
+    //           <h2>Trust Votes</h2>
+    //           <h4>{userProfile.ratingsScore} votes</h4>
+    //         </div>
+    //         <div>
+    //           <h2>Trust Level</h2>
+    //           <h4>lv. {userProfile.trustScore}</h4>
+    //         </div>
+    //       </div>
+    //       <button className={styles['msg-btn']}>Message</button>
+    //     </div>
+
+    //     <div className={styles.body}>
+    //       <div className={styles['cards-container']}>
+    //         <h2>Listings</h2>
+    //         <div className={styles['cards-container-two']}>
+    //           <Carousel verticalMode itemsToShow={4}>
+    //             {userProfile.userItems.map((card, index) =>
+    //               <ProfileProductCard
+    //                 card={card}
+    //                 index={index}
+    //                 navigate={navigate}
+    //                 setEditModalWindow={setEditModalWindow}
+    //                 editModalWindow={editModalWindow}
+    //                 setProductTitle={setProductTitle}
+    //                 setProductDescription={setProductDescription}
+    //                 setProductCategory={setProductCategory}
+    //                 setEditProductId={setEditProductId}
+    //                 onDeleteClickHandler={onDeleteClickHandler}
+    //                 onActiveClickHandler={onActiveClickHandler}
+    //               />
+    //             )}
+    //           </Carousel>
+    //         </div>
+    //       </div>
+    //     </div>
+
+    //     {/* MODAL TO EDIT A PRODUCT */}
+    //     <Modal onClose={showEditModal} show={editModalWindow}>
+    //       <EditForm
+    //         onEditFormSubmit={onEditFormSubmit}
+    //         editProductId={editProductId}
+    //         productTitle={productTitle}
+    //         handleProductTitleChange={handleProductTitleChange}
+    //         productDescription={productDescription}
+    //         handleProductDescriptionChange={handleProductDescriptionChange}
+    //         productCategory={productCategory}
+    //         handleProductCategoryChange={handleProductCategoryChange}
+    //         onFileChange={onFileChange}
+    //       />
+    //     </Modal>
+
+    //     {/* MODAL TO ADD A PRODUCT */}
+    //     <Modal onClose={showPostProductModal} show={postModalWindow}>
+    //       <PostForm
+    //         onFormSubmit={onFormSubmit}
+    //         productTitle={productTitle}
+    //         handleProductTitleChange={handleProductTitleChange}
+    //         productDescription={productDescription}
+    //         onChange={handleProductDescriptionChange}
+    //         handleProductDescriptionChange={handleProductDescriptionChange}
+    //         productCategory={productCategory}
+    //         handleProductCategoryChange={handleProductCategoryChange}
+    //         onFileChange={onFileChange}
+    //       />
+    //     </Modal>
+    //   </section>
+    // );
   }
 };
 

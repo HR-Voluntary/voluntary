@@ -1,0 +1,122 @@
+section {
+  display: flex;
+  flex: 1;
+}
+
+.focusContainer {
+  /* border: 1px solid black; */
+  flex: 4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mainProductContainer {
+  /* border: 1px solid black; */
+  display: flex;
+  width: 80%;
+  height: 80%;
+  border-radius: 10px;
+  max-height: 1000px;
+  padding: 25px;
+}
+
+.mainProductContentContainer {
+  display: flex;
+  align-items: center;
+  border-radius: 25px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  /* border: 1px solid black; */
+  flex-direction: column;
+  flex: 1;
+  margin: 25px;
+  padding: 25px;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+.mainProductContentContainer h3 {
+  margin-bottom: 50px;
+}
+
+.row {
+  display: flex;
+  overflow: none;
+  border-radius: 10px;
+  /* background-color: #333; */
+  border: 1px solid black;
+  height: 175px;
+  margin-bottom: 35px;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.imageContainer {
+  display: flex;
+  overflow: hidden;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  flex: 1;
+  max-width: 250px;
+  min-width: 180px;
+}
+
+.imageContainer img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.textContainer {
+  display: flex;
+  flex-direction: column;
+  flex: 3;
+  justify-content: space-between;
+  overflow: hidden;
+  padding: 15px;
+  max-width: 450px;
+  position: relative;
+}
+
+.textContainer h3 {
+  padding: 0;
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.buttonContainer button {
+  border: none;
+  background-color: peachpuff;
+  padding: 10px 10px;
+  width: 100px;
+  border-radius: 50px;
+}
+
+.textDescription {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.category {
+  position: absolute;
+  top: 5%;
+  left: 74%;
+  display: flex;
+  align-items: center;
+  font-size: 0.7rem;
+  justify-content: center;
+  background-color: tomato;
+  padding: 5px 5px;
+  border-radius: 50px;
+  color: white;
+  font-weight: 700;
+  width: 80px;
+}
