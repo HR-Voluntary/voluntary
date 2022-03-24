@@ -68,7 +68,7 @@ const MapListing = ({ userLocation, filterListing, changeHighlightedListing }) =
       //   border: 'solid',
       //   borderColor: 'black'
       // }}
-      mapStyle="mapbox://styles/mapbox/streets-v11"
+      mapStyle="mapbox://styles/mapbox/outdoors-v11"
       mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
     >
       <ScaleControl />
@@ -88,7 +88,14 @@ const MapListing = ({ userLocation, filterListing, changeHighlightedListing }) =
                 }}
                 className={styles.markerbtn}
               >
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Map_marker.svg/390px-Map_marker.svg.png?20150513095621" alt="location" style={{ width: '20px', height: '32px' }} />
+                <img
+                  // src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Map_marker.svg/390px-Map_marker.svg.png?20150513095621"
+                  src={require("../utils/mapPinV2.png")}
+                  alt="location"
+                  // src={require("../utils/mapPin.svg")}
+                  // src={require("../utils/mapPin.svg")}
+                  style={{ width: '20px', height: 'auto' }}
+                />
               </button>
             </Marker>
           )
@@ -100,15 +107,21 @@ const MapListing = ({ userLocation, filterListing, changeHighlightedListing }) =
           latitude={userLoc.latitude}
           longitude={userLoc.longitude}
         >
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Map_marker.svg/390px-Map_marker.svg.png?20150513095621" alt="location" style={{ width: '32px', height: '48px' }} />
+          <img
+          // src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Map_marker.svg/390px-Map_marker.svg.png?20150513095621"
+          src={require("../utils/currentLocPinV2.png")}
+          alt="location"
+          style={{ width: '20px', height: 'auto' }}
+          />
         </Marker>
       )}
 
 
       {selectedListing && (
         <Popup
-          latitude={selectedListing.location[0]}
+          latitude={(selectedListing.location[0])}
           longitude={selectedListing.location[1]}
+
           closeOnClick={false}
           onClose={() => {
             setSelectedListing(null);
