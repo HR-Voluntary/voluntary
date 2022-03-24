@@ -11,7 +11,16 @@
 
 .popUpListingTitle:hover {
   color: black;
+}
 
+.markerimg {
+  width: 20px;
+  height: auto;
+  transition: transform 250ms;
+}
+
+.markerimg:hover {
+  transform: scale(1.2);
 }
 
 /* .mapboxgl{

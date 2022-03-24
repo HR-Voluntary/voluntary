@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import MapListing from './Map/Map.js';
+import MapListing from './Map/MapListing.js';
 import FilterBar from './FilterBar.js';
 import axios from 'axios';
 import Listing from './Listing.js';
 import distance from '@turf/distance';
-// import rhumbDestination from '@turf/rhumb-destination';
 import styles from './listingStyle.module.css';
 
 const ListingPage = () => {
@@ -13,45 +12,11 @@ const ListingPage = () => {
   let [userLocation, setUserLocation] = useState([37.791200, -122.396080]);
   let [highlightedListing, setHighlightedListing] = useState(null);
 
-  // let [mapParams, setMapParams] = useState({
-  //   userLoc: null,
-  //   mapBounds: [[-122.507740, 37.712124], [-122.393943, 37.816169]]
-  // });
-  // let [userLocation, setUserLocation] = useState(null);
-  // let [mapBounds, setMapBounds] = useState([[-122.507740, 37.712124], [-122.393943, 37.816169]]);
-
-  // const getUserLoc = () => {
-  //   const success = (position) => {
-  //     const location = [position.coords.longitude, position.coords.latitude];
-
-  // const sw = rhumbDestination(location, 3, -135, { units: 'miles' });
-  // const ne = rhumbDestination(location, 3, 45, { units: 'miles' });
-  // console.log(location)
-  // console.log(sw.geometry.coordinates);
-  // console.log(ne.geometry.coordinates);
-  // setMapParams({
-  //   userLoc: location,
-  //   mapBounds: [sw.geometry.coordinates, ne.geometry.coordinates]
-  // })
-
-  // setUserLocation([latitude, longitude]);
-  // set new mapBounds here  +- 3 miles block around user location OR 4 miles along the diagonal
-  //   }
-  //   const error = (error) => {
-  //     if (error.code !== 1) {
-  //       alert(`Cannot find location: ${error.message}`);
-  //     }
-  //   }
-  //   navigator.geolocation.getCurrentPosition(success, error);
-  // }
-
-  // console.log(filterListing)
   const getUserLoc = () => {
     const success = (position) => {
       const location = [position.coords.latitude, position.coords.longitude];
       axios({
         method: 'put',
-        // url: `http://localhost:3001/user/edit/editUsr/${}`
         url: 'http://localhost:3001/user/editUsr/7VOVbYFQl9gl716RJKYcU2KO8pI3',
         data: { location: location }
       })
@@ -82,7 +47,6 @@ const ListingPage = () => {
     axios.get('http://localhost:3001/user/all')
       .then(response => {
         const userData = response.data;
-        //console.log(userData);
         let itemsForSale = [];
         userData.forEach(user => {
           itemsForSale = itemsForSale.concat((user.userItems.map(item => {
@@ -189,7 +153,6 @@ const ListingPage = () => {
             userLocation={userLocation}
             filterListing={filterListing}
             changeHighlightedListing={changeHighlightedListing}
-          // mapParams={mapParams}
           />
         </div>
       </div>

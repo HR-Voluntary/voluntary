@@ -2,16 +2,10 @@ import React, { useState, useEffect } from 'react';
 import Map, { Marker, Popup, ScaleControl } from 'react-map-gl';
 import PopupData from './PopupData.js';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import distance from '@turf/distance';
-// import facilitiesData from './data/healthcarefacilities.js';
 import styles from './Map.module.css';
 
 
 const MapListing = ({ userLocation, filterListing, changeHighlightedListing }) => {
-  // const [viewState, setViewState] = useState(mapParams.mapBounds);
-  // const [viewState, setViewState] = useState({
-  //   bounds: mapParams.mapBounds
-  // });
 
   const [viewState, setViewState] = useState({
     latitude: userLocation[0],
@@ -25,11 +19,6 @@ const MapListing = ({ userLocation, filterListing, changeHighlightedListing }) =
   });
 
   const [selectedListing, setSelectedListing] = useState(null);
-
-  // console.log(filterListing);
-
-  // const sampleview = { longitude: 120.9605, latitude: 23.6978, zoom: 12 };
-  // const sampleview = { bounds: [[-73.9876, 40.7661], [-73.9397, 40.8002]] }; // [[long, lat], [long, lat]]
 
   useEffect(() => {
     setViewState({
@@ -59,45 +48,38 @@ const MapListing = ({ userLocation, filterListing, changeHighlightedListing }) =
   return (
     <Map
       {...viewState}
-      // bounds={viewState}
       onMove={evt => setViewState(evt.viewState)}
-      // style={{
-      //   width: '100%',
-      //   height: '100%',
-      //   margin: 'auto',
-      //   border: 'solid',
-      //   borderColor: 'black'
-      // }}
+      style={{
+        width: '100%',
+        height: '100%',
+      }}
       mapStyle="mapbox://styles/mapbox/outdoors-v11"
       mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
     >
       <ScaleControl />
       {filterListing.map((listing) => {
-        // if (listing.location) {
         if (Array.isArray(listing.location)) {
           return (
-            <Marker
-              // key={listing[0]}
-              latitude={listing.location[0]}
-              longitude={listing.location[1]}
-            >
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  setSelectedListing(listing)
-                }}
-                className={styles.markerbtn}
+            <div>
+              <Marker
+                latitude={listing.location[0]}
+                longitude={listing.location[1]}
               >
-                <img
-                  // src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Map_marker.svg/390px-Map_marker.svg.png?20150513095621"
-                  src={require("../utils/mapPinV2.1darker.png")}
-                  alt="location"
-                  // src={require("../utils/mapPin.svg")}
-                  // src={require("../utils/mapPin.svg")}
-                  style={{ width: '20px', height: 'auto' }}
-                />
-              </button>
-            </Marker>
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setSelectedListing(listing)
+                  }}
+                  className={styles.markerbtn}
+                >
+                  <img
+                    src={require("../utils/mapPinV2.1Shadow.png")}
+                    alt="location"
+                    className={styles.markerimg}
+                  />
+                </button>
+              </Marker>
+            </div>
           )
         }
       })}
@@ -108,14 +90,12 @@ const MapListing = ({ userLocation, filterListing, changeHighlightedListing }) =
           longitude={userLoc.longitude}
         >
           <img
-          // src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Map_marker.svg/390px-Map_marker.svg.png?20150513095621"
-          src={require("../utils/currentLocPinV2.png")}
-          alt="location"
-          style={{ width: '20px', height: 'auto' }}
+            src={require("../utils/currentLocPinV2.1shadow.png")}
+            alt="location"
+            style={{ width: '20px', height: 'auto' }}
           />
         </Marker>
       )}
-
 
       {selectedListing && (
         <Popup
