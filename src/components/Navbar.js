@@ -38,6 +38,14 @@ const Navbar = () => {
   };
 
   useEffect(() => {
+    if (showModalWindow) {
+      document.body.style.overflow = 'hidden';
+    }
+
+    return () => document.body.style.overflow = 'unset'
+  }, [showModalWindow])
+
+  useEffect(() => {
     if (currentUserData?.photo) {
       setCurrentImage(currentUserData?.photo);
     }

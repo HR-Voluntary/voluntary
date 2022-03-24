@@ -35,8 +35,8 @@
   /* flex-grow: 1; */
   width: 50%;
   margin: 10px;
-  border: solid;
-  border-color: rgba(242, 80, 24, 0.6);
+  /* border: solid;
+  border-color: rgba(242, 80, 24, 0.6); */
   /* height: 60vh; */
   /* max-height: 800px; */
   /* height: 800px; */
@@ -45,7 +45,9 @@
 
 .allListings {
   display: flex;
-  background-color: #E7E7E7;
+  background-color: rgb(255 255 255 / 33%);
+  /* background-color: transparent; */
+  border-radius: 20px;
   gap: 2em;
   width: 50%;
   /* flex-wrap: wrap; */
@@ -57,8 +59,8 @@
   /* flex-grow: 1; */
   overflow-x: scroll;
   /* max-height: 100vh; */
-
 }
+
 
 .indivListing {
   display: flex;
@@ -74,4 +76,39 @@
   flex-direction: column;
   gap: 1em;
   justify-content: center;
+  margin-bottom: 3%;
+  margin-right: 3%;
+}
+
+.imageContainer {
+  height: 200px;
+  width: 600px;
+  margin-left: 2%;
+}
+
+.listingImage {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+  border-radius: 5%;
+}
+
+#listing.id {
+  color: black;
+}
+
+::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
+
+.highlightListing {
+  display: flex;
+  background-color: aliceblue;
+  border-radius: 12px;
+  gap: 3em;
+  width: 80%;
+  align-items: center;
+  border: solid;
+  border-color: rgba(242, 80, 24, 0.6);
+  border-width: 10px;
 }

@@ -4,6 +4,16 @@
   cursor: pointer;
 }
 
+.popUpListingTitle {
+  color: black;
+  text-decoration: none;
+}
+
+.popUpListingTitle:hover {
+  color: black;
+
+}
+
 /* .mapboxgl{
   margin: auto;
   width: 75%;

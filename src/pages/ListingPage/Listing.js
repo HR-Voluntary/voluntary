@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './listingStyle.module.css';
 import { useNavigate } from 'react-router';
 
-const Listing = ({ listing }) => {
+const Listing = ({ listing, highlightedListing }) => {
 
   const navigate = useNavigate();
   const navigateToProductPage = () => {
@@ -11,15 +11,20 @@ const Listing = ({ listing }) => {
     });
   }
 
+  console.log(highlightedListing);
+
   return (
-    <div onClick={navigateToProductPage} className={styles.indivListing}>
-      <img className="listing-image" src={listing.image} alt=""></img>
+    <div id={listing.id} className={listing.id === highlightedListing ? styles.highlightListing : styles.indivListing}>
+      <div className={styles.imageContainer}>
+        <img className={styles.listingImage} src={listing.image} alt=""></img>
+      </div>
       <div className={styles.indivListingRight}>
-        <span className="listing-loc">Location: {listing.location}</span>
-        <span className="listing-descp">Descripton: {listing.description}</span>
-        <span className="seller-trust-score">Seller Trust Score: {listing.trustScore}</span>
-        <span className="seller-name">Seller: {listing.sellerName}</span>
-        <span className="listing-category">Category: {listing.category}</span>
+        <h2 className="listing-category" onClick={navigateToProductPage}>{listing.name}</h2>
+        <span className="listing-category"><b>Category:</b> {listing.category}</span>
+        <span className="seller-name"><b>Donator:</b> {listing.sellerName}</span>
+        <span className="seller-trust-score"><b>Trust Score:</b> {listing.trustScore}</span>
+        <span className="listing-descp"><b>Descripton:</b> {listing.description}</span>
+
       </div>
     </div>
   )
