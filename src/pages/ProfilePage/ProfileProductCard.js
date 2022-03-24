@@ -16,7 +16,6 @@ const ProfileProductCard = ({
   }) => {
   return (
     <div className={styles.mainContainer}>
-      {console.log(card)}
       <div className={styles.dotStatusContainer}>
         <div
           className={(card.isActive) ? styles.active : styles.notActive} /> {card.isActive ? 'Item is active' : 'Item is not active'}
