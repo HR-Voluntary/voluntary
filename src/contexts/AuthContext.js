@@ -18,6 +18,8 @@ export function AuthProvider({ children }) {
   const [currentUserData, setCurrentUserData] = useState({});
   const [allUsers, setAllUsers] = useState([]);
   const [allItemsForSale, setAllItemsForSale] = useState([]);
+  const [hasRated,setHasRated] = useState(false);
+  const [modal, setModal] = useState(false);
   const auth = getAuth();
 
   const navigate = useNavigate();
@@ -60,6 +62,10 @@ export function AuthProvider({ children }) {
     currentUserData,
     allUsers,
     allItemsForSale,
+    hasRated,
+    setHasRated,
+    modal,
+    setModal,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

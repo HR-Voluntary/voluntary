@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import styles from "./ChatPage.module.css";
-import Chat from "./Chat.js";
-import ReactLoading from "react-loading";
+import React, { useEffect, useState } from 'react';
+import styles from './ChatPage.module.css';
+import Chat from './Chat.js';
+import ReactLoading from 'react-loading';
 import {
   collection,
   serverTimestamp,
@@ -12,11 +12,11 @@ import {
   setDoc,
   getDoc,
   updateDoc,
-} from "firebase/firestore";
-import { db, auth } from "../../firebase.js";
-import { useAuthState } from "react-firebase-hooks/auth";
-import Users from "./Users";
-import { useLocation } from "react-router";
+} from 'firebase/firestore';
+import { db, auth } from '../../firebase.js';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import Users from './Users';
+import { useLocation } from 'react-router';
 
 function ChatPage() {
   const { state } = useLocation();
@@ -26,25 +26,40 @@ function ChatPage() {
   const [user2, setUser2] = useState({});
   let [userList, setUserList] = useState([]);
   useEffect(() => {
-    if (userb.uid !== undefined) {
-      getDoc(doc(db, "users", userb.uid)).then((res) => setUser2(res.data()));
-      if (user2) {
+
+    user &&
+      getDoc(doc(db, 'users', user?.uid)).then((res) => {
+        setUser1(res.data());
+
+      });
+      
+      if(userb.uid!==user2.uid){
+        getDoc(doc(db, 'users', userb?.uid)).then((res) => {
+          setUser2(res.data())
+
+      })}
+  }, [user]);
+
+  useEffect(() => {
+
+    if (user1?.uid!==userb?.uid && userb?.uid!== undefined) {
+
+
+
+      if (Object.keys(user1).length && Object.keys(user2).length) {
         setItemtoUser(user1, user2);
       }
     }
+
   }, [user1]);
 
+
   useEffect(() => {
-    console.log(user);
-    user &&
-      getDoc(doc(db, "users", user.uid)).then((res) => {
-        setUser1(res.data());
-      });
-  }, [user]);
-  useEffect(() => {
-    if (Object.keys(user1).length && Object.keys(user2)) {
+    if (Object.keys(user1).length && Object.keys(user2).length) {
       addUserstoLists(user1, user2);
       renderList(user1);
+    } else{
+      renderList(user1)
     }
   }, [user1, user2]);
 
@@ -52,17 +67,18 @@ function ChatPage() {
     setUser2(user);
   };
   let setItemtoUser = async (user1, user2) => {
-    console.log(user1, user2);
-    await setDoc(doc(db, "conversations", user1.uid, "to", user2.uid), {
+    if (Object.keys(user1).length && Object.keys(user2).length) {
+    await setDoc(doc(db, 'conversations', user1.uid, 'to', user2.uid), {
       ...user2,
       item: state.productId,
       lastInteracted: serverTimestamp(),
     });
-    await setDoc(doc(db, "conversations", user2.uid, "to", user1.uid), {
+    await setDoc(doc(db, 'conversations', user2.uid, 'to', user1.uid), {
       ...user1,
       item: state.productId,
       lastInteracted: serverTimestamp(),
     });
+  }
   };
 
   async function getDocument(coll, uid, coll2, id2) {
@@ -72,29 +88,29 @@ function ChatPage() {
   }
 
   async function addUserstoLists(user1, user2) {
-    if (Object.keys(user1).length && Object.keys(user2).length) {
+
       try {
         let toUserConversation = await getDocument(
-          "conversations",
+          'conversations',
           user1.uid,
-          "to",
+          'to',
           user2.uid
         );
         if (!toUserConversation) {
-          await setDoc(doc(db, "conversations", user1.uid, "to", user2.uid), {
+          await setDoc(doc(db, 'conversations', user1.uid, 'to', user2.uid), {
             ...user2,
             item: state.productId,
             lastInteracted: serverTimestamp(),
           });
         }
         let fromUserConversation = await getDocument(
-          "conversations",
+          'conversations',
           user2.uid,
-          "to",
+          'to',
           user1.uid
         );
         if (!fromUserConversation) {
-          await setDoc(doc(db, "conversations", user2.uid, "to", user1.uid), {
+          await setDoc(doc(db, 'conversations', user2.uid, 'to', user1.uid), {
             ...user1,
             item: state.productId,
             lastInteracted: serverTimestamp(),
@@ -103,13 +119,13 @@ function ChatPage() {
       } catch (e) {
         // console.log('errror',e)
       }
-    }
+
   }
   async function renderList(user1) {
     try {
       if (Object.keys(user1).length) {
-        let userConversation = collection(db, "conversations", user1.uid, "to");
-        const q = query(userConversation, orderBy("lastInteracted", "desc"));
+        let userConversation = collection(db, 'conversations', user1.uid, 'to');
+        const q = query(userConversation, orderBy('lastInteracted', 'desc'));
         const unsubscribe = onSnapshot(q, (querySnapshot) => {
           let result = [];
           querySnapshot.forEach((doc) => {
@@ -120,13 +136,14 @@ function ChatPage() {
         });
       }
     } catch (e) {
-      // console.log("errrrror",e)
+      // console.log('errrrror',e)
     }
   }
   let renderChat = () => {
     if (userList.length) {
       return (
         <Chat
+        changeUser={changeUser}
           user1={user1}
           product={state?.product}
           productId={state?.productId}
@@ -139,8 +156,8 @@ function ChatPage() {
         <div className={styles.loadingContainer}>
           <ReactLoading
             className={styles.loading}
-            type={"spin"}
-            color={"#FEDCC5"}
+            type={'spin'}
+            color={'#FEDCC5'}
             height={100}
             width={100}
           />

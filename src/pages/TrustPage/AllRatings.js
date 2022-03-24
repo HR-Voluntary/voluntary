@@ -14,7 +14,8 @@ const AllRatings = (props) => {
     return (
       <Thumbs
       onClick={(e) => selectThumb(e)}
-      userInfo={props.userInfo}
+      uid={props.uid}
+      type={props.type}
       />
     );
   }
@@ -23,7 +24,8 @@ const AllRatings = (props) => {
     return (
       <Stars
       onClick1={props.onClick}
-      userInfo={props.userInfo}
+      uid={props.uid}
+      type={props.type}
       />
     );
   }
