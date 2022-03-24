@@ -176,10 +176,10 @@ function Chat({ changeUser,user1, user2, userList, product, productId }) {
   return (
     <div className={styles.messageContainer}>
       <div className={styles.topBar}>
-      <div>
+      <div className={styles.statusName}>
       {userList.find((user)=>{if(user.uid===user2.uid){return user.uid}})?.active?<div className={styles.green}></div>:<div className={styles.red}></div>}
+      <div className={styles.displayName}>{user2?.name}</div>
       {item?.buyer===user1?.uid|| item?.sellerInfo===user2?.uid?<div>{item.name}</div>:<div></div>}
-      <div>{user2?.name}</div>
       </div>
       {renderButton()}
 
