@@ -10,8 +10,6 @@ function ReviewsModal({ uid, type }) {
   const { modal, setModal } = useAuth();
   const [show, setShow] = useState(true);
   
-  console.log('SHOW', uid);
-
   function toggleModal() {
     setShow(!show);
   }

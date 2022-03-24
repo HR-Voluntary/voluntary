@@ -44,8 +44,6 @@ const getItems = () => {
 };
 
 const getItem = (id) => {
-  console.log('in getItem')
-  // console.log(id)
   return getDocs(itemRef)
     .then((snapshot) => {
       const doc = snapshot.docs.filter(doc => id === doc.id)
@@ -57,8 +55,6 @@ const getItem = (id) => {
 };
 // GET items by category name
 const getItemByCategory = (category) => {
-  // console.log('in CATEGORY FUNC')
-  // console.log(category)
   return getDocs(itemRef)
     .then((snapshot) => {
       const docs = snapshot.docs.filter(doc => category === doc.data().category)
@@ -66,7 +62,6 @@ const getItemByCategory = (category) => {
       docs.forEach(doc => {
         itemsByCategoryArray.push({...doc.data()})
       });
-      // console.log(itemsByCategoryArray)
       return itemsByCategoryArray
     });
   };
@@ -81,7 +76,6 @@ const markItemSold = (id) => {
 
 // EDIT item // SIVA
 const UpdateItem = (id,itemObject) => {
-  //console.log('Iriving need this ', id)
   return updateDoc(doc(db,'items',id),itemObject);
 };
 

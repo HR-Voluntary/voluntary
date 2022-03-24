@@ -13,7 +13,6 @@ const userRef = collection(db, 'users');
 const itemRef = collection(db, 'items');
 
 const getUsers = () => {
-  console.log('I am firing')
   return getDocs(userRef)
     .then((snapshot) => {
       const userArray = snapshot.docs.map(doc => {
@@ -31,7 +30,6 @@ const getUsersAndProducts = async () => {
       });
       return itemArray;
     })
-    // console.log(itemArray[0]);
 
   const userArray = await getDocs(userRef)
     .then((snapshot) => {
@@ -60,8 +58,6 @@ const getItemsForUser = async (id) => {
       return itemArray;
     })
 
-   // console.log("itemArray = ", itemArray);
-
   const userArray = await getDocs(userRef)
     .then((snapshot) => {
       const userArray = snapshot.docs.map(doc => {
@@ -75,7 +71,6 @@ const getItemsForUser = async (id) => {
       //userArray is the array of objects with id, data(which holds the uid), userItems(holds the userSpecificItems)
       return userArray;
     });
-    //console.log("userArray = ", userArray);
     //Filter through the userArray return the items that matches the given id with the item.uid=> is the sellerInfo or the seller/user Id
     return userArray.filter(item => {
       return item.uid === id;
@@ -149,7 +144,6 @@ const thumbsDown = (user) => {
 // };
 
 const updateUser = (id, itemObject) => {
-  //console.log('Iriving need this ', id)
   return updateDoc(doc(db,'users',id), itemObject);
 };
 

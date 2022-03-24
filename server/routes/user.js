@@ -11,7 +11,6 @@ var { getUsers,
   } = require('../models/user.js');
 
   router.put('/editUsr/:id', function(req, res){
-   // console.log(req.body);
    const { id } = req.params;
     updateUser(id, req.body)
     .then((ifSuccess) => console.log('User added Siva! Check database.'))
@@ -20,10 +19,8 @@ var { getUsers,
   });
 
 router.get('/all', function(req, res) {
-  console.log('I AM WORKING');
   getUsersAndProducts()
   .then(users => {
-    // console.log(users);
     res.status(200).send(users);
   });
 });
@@ -33,10 +30,8 @@ router.get('/all', function(req, res) {
 // Route /user/profile/:id
 router.get('/profile/:id', function(req, res) {
   const { id } = req.params;
-  //console.log('I AM WORKING SIVAAA');
   getItemsForUser(id)
   .then(users => {
-   // console.log(users);
     res.status(200).send(users);
   })
   .catch(() => res.status(400).end());
@@ -58,7 +53,6 @@ router.put('/trustScore/thumbsup/:id', (req, res) => {
   const { id } = req.params;
   getUser(id)
     .then((user) => {
-      console.log(user);
       thumbsUp(user)
         .then(success => res.status(200).end())
         .catch(() => res.status(400).end());
@@ -70,7 +64,6 @@ router.put('/trustScore/thumbsdown/:id', (req, res) => {
   const { id } = req.params;
   getUser(id)
     .then((user) => {
-      console.log(user);
       thumbsDown(user)
         .then(success => res.status(200).end())
         .catch((err) => res.status(400).send(err));
@@ -80,7 +73,6 @@ router.put('/trustScore/thumbsdown/:id', (req, res) => {
 // user info
 router.get('/:id', (req, res) => {
   const { id } = req.params;
-  // console.log(id);
   getUser(id)
     .then(user => res.status(200).send(user))
 });

@@ -28,13 +28,8 @@ function Chat({ changeUser,user1, user2, userList, product, productId }) {
   const [userType, setUserType] = useState('');
   const { modal, setModal} =useAuth();
   const [hasRated, setHasRated] =useState(false);
-  // console.log(hasRated)
   useEffect(()=>{
-    console.log('Outside deleteConversationModal')
-    console.log(modal, 'THIS IS MODAL VALUE')
-    console.log(hasRated, 'THIS IS RATED VALUE')
     if(!modal && hasRated){
-      console.log('DELETE CONVERSATION FIRED')
       deleteConversations();
       setHasRated(false);
     }
@@ -67,7 +62,6 @@ function Chat({ changeUser,user1, user2, userList, product, productId }) {
     if (itemId) {
 
       let unsubscribe = onSnapshot(doc(db, 'items', itemId), (doc) => {
-        console.log('setItem fired',doc.data())
         setItem(doc.data());
       });
       return unsubscribe;
@@ -137,7 +131,6 @@ function Chat({ changeUser,user1, user2, userList, product, productId }) {
    //load sarahs thing seller, user2
     setUserType('buyer');
     renderModal();
-    //console.log('ABOUT TO RENDER MODAL');
   }
   let deleteConversations = async () =>{
     await deleteDoc(doc(db, 'conversations', user1?.uid, 'to', user2?.uid))
