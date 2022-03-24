@@ -100,3 +100,15 @@
 ::-webkit-scrollbar-corner {
   background-color: transparent;
 }
+
+.highlightListing {
+  display: flex;
+  background-color: aliceblue;
+  border-radius: 12px;
+  gap: 3em;
+  width: 80%;
+  align-items: center;
+  border: solid;
+  border-color: rgba(242, 80, 24, 0.6);
+  border-width: 10px;
+}
