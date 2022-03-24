@@ -110,7 +110,7 @@
 .otherItemsContainer {
   display: flex;
   /* border: 1px solid black; */
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   width: 100%;
   height: 150px;
   background-color:#FEDCC5;
