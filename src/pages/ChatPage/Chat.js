@@ -17,6 +17,7 @@ import { db } from '../../firebase.js';
 import Messages from './Messages';
 import ReviewsModal from '../TrustPage/TestPage.js';
 import {useAuth} from '../../contexts/AuthContext';
+import { useNavigate } from 'react-router';
 
 
 function Chat({ changeUser,user1, user2, userList, product, productId }) {
@@ -28,10 +29,12 @@ function Chat({ changeUser,user1, user2, userList, product, productId }) {
   const [userType, setUserType] = useState('');
   const { modal, setModal} =useAuth();
   const [hasRated, setHasRated] =useState(false);
+  const navigate = useNavigate();
   useEffect(()=>{
     if(!modal && hasRated){
       deleteConversations();
       setHasRated(false);
+      navigate('/ListingPage');
     }
 
   },[modal])
