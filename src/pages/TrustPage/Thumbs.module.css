@@ -1,5 +1,8 @@
 .allContainer {
   @import "bootstrap/dist/css/bootstrap.min.css";
+  @import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/_variables";
+@import "../node_modules/bootstrap/scss/_mixins";
 }
 
 .popup {

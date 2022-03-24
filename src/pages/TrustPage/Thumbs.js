@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import icons from './icons.js';
 import styles from './Thumbs.module.css';
 import axios from 'axios';
-
+import {useAuth} from '../../contexts/AuthContext.js'
 const { thumbsUpWhite, thumbsDownWhite, thumbsDownFill, thumbsUpFill } = icons;
 
 const Thumbs = (props) => {
@@ -11,6 +11,7 @@ const Thumbs = (props) => {
   const [selectUp, setSelectUp] = useState(false);
   const [selectDown, setSelectDown] = useState(false);
   const [selectedThumb, setSelectedThumb] = useState(null);
+  // const { setHasRated } = useAuth();
 
   function whichThumbsText(user) {
     if (user === 'buyer') {
@@ -39,14 +40,16 @@ const Thumbs = (props) => {
   }
 
   function handleClick(e) {
+    console.log('thumb CLICKED');
+    // setHasRated(true);
     e.preventDefault();
     if (e.currentTarget.id === '1') {
       setSelectUp(true);
     } else if (e.currentTarget.id === '-1') {
       setSelectDown(true);
     }
-
-    axios.put(`http://localhost:3001/ratings/transactionCount/${props.userInfo.uid}`, {
+    console.log('this is the props ~~~~',props)
+    axios.put(`http://localhost:3001/ratings/transactionCount/${props.uid}`, {
       data: { number: parseInt(e.currentTarget.id) }
     })
     .then(console.log('added to db!'))
@@ -60,7 +63,7 @@ const Thumbs = (props) => {
 
   return (
     <div className={styles.popup}>
-      <p>{whichThumbsText(props.userInfo.type)}</p>
+      <p>{whichThumbsText(props.type)}</p>
       <div className={styles.bothThumbs}>
         <div
           id='1'
