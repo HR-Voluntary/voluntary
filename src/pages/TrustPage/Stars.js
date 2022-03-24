@@ -49,7 +49,7 @@ const Stars = (props) => {
     .catch(console.log('error rating'))
     setHasRated(true);
     setModal(false);
-    // props.onClick1();
+    props.onClick1();
   }
 
   useEffect(() => {}, [rating]);

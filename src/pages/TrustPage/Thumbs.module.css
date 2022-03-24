@@ -1,15 +1,9 @@
-.allContainer {
-  @import "bootstrap/dist/css/bootstrap.min.css";
-  @import "../node_modules/bootstrap/scss/functions";
-@import "../node_modules/bootstrap/scss/_variables";
-@import "../node_modules/bootstrap/scss/_mixins";
-}
-
 .popup {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   width: 35%;
+  z-index: 3;
 }
 
 .bothThumbs {
@@ -48,3 +42,4 @@
   margin: 5px 5px 5px 5px;
 
 }
+
