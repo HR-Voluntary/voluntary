@@ -16,6 +16,8 @@ export function useAuth() {
 export function AuthProvider({ children }) {
   const [currentUserData, setCurrentUserData] = useState({});
   const [allItemsForSale, setAllItemsForSale] = useState([]);
+  const [hasRated,setHasRated] = useState(false);
+  const [modal, setModal] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [allUsers, setAllUsers] = useState([]);
   const [userProfile, setUserProfile] = useState([]);
@@ -81,6 +83,10 @@ export function AuthProvider({ children }) {
     currentUserData,
     allUsers,
     allItemsForSale,
+    hasRated,
+    setHasRated,
+    modal,
+    setModal,
     userProfile,
     setUserActiveItems,
     setUserInactiveItems,

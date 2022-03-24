@@ -1,5 +1,5 @@
-import styles from "./Chat.module.css";
-import React, { useState, useEffect } from "react";
+import styles from './Chat.module.css';
+import React, { useState, useEffect } from 'react';
 import {
   collection,
   serverTimestamp,
@@ -11,38 +11,81 @@ import {
   updateDoc,
   addDoc,
   setDoc,
-} from "firebase/firestore";
-import { db } from "../../firebase.js";
-import Messages from "./Messages";
+  deleteDoc
+} from 'firebase/firestore';
+import { db } from '../../firebase.js';
+import Messages from './Messages';
+import ReviewsModal from '../TrustPage/TestPage.js';
+import {useAuth} from '../../contexts/AuthContext';
 
-function Chat({ user1, user2, userList, product, productId }) {
+
+function Chat({ changeUser,user1, user2, userList, product, productId }) {
   const [messages, setMessages] = useState([]);
-  const [messageText, setMessageText] = useState("");
-  const [itemId, setItemId] = useState("");
+  const [messageText, setMessageText] = useState('');
+  const [itemId, setItemId] = useState('');
   const [item, setItem] = useState({});
-
-  // Add a listener
-  useEffect(() => {
-    if (productId) {
-      let unsubscribe = onSnapshot(doc(db, "items", productId), (doc) => {
-        setItem(doc.data());
-      });
-      return unsubscribe;
+  // const [modal, setModal] = useState(false);
+  const [userType, setUserType] = useState('');
+  const { modal, setModal} =useAuth();
+  const [hasRated, setHasRated] =useState(false);
+  // console.log(hasRated)
+  useEffect(()=>{
+    console.log('Outside deleteConversationModal')
+    console.log(modal, 'THIS IS MODAL VALUE')
+    console.log(hasRated, 'THIS IS RATED VALUE')
+    if(!modal && hasRated){
+      console.log('DELETE CONVERSATION FIRED')
+      deleteConversations();
+      setHasRated(false);
     }
-  }, [productId]);
-  useEffect(() => {
+
+  },[modal])
+
+  useEffect(()=>{
     if (Object.keys(user1).length && Object.keys(user2).length) {
       const roomId =
         user1.uid > user2.uid
           ? `${user1.uid + user2.uid}`
           : `${user2.uid + user1.uid}`;
-      getDoc(doc(db, "conversations", user1?.uid, "to", user2?.uid)).then(
+      getDoc(doc(db, 'conversations', user1?.uid, 'to', user2?.uid)).then(
         (res) => {
-          setItemId(res.data().item);
+          setItemId(res.data()?.item);
         }
       );
-      const messagesDoc = collection(db, "messages", roomId, "chat");
-      const q = query(messagesDoc, orderBy("createdAt", "asc"));
+    } else{console.log(item)
+      if(productId){
+
+        setItemId(productId)
+      }
+    }
+  },[user1,user2])
+
+
+  // Add a listener
+  useEffect(() => {
+
+    if (itemId) {
+
+      let unsubscribe = onSnapshot(doc(db, 'items', itemId), (doc) => {
+        console.log('setItem fired',doc.data())
+        setItem(doc.data());
+      });
+      return unsubscribe;
+    } else if(productId){
+      let unsubscribe = onSnapshot(doc(db, 'items', productId), (doc) => {
+        setItem(doc.data());
+      });
+      return unsubscribe
+    }
+  }, [itemId]);
+  useEffect(() => {
+
+    const roomId =
+    user1.uid > user2.uid
+      ? `${user1.uid + user2.uid}`
+      : `${user2.uid + user1.uid}`;
+      const messagesDoc = collection(db, 'messages', roomId, 'chat');
+      const q = query(messagesDoc, orderBy('createdAt', 'asc'));
       let unsubscribe = onSnapshot(q, (querySnapshot) => {
         let messages = [];
         querySnapshot.forEach((doc) => {
@@ -51,7 +94,7 @@ function Chat({ user1, user2, userList, product, productId }) {
         setMessages(messages);
       });
       return unsubscribe;
-    }
+
   }, [user1, user2]);
 
   async function addMessageToConversation() {
@@ -60,18 +103,18 @@ function Chat({ user1, user2, userList, product, productId }) {
         ? `${user1?.uid + user2?.uid}`
         : `${user2?.uid + user1?.uid}`;
     // const messagesDoc = collection(db,'messages', roomId, 'chat');
-    await addDoc(collection(db, "messages", roomId, "chat"), {
+    await addDoc(collection(db, 'messages', roomId, 'chat'), {
       messageText,
       from: user1,
       to: user2,
       createdAt: serverTimestamp(),
-      image: "",
+      image: '',
     });
-    await setDoc(doc(db, "conversations", user1.uid, "to", user2.uid), {
+    await setDoc(doc(db, 'conversations', user1.uid, 'to', user2.uid), {
       ...user2,
       lastInteracted: serverTimestamp(),
     });
-    await setDoc(doc(db, "conversations", user2.uid, "to", user1.uid), {
+    await setDoc(doc(db, 'conversations', user2.uid, 'to', user1.uid), {
       ...user1,
       lastInteracted: serverTimestamp(),
     });
@@ -84,33 +127,50 @@ function Chat({ user1, user2, userList, product, productId }) {
   async function sendMessage(e) {
     e.preventDefault();
     addMessageToConversation(messageText);
-    setMessageText("");
+    setMessageText('');
   }
 
-  let onSellerClick =async (productId) => {
-    const docToUpdate = doc(db, 'items', productId);
+  let onSellerClick = async (item) => {
+    const docToUpdate = doc(db, 'items', itemId);
     await updateDoc(docToUpdate, { isActive: false,
     buyer:user2.uid })
    //load sarahs thing seller, user2
-
+    setUserType('buyer');
+    renderModal();
+    //console.log('ABOUT TO RENDER MODAL');
   }
-  let onBuyerClick =async (productId) => {
-    const docToUpdate = doc(db, 'items', productId);
-    await updateDoc(docToUpdate, { bought: true })
+  let deleteConversations = async () =>{
+    await deleteDoc(doc(db, 'conversations', user1?.uid, 'to', user2?.uid))
+   await deleteDoc(doc(db, 'conversations', user2?.uid, 'to', user1?.uid))
+  }
+
+  let onBuyerClick = async () => {
+    if(itemId){
+      const docToUpdate = doc(db, 'items', itemId);
+      await updateDoc(docToUpdate, { bought: true })
+    } else {
+      const docToUpdate = doc(db, 'items', productId);
+      await updateDoc(docToUpdate, { bought: true })
+    }
+
    //load sarahs thing seller, user2
-
+   setUserType('seller');
+   renderModal();
+   setHasRated(true)
+   changeUser({});
   }
 
+  let renderModal = () => {
+    setModal(true);
+  }
   let renderButton = () =>{
+    if(item?.sellerInfo===user1?.uid && user1.uid!==user2.uid  && item?.isActive ){
 
-
-
-    if(product?.sellerInfo===user1?.uid && user1.uid!==user2.uid &&itemId===productId && item.isActive ){
       return(
-        <button onClick={()=>{onSellerClick(productId)}} className={styles.rateButton} >MARK AS SOLD</button>
+        <button onClick={()=>{onSellerClick(productId)}} className={styles.rateButton} >SOLD</button>
       )
-    } else if(itemId===productId && user1.uid===item.buyer && item.isActive===false && item.isRated===undefined ){
-      return(<button onClick={()=>{onBuyerClick(productId)}} className={styles.rateButtonBuyer} >RATE SELLER</button>)
+    } else if( user1.uid===item?.buyer && item?.isActive===false && item?.bought===undefined ){
+      return(<button onClick={()=>{onBuyerClick(productId,deleteConversations)}} className={styles.rateButtonBuyer} >RATE SELLER</button>)
     }
   };
   return (
@@ -118,8 +178,8 @@ function Chat({ user1, user2, userList, product, productId }) {
       <div className={styles.topBar}>
       <div>
       {userList.find((user)=>{if(user.uid===user2.uid){return user.uid}})?.active?<div className={styles.green}></div>:<div className={styles.red}></div>}
-      {item&&<div>{item.name}</div>}
-      <div>{user2.name}</div>
+      {item?.buyer===user1?.uid|| item?.sellerInfo===user2?.uid?<div>{item.name}</div>:<div></div>}
+      <div>{user2?.name}</div>
       </div>
       {renderButton()}
 
@@ -129,13 +189,16 @@ function Chat({ user1, user2, userList, product, productId }) {
       <form className={styles.formContainer} onSubmit={sendMessage}>
         <input
           className={styles.textBox}
-          type="text"
-          name="messageText"
+          type='text'
+          name='messageText'
           value={messageText}
           onChange={onChangeTextHandler}
         />
-        <input type="submit" value="submit"></input>
+        <input type='submit' value='submit'></input>
       </form>
+
+      {modal ? <ReviewsModal uid={user2.uid} type={userType}/> : <></>}
+
     </div>
   );
 }
