@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import styles from './Thumbs.module.css';
 import AllRatings from './AllRatings.js'
 
 const fromIrving = {type: 'buyer', transaction: 'complete', uid: '1AOjnwnoc5bxD1u3VBiaNzKYL2k1'};
@@ -13,7 +13,7 @@ function ReviewsModal() {
   }
 
   return (
-    <>
+    <div className={styles.allContainer}>
       <button onClick={toggleModal}>
         Mark As Sold
       </button>
@@ -26,14 +26,14 @@ function ReviewsModal() {
       >
         <Modal.Header closeButton>
           <Modal.Title id="example-custom-modal-styling-title">
-            Custom Modal Styling
+            Ratings Modal Styling
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <AllRatings onClick={toggleModal} userInfo={fromIrving}/>
         </Modal.Body>
       </Modal>
-    </>
+    </div>
   );
 }
 

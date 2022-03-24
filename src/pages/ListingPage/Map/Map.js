@@ -7,7 +7,7 @@ import distance from '@turf/distance';
 import styles from './Map.module.css';
 
 
-const MapListing = ({ userLocation, filterListing }) => {
+const MapListing = ({ userLocation, filterListing, changeHighlightedListing }) => {
   // const [viewState, setViewState] = useState(mapParams.mapBounds);
   // const [viewState, setViewState] = useState({
   //   bounds: mapParams.mapBounds
@@ -111,12 +111,14 @@ const MapListing = ({ userLocation, filterListing }) => {
           longitude={selectedListing.location[1]}
           closeOnClick={false}
           onClose={() => {
-            setSelectedListing(null)
+            setSelectedListing(null);
+            changeHighlightedListing(null);
           }}
         >
           <PopupData
             userLoc={userLoc}
             selectedListing={selectedListing}
+            changeHighlightedListing={changeHighlightedListing}
           />
         </Popup>
       )}
