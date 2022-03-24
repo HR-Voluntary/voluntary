@@ -106,7 +106,7 @@ const ProductPage = () => {
                     <div>Sold by {product.sellerName}</div>
                     <div>Trust Score: {product.trustScore}</div>
                     <h3>{product.description}</h3>
-                    <button onClick={() => onChatClick(product)}>Chat with Seller</button>
+                    <button className={newStyles.chatButton} onClick={() => onChatClick(product)}><span>Chat with Seller</span></button>
                   </div>
                   <div className={newStyles.otherItemsBox}>
                     <h2>Other Items from the Seller</h2>
@@ -119,7 +119,7 @@ const ProductPage = () => {
                           </div>
                           <div className={newStyles.textContainer}>
                             <h3>{prod.name}</h3>
-                            <div>{prod.description}</div>
+                            <div className={styles.supportingDescription}>{prod.description}</div>
                           </div>
                         </div>
                           )
