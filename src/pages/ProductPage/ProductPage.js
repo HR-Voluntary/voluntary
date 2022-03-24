@@ -117,7 +117,7 @@ const ProductPage = () => {
                           <div className={newStyles.supportingImageContainer}>
                             <img src={prod.image[0]} alt="product"/>
                           </div>
-                          <div className={newStyles.textContainer}>
+                          <div className={newStyles.otherItemsTextContainer}>
                             <h3>{prod.name}</h3>
                             <div className={styles.supportingDescription}>{prod.description}</div>
                           </div>
@@ -131,19 +131,22 @@ const ProductPage = () => {
         </div>
         <div className={newStyles.relatedContainer}>
           <h2>Related Items</h2>
-          {categoryItems.map(item =>
-          <div key={item.id} onClick={() => onItemClickHandler(item.id)} className={newStyles.relatedItem}>
-            <div className={newStyles.relatedItemImageBox}>
-              <img className={newStyles.relatedItemImage} src={item.image[0]} alt="product"/>
+          <div className={newStyles.innerRelatedContainer}>
+            {categoryItems.map(item =>
+            <div key={item.id} onClick={() => onItemClickHandler(item.id)} className={newStyles.relatedItem}>
+              <div className={newStyles.relatedItemImageBox}>
+                <img className={newStyles.relatedItemImage} src={item.image[0]} alt="product"/>
+              </div>
+              <div className={newStyles.relatedText}>
+                <h3>{item.name}</h3>
+                <div>Sold by {item.sellerName}</div>
+                <div>Trust Score: {item.trustScore}</div>
+                <br />
+                <div>{item.description}</div>
+              </div>
             </div>
-            <div className={newStyles.relatedText}>
-              <h3>{item.name}</h3>
-              <div>Sold by {item.sellerName}</div>
-              <div>Trust Score: {item.trustScore}</div>
-              <div>{item.description}</div>
-            </div>
+            )}
           </div>
-          )}
         </div>
       </div>
     )
