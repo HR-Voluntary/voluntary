@@ -225,6 +225,10 @@ section {
   font-size: 1rem;
 }
 
+::-webkit-scrollbar {
+  background-color: transparent;
+}
+
 .mainContainer {
   display: flex;
   flex-direction: column;
