@@ -30,7 +30,6 @@
   border-radius: 10px;
   display: flex;
   max-height: 1000px;
-
 }
 
 .mainProductContentContainer {
@@ -38,7 +37,6 @@
   flex-direction: column;
   /* border: 1px solid black; */
   flex: 1;
-
 }
 .mainTextContentContainer {
   display: flex;
@@ -74,8 +72,6 @@
   overflow-y: hidden;
   /* white-space: nowrap; */
   max-width: 700px;
-  padding-left: 10px;
-  padding-right: 10px;
 }
 
 .supportingImageContainer {
@@ -85,8 +81,8 @@
 }
 
 .supportingImageContainer img {
-  height: 100%;
-  width: 100%;
+  height: 150px;
+  width: 150px;
   object-fit: cover;
   border-radius: 10px;
   box-sizing: border-box;
@@ -97,10 +93,7 @@
   flex: 1;
   /* border: 1px solid black; */
   margin: 25px;
-  padding: 1em;
 }
-
-/*-------Other Items from Seller------*/
 
 .otherItemsBox {
   flex: 2;
@@ -112,7 +105,6 @@
   margin: 25px;
   overflow: hidden;
   overflow-y: auto;
-  padding: 1em;
 }
 
 .otherItemsContainer {
@@ -128,25 +120,7 @@
 .otherItemsContainer img {
   height: 100%;
   width: 100%;
-  border-radius: 5px;
   object-fit: cover;
-}
-.otherItemsTextContainer {
-  margin: 10px;
-  overflow: hidden;
-  margin-top: -1em;;
-}
-
-/*--------- Related Items -----------*/
-
-.relatedContainer {
-  border: 1px solid black;
-  flex: 1;
-  min-width: 400px;
-  overflow: hidden;
-  overflow-y: auto;
-  max-height: 1150px;
-  padding: 1em;
 }
 
 .relatedItem {
@@ -177,14 +151,12 @@
 .relatedItemImage {
   height: 100%;
   width: 100%;
-  border-radius: 5px;
   object-fit: cover;
   border-radius: 10px;
 }
 .relatedText {
   /* white-space: nowrap; */
   /* word-wrap: break-word; */
-  margin: 10px;
   overflow: hidden;
   padding: 0px 10px 10px 10px;
   /* text-overflow: ellipsis; */
