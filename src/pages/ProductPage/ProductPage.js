@@ -121,7 +121,7 @@ const ProductPage = () => {
                           <div className={newStyles.supportingImageContainer}>
                             <img src={prod.image[0]} alt="product"/>
                           </div>
-                          <div className={newStyles.textContainer}>
+                          <div className={newStyles.otherItemsTextContainer}>
                             <h3>{prod.name}</h3>
                             <div>{prod.description}</div>
                           </div>

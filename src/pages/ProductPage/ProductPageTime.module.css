@@ -12,15 +12,6 @@
   align-items: center;
 }
 
-.relatedContainer {
-  border: 1px solid black;
-  flex: 1;
-  min-width: 400px;
-  overflow: hidden;
-  overflow-y: auto;
-  max-height: 1150px;
-}
-
 .mainProductContainer {
   border: 1px solid black;
   /* background-color: #333; */
@@ -73,13 +64,14 @@
 }
 
 .supportingImageContainer {
-  height: 150px;
-  width: 150px;
+  border-radius: 5px;
+  height: 80%;
+  width: 500px;
 }
 
 .supportingImageContainer img {
-  height: 150px;
-  width: 150px;
+  height: 100%;
+  width: 100%;
   object-fit: cover;
 }
 
@@ -87,6 +79,7 @@
   flex: 1;
   border: 1px solid black;
   margin: 25px;
+  padding: 1em;
 }
 
 .otherItemsBox {
@@ -99,42 +92,71 @@
   margin: 25px;
   overflow: hidden;
   overflow-y: auto;
+  padding: 1em;
 }
 
 .otherItemsContainer {
   display: flex;
-  border: 1px solid black;
-  width: 100%;
-  height: 150px;
+  /* border: 1px solid black; */
+  padding: 10px;
+  border-radius: 10px;
+  background: white;
+  align-items: center;
+  width: 97%;
+  height: 40%;
+  margin-top: 10px;
 }
 
 .otherItemsContainer img {
   height: 100%;
   width: 100%;
+  border-radius: 5px;
   object-fit: cover;
+}
+.otherItemsTextContainer {
+  margin: 10px;
+  overflow: hidden;
+}
+
+/*--------- Related Items -----------*/
+
+.relatedContainer {
+  border: 1px solid black;
+  flex: 1;
+  min-width: 400px;
+  overflow: hidden;
+  overflow-y: auto;
+  max-height: 1150px;
+  padding: 1em;
 }
 
 .relatedItem {
   display: flex;
   border: 1px solid black;
+  background: white;
+  align-items: center;
   width: 100%;
   height: 150px;
   margin-top: 25px;
+  padding: 1em;
 }
 .relatedItemImageBox {
   display: flex;
-  border: 1px solid black;
-  height: 150px;
-  width: 150px;
+  /* border: 1px solid black; */
+  border-radius: 5px;
+  height: 80%;
+  width: 500px;
 }
 .relatedItemImage {
   height: 100%;
   width: 100%;
+  border-radius: 5px;
   object-fit: cover;
 }
 .relatedText {
   /* white-space: nowrap; */
   /* word-wrap: break-word; */
+  margin: 10px;
   overflow: hidden;
   /* text-overflow: ellipsis; */
 }
