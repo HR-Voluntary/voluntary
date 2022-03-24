@@ -1,5 +1,5 @@
 .messageContainer{
-  overflow-y: scroll;
+  overflow-y: auto;
   height: 80vh;
   width: 95%;
   display: flex;
