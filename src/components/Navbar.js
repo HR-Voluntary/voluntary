@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import styles from "./Navbar.module.css";
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { logout } from "../firebase";
 import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
@@ -21,6 +22,7 @@ const Navbar = () => {
   const [productDescription, setProductDescription] = useState('');
   const [productTitle, setProductTitle] = useState('');
   const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
   const userData = useAuth();
   const userIdFromAuth = userData?.currentUser?.uid;
@@ -42,7 +44,7 @@ const Navbar = () => {
       document.body.style.overflow = 'hidden';
     }
 
-    return () => document.body.style.overflow = 'unset'
+    return () => document.body.style.overflow = 'unset';
   }, [showModalWindow])
 
   useEffect(() => {
@@ -114,7 +116,10 @@ const Navbar = () => {
         </span>
         <ul className={styles.navbar_list}>
           <li className={styles.navbar_list_item}>
-            <button onClick={toggleModal}>List Item</button>
+            <button className={styles.listItemButton} onClick={toggleModal}>List Item</button>
+          </li>
+          <li className={styles.navbar_list_item}>
+            <button className={styles.listItemButton} onClick={() => navigate('/ChatPage')}>Messages</button>
           </li>
           <li className={styles.navbar_list_item}>
             <Link className={styles.link} to="/ProfilePage">
