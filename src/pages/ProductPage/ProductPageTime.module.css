@@ -116,6 +116,7 @@
   width: 100%;
   max-width: 30%;
   margin-right: 10px;
+  border-radius: 5px;
 }
 
 .otherItemsContainer img {
@@ -123,6 +124,7 @@
   width: 100%;
   max-width: 300px;
   object-fit: cover;
+  border-radius: 5px;
 }
 
 .relatedContainer {
