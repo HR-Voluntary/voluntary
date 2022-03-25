@@ -1,14 +1,16 @@
-.messageContainer{
+.messageContainer {
   display: flex;
   flex-direction: column;
-  width: 75vw;
+  width: 95vw;
   height: 87vh;
   margin: 10px 10px;
+  padding-bottom: 20px;
+  padding: 0 25px;
 }
 .formContainer{
   margin-top:10px;
   border-radius: 35px;
-  background-color: #E9E9E9;
+  /* background-color: #E9E9E9; */
   height: 70px;
   width: 70vw;
 }
@@ -16,6 +18,11 @@
   border:none;
   background-color: transparent;
   height: 100%;
+  width: 95%;
+  border: 3px solid #333;
+  background-color: #fff;
+  border-radius: 25px;
+  padding: 0 10px;
   margin-left:5px;
   outline: none;
 }
