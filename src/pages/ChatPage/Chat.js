@@ -18,6 +18,7 @@ import { db } from '../../firebase.js';
 import Messages from './Messages';
 import ReviewsModal from '../TrustPage/TestPage.js';
 import {useAuth} from '../../contexts/AuthContext';
+import { useNavigate } from 'react-router';
 
 
 function Chat({ changeUser,user1, user2, userList, product, productId }) {
@@ -29,15 +30,12 @@ function Chat({ changeUser,user1, user2, userList, product, productId }) {
   const [userType, setUserType] = useState('');
   const { modal, setModal} =useAuth();
   const [hasRated, setHasRated] =useState(false);
-  // console.log(hasRated)
+  const navigate = useNavigate();
   useEffect(()=>{
-    console.log('Outside deleteConversationModal')
-    console.log(modal, 'THIS IS MODAL VALUE')
-    console.log(hasRated, 'THIS IS RATED VALUE')
     if(!modal && hasRated){
-      console.log('DELETE CONVERSATION FIRED')
       deleteConversations();
       setHasRated(false);
+      navigate('/ListingPage');
     }
 
   },[modal])
@@ -70,7 +68,6 @@ function Chat({ changeUser,user1, user2, userList, product, productId }) {
 
     if (itemId) {
       let unsubscribe = onSnapshot(doc(db, 'items', itemId), (doc) => {
-
         setItem(doc.data());
       });
       return unsubscribe;
@@ -145,7 +142,6 @@ function Chat({ changeUser,user1, user2, userList, product, productId }) {
    //load sarahs thing seller, user2
     setUserType('buyer');
     renderModal();
-    //console.log('ABOUT TO RENDER MODAL');
   }
   let deleteConversations = async () =>{
     let results=[]

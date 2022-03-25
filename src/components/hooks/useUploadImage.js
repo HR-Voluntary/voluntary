@@ -65,7 +65,6 @@ const useUploadImage = (e) => {
     //   // This map returns the exact URL we can use as an img tag's source:
     //   return s3url.config.url.split('?')[0];
     // });
-    // // console.log(s3photoUrlsArray);
     // setCompletedImgArray(s3photoUrlsArray);
     setImageArray([]);
     return Promise.all(arrOfS3SuccessPutPromise);

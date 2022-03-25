@@ -37,10 +37,7 @@ export function AuthProvider({ children }) {
       const inactiveItems = userItems.filter(item => !item.isActive)
       setUserActiveItems(activeItems);
       setUserInactiveItems(inactiveItems);
-
-
       }
-
 
     })
     .catch(e => console.log(e))

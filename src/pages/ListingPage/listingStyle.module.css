@@ -47,7 +47,7 @@
   display: flex;
   background-color: rgb(255 255 255 / 33%);
   /* background-color: transparent; */
-  border-radius: 20px;
+  border-radius: 10px;
   gap: 2em;
   width: 50%;
   /* flex-wrap: wrap; */
@@ -59,6 +59,26 @@
   /* flex-grow: 1; */
   overflow-x: scroll;
   /* max-height: 100vh; */
+}
+
+.allListings::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
+
+.allListings::-webkit-track-piece {
+  background-color: transparent;
+}
+
+.allListings::-webkit-track {
+  background-color: transparent;
+}
+
+.allListings::-webkit-scrollbar {
+  background-color: transparent;
+}
+
+.allListings::-webkit-thumb {
+  color: black;
 }
 
 
@@ -95,10 +115,6 @@
 
 #listing.id {
   color: black;
-}
-
-::-webkit-scrollbar-corner {
-  background-color: transparent;
 }
 
 .highlightListing {

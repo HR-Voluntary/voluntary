@@ -33,29 +33,3 @@ function ReviewsModal({ uid, type }) {
 }
 
 export default ReviewsModal;
-
-
-
-{/* <div className={styles.allContainer}>
-      <button onClick={toggleModal}>
-        Mark As Sold
-      </button>
-
-      <Modal
-        show={show}
-        onHide={() => {setModal(false)}}
-        dialogClassName="modal-90w"
-        aria-labelledby="example-custom-modal-styling-title"
-      >
-        <Modal.Header closeButton>
-          <Modal.Title id="example-custom-modal-styling-title">
-            Ratings Modal Styling
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <AllRatings onClick={toggleModal} uid={uid} type={type}/>
-        </Modal.Body>
-      </Modal>
-     </div> */}
-
-
