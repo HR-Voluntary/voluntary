@@ -8,33 +8,51 @@ const PopupData = ({ userLoc, selectedListing, changeHighlightedListing }) => {
   return (
     <>
       {(dist < 1) && (
-        <div>
-          <h2 onClick={() => changeHighlightedListing(selectedListing.id)}><a className={styles.popUpListingTitle} href={`#${selectedListing.id}`}>{selectedListing.name}</a></h2>
-          <div>{`Category: ${selectedListing.category}`}</div>
-          <div>{`Donator: ${selectedListing.sellerName}`}</div>
-          <div>{`Description: ${selectedListing.description}`}</div>
-          <div>{`Approximately less than 1 km away`}</div>
-          {/* small image? */}
+        <div className={styles.popupInfo}>
+        <div className={styles.popupImgContainer}>
+          <img className={styles.popupImg} src={selectedListing.image} alt="" />
         </div>
+        <div className={styles.popupImgTextContainer}>
+          <h2 className={styles.h2} onClick={() => changeHighlightedListing(selectedListing.id)}><a className={styles.popUpListingTitle} href={`#${selectedListing.id}`}>{selectedListing.name}</a></h2>
+          <div className={styles.category}>{selectedListing.category}</div>
+          <div className={styles.donator}>
+            <span>{`${selectedListing.sellerName} | `}</span>
+            <span className={styles.trust}>{`Trust (${selectedListing.trustScore}/4)`}</span>
+          </div>
+          <div><i>{`Approx. less than 1 km away`}</i></div>
+        </div>
+      </div>
       )}
       {(dist === 1) && (
-        <div>
-          <h2 onClick={() => changeHighlightedListing(selectedListing.id)}><a className={styles.popUpListingTitle} href={`#${selectedListing.id}`}>{selectedListing.name}</a></h2>
-          <div>{`Category: ${selectedListing.category}`}</div>
-          <div>{`Donator: ${selectedListing.sellerName}`}</div>
-          <div>{`Description: ${selectedListing.description}`}</div>
-          <div>{`Approximately 1 km away`}</div>
-          {/* small image? */}
+        <div className={styles.popupInfo}>
+        <div className={styles.popupImgContainer}>
+          <img className={styles.popupImg} src={selectedListing.image} alt="" />
         </div>
+        <div className={styles.popupImgTextContainer}>
+          <h2 className={styles.h2} onClick={() => changeHighlightedListing(selectedListing.id)}><a className={styles.popUpListingTitle} href={`#${selectedListing.id}`}>{selectedListing.name}</a></h2>
+          <div className={styles.category}>{selectedListing.category}</div>
+          <div className={styles.donator}>
+            <span>{`${selectedListing.sellerName} | `}</span>
+            <span className={styles.trust}>{`Trust (${selectedListing.trustScore}/4)`}</span>
+          </div>
+          <div><i>{`Approx. 1 km away`}</i></div>
+        </div>
+      </div>
       )}
       {(dist > 1) && (
-        <div>
-          <h2 onClick={() => changeHighlightedListing(selectedListing.id)}><a className={styles.popUpListingTitle} href={`#${selectedListing.id}`}>{selectedListing.name}</a></h2>
-          <div>{`Category: ${selectedListing.category}`}</div>
-          <div>{`Donator: ${selectedListing.sellerName}`}</div>
-          <div>{`Description: ${selectedListing.description}`}</div>
-          <div>{`Approximately ${dist} kms away`}</div>
-          {/* small image? */}
+        <div className={styles.popupInfo}>
+          <div className={styles.popupImgContainer}>
+            <img className={styles.popupImg} src={selectedListing.image} alt="" />
+          </div>
+          <div className={styles.popupImgTextContainer}>
+            <h2 className={styles.h2} onClick={() => changeHighlightedListing(selectedListing.id)}><a className={styles.popUpListingTitle} href={`#${selectedListing.id}`}>{selectedListing.name}</a></h2>
+            <div className={styles.category}>{selectedListing.category}</div>
+            <div className={styles.donator}>
+              <span>{`${selectedListing.sellerName} | `}</span>
+              <span className={styles.trust}>{`Trust (${selectedListing.trustScore}/4)`}</span>
+            </div>
+            <div><i>{`Approx. ${dist} kms away`}</i></div>
+          </div>
         </div>
       )}
     </>

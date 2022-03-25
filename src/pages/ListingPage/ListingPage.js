@@ -11,6 +11,7 @@ const ListingPage = () => {
   let [filterListing, setFilterListing] = useState([]);
   let [userLocation, setUserLocation] = useState([37.791200, -122.396080]);
   let [highlightedListing, setHighlightedListing] = useState(null);
+  let [hoveredListing, setHoveredListing] = useState(null);
 
   const getUserLoc = () => {
     const success = (position) => {
@@ -132,6 +133,10 @@ const ListingPage = () => {
     // console.log(listing);
     setHighlightedListing(listing);
   }
+
+  // const getIdOnMouseEnter = (e) => {
+  //   onMouseEnter={}
+  // }
 
   return (
     <div className={styles.parent}>

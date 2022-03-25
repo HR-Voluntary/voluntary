@@ -3,6 +3,7 @@ import Map, { Marker, Popup, ScaleControl } from 'react-map-gl';
 import PopupData from './PopupData.js';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import styles from './Map.module.css';
+import './popup.css';
 
 
 const MapListing = ({ userLocation, filterListing, changeHighlightedListing }) => {
@@ -101,7 +102,7 @@ const MapListing = ({ userLocation, filterListing, changeHighlightedListing }) =
         <Popup
           latitude={(selectedListing.location[0])}
           longitude={selectedListing.location[1]}
-
+          className={styles.popup}
           closeOnClick={false}
           onClose={() => {
             setSelectedListing(null);
@@ -114,6 +115,7 @@ const MapListing = ({ userLocation, filterListing, changeHighlightedListing }) =
             changeHighlightedListing={changeHighlightedListing}
           />
         </Popup>
+
       )}
     </Map>
   )

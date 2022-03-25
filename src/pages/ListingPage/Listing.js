@@ -11,7 +11,7 @@ const Listing = ({ listing, highlightedListing }) => {
     });
   }
 
-  console.log(highlightedListing);
+  // console.log(highlightedListing);
 
   return (
     <div id={listing.id} className={listing.id === highlightedListing ? styles.highlightListing : styles.indivListing}>
