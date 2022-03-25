@@ -111,10 +111,20 @@
   cursor: pointer;
 }
 
+.otherItemsImageContainer {
+  height: 150px;
+  width: 100%;
+  max-width: 30%;
+  margin-right: 10px;
+  border-radius: 5px;
+}
+
 .otherItemsContainer img {
   height: 100%;
   width: 100%;
+  max-width: 300px;
   object-fit: cover;
+  border-radius: 5px;
 }
 
 .relatedContainer {
@@ -155,6 +165,7 @@
   /* border: 1px solid black; */
   height: 150px;
   width: 500px;
+  max-width: 40%;
   margin-right: 5px;
   padding: 5px;
   box-sizing: border-box;

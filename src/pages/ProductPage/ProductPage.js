@@ -109,12 +109,12 @@ const ProductPage = () => {
                     <button className={newStyles.chatButton} onClick={() => onChatClick(product)}><span>Chat with Donator</span></button>
                   </div>
                   <div className={newStyles.otherItemsBox}>
-                    <h2>Other Items from {product.sellerName}</h2>
+                    <h2>All Items from {product.sellerName}</h2>
                     {product.userItems.map(prod => {
                         // console.log(product)
                        return (
                          <div key={prod.id} onClick={() => onItemClickHandler(prod.id)}className={newStyles.otherItemsContainer}>
-                          <div className={newStyles.supportingImageContainer}>
+                          <div className={newStyles.otherItemsImageContainer}>
                             <img src={prod.image[0]} alt="product"/>
                           </div>
                           <div className={newStyles.otherItemsTextContainer}>
