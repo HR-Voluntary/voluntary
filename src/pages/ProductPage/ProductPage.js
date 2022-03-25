@@ -89,7 +89,7 @@ const ProductPage = () => {
                     <img src={mainImage || product.image[0]} alt="product"/>
                   </div>
                   <div className={newStyles.supportingImageBox}>
-                    {console.log(product, 'THIS IS PRODUCT')}
+                    {/* {console.log(product, 'THIS IS PRODUCT')} */}
                     {product?.image.map((img, i) =>
                         <div key={i} className={newStyles.supportingImageContainer}>
                           {/* <img src={img} alt="product"/> */}
@@ -103,13 +103,13 @@ const ProductPage = () => {
                   <div className={newStyles.detailsBox}>
                     <h1>Product: {product.name}</h1>
                     <div>Category: {product.category}</div>
-                    <div>Sold by {product.sellerName}</div>
+                    <div>Donated by {product.sellerName}</div>
                     <div>Trust Score: {product.trustScore}</div>
                     <h3>{product.description}</h3>
-                    <button className={newStyles.chatButton} onClick={() => onChatClick(product)}><span>Chat with Seller</span></button>
+                    <button className={newStyles.chatButton} onClick={() => onChatClick(product)}><span>Chat with Donator</span></button>
                   </div>
                   <div className={newStyles.otherItemsBox}>
-                    <h2>Other Items from the Seller</h2>
+                    <h2>Other Items from {product.sellerName}</h2>
                     {product.userItems.map(prod => {
                         // console.log(product)
                        return (
@@ -139,7 +139,7 @@ const ProductPage = () => {
               </div>
               <div className={newStyles.relatedText}>
                 <h3>{item.name}</h3>
-                <div>Sold by {item.sellerName}</div>
+                <div>Donated by {item.sellerName}</div>
                 <div>Trust Score: {item.trustScore}</div>
                 <br />
                 <div>{item.description}</div>
