@@ -11,16 +11,18 @@ Create an account using Google or Facebook, post some items, or browse local lis
 ### Voluntary Overview
 
 * Real-time Chat
+* Firebase Authentication
 * Firebase Firestore
-* Facebook and Google Authentication
+* MapBox API
 * AWS S3 Image Uploading
 
 ### Technologies Used
 
+* React
 * Firebase
-* React - Persistant storage
-* AWS - Raspberry Pi-hosted local network server
-* Others TBD...
+* Express
+* Node.js
+* AWS S3
 
 ## :heavy_check_mark: Setup
 * .env file in root folder:
