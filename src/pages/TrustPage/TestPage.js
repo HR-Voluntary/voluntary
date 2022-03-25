@@ -9,8 +9,8 @@ import {useAuth} from '../../contexts/AuthContext';
 function ReviewsModal({ uid, type }) {
   const { modal, setModal } = useAuth();
   // const [show, setShow] = useState(false);
-  uid = '1AOjnwnoc5bxD1u3VBiaNzKYL2k1';
-  type = 'seller';
+  // uid = '1AOjnwnoc5bxD1u3VBiaNzKYL2k1';
+  // type = 'seller';
   console.log('SHOW', uid);
 
   function toggleModal() {
@@ -19,9 +19,9 @@ function ReviewsModal({ uid, type }) {
 
   return (
     <div>
-      <button onClick={toggleModal}>
+      {/* <button onClick={toggleModal}>
         Temp Button
-      </button>
+      </button> */}
 
       <Modal
         show={modal}
