@@ -3,9 +3,7 @@ Looking to donate locally? Voluntary brings together those looking to donate, as
 
 Create an account using Google or Facebook, post some items, or browse local listings in your area.
 
-<PLACEHOLDER GIF>
-![gif](https://user-images.githubusercontent.com/43115008/158876469-321675e3-2c08-406d-ba8b-f98c7012cc3c.gif)
-
+![gif](https://user-images.githubusercontent.com/43115008/160202295-33ec901d-75e4-4380-aabc-d747c91e1892.gif)
 
 ## :heavy_check_mark: Features
 
