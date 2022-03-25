@@ -10,7 +10,7 @@ const ratingsStyling = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  padding: '30px',
+  padding: '20px',
   backgroundColor: '#FEDCC5',
   borderRadius: '20px'
 }
@@ -20,7 +20,7 @@ const AllRatings = (props) => {
 
   function selectThumb(e) {
     e.preventDefault();
-    setThumbSelected(true);
+    setTimeout(() => {setThumbSelected(true)}, 300);
   }
 
   function showThumbs() {

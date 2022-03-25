@@ -22,8 +22,6 @@ function User({user,changeUser,selectedUser}) {
   }
 }
 
-
-    // console.log(.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }))
   return (
 <div className={selectedUser.uid===user.uid?styles.selectedContainer:styles.userContainer} onClick={()=>{changeUser(user)}}>
       <div className={styles.photoText}>
