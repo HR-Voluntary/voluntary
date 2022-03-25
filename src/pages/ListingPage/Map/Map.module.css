@@ -79,6 +79,26 @@
   text-overflow: ellipsis;
 }
 
+.myLocation {
+  border: 5px solid blue;
+    animation: border-pulsate 3s infinite;
+}
+
+@keyframes border-pulsate {
+  0%   {
+    border-color: rgba(34, 0, 255, 0.146);
+    transform: scale(1.0)
+  }
+  50%  {
+    border-color: rgba(0, 0, 255, 0.605);
+    transform: scale(1.5)
+  }
+  100% {
+    border-color: rgba(0, 0, 255, 0.119);
+    transform: scale(1.0)
+  }
+}
+
 /* .mapboxgl{
   margin: auto;
   width: 75%;

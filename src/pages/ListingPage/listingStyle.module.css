@@ -90,7 +90,12 @@
   width: 100%;
   height: 265px;
   align-items: center;
-  /* border: 10px solid rgba(242, 80, 24, 0.6); */
+  transition: all ease 250ms;
+}
+
+.indivListing:hover{
+  transform: scale(1.01);
+  box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
 }
 
 .indivListingRight {
@@ -104,15 +109,11 @@
 }
 
 .imageContainer {
-  /* height: 200px;
-  width: 600px; */
   height: 100%;
   width: 40%;
-  /* border-radius: 20px; */
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
   overflow: hidden;
-  /* margin-left: 2%; */
 }
 
 .listingImage {

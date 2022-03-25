@@ -192,7 +192,7 @@ const ProfilePage = () => {
                           { item.description }
                         </div>
                         <div className={newStyles.buttonContainer}>
-                          <button onClick={() => onActiveClickHandler(item.id, item.isActive)}>Active</button>
+                          <button onClick={() => onActiveClickHandler(item.id, item.isActive)}>Mark Active</button>
                           <button onClick={() => {
                           setEditModalWindow(!editModalWindow)
                           setProductTitle(item.name);
@@ -228,7 +228,7 @@ const ProfilePage = () => {
                           { item.description }
                         </div>
                         <div className={newStyles.buttonContainer}>
-                          <button onClick={() => onActiveClickHandler(item.id, item.isActive)}>Active</button>
+                          <button onClick={() => onActiveClickHandler(item.id, item.isActive)}>Mark Inactive</button>
                           <button onClick={() => {
                           setEditModalWindow(!editModalWindow)
                           setProductTitle(item.name);
