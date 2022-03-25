@@ -8,9 +8,6 @@ const bucketName = "voluntaryhackreactorbucket";
 const accessKeyId = process.env.REACT_APP_AWS_ACCESS_KEY_ID;
 const secretAccessKey = process.env.REACT_APP_AWS_SECRET_ACCESS_KEY;
 
-// console.log('accessKey ')
-// console.log(accessKeyId)
-
 const s3 = new aws.S3({
   region,
   accessKeyId,

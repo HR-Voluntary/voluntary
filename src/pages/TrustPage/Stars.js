@@ -3,7 +3,7 @@ import icons from './icons.js';
 import styles from './Thumbs.module.css';
 import axios from 'axios';
 import {useAuth} from '../../contexts/AuthContext.js'
-
+import { useNavigate } from 'react-router';
 
 const { emptyStar, filledStar } = icons;
 
@@ -11,6 +11,7 @@ const Stars = (props) => {
   const [rating, setRating] = useState([false, false, false, false, false]);
   const [finalRating, setFinalRating] = useState(null);
   const { setHasRated,setModal } = useAuth();
+
 
   function whichStarsText(user) {
     if (user === 'buyer') {
@@ -49,7 +50,8 @@ const Stars = (props) => {
     .catch(console.log('error rating'))
     setHasRated(true);
     setModal(false);
-    // props.onClick1();
+    props.onClick1();
+
   }
 
   useEffect(() => {}, [rating]);

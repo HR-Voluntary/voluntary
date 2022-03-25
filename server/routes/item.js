@@ -17,8 +17,6 @@ router.post('/', function(req, res) {
   const { itemToPost } = req.body;
   itemToPost.isActive = true;
 
-  console.log(itemToPost);
-
   createItem(itemToPost)
   .then((ifSuccess) => res.status(200).send({ message: 'Successfully posted item', }))
   .catch(err =>  res.sendStatus(400).end({message: 'There was an error', errorObject: err}));
@@ -27,7 +25,6 @@ router.post('/', function(req, res) {
 //// SIVA DOING IT //
 //Post route for array of image Urls
 router.post('/img', function(req, res){
-  console.log(req.body);
   createItemWithImgArray(req.body)
   .then((ifSuccess) => res.sendStatus(200).end())
   .catch(err => console.log(err))
@@ -45,7 +42,6 @@ router.get('/all', function(req, res){
 // GET ITEM BY CATEGORY
 router.get('/category/:category', function(req, res){
   const { category } = req.params;
-  console.log(category)
   getItemByCategory(category)
   .then(items => {
     res.status(200).send(items);
@@ -55,7 +51,6 @@ router.get('/category/:category', function(req, res){
 // GET ITEM
 router.get('/:id', function(req, res){
   const { id } = req.params;
-  //console.log('ID = ', id);
   getItem(id)
   .then(items => {
     res.status(200).send(items);
@@ -66,8 +61,6 @@ router.get('/:id', function(req, res){
 // Edit ITEM // SIVA
 router.put('/itm/:id', function(req, res){
   const { id } = req.params;
-  console.log('EDITING ITEM')
-  console.log(id)
   UpdateItem(id, req.body)
   .then(items => {
     res.status(200).send(items);

@@ -3,6 +3,7 @@
   flex-direction: column;
   width: 75vw;
   height: 87vh;
+  margin: 10px 10px;
 }
 .formContainer{
   margin-top:10px;
@@ -34,14 +35,16 @@
 .green{
   width: 20px;
   height: 20px;
-  border-radius: 20;
+  border-radius: 20px;
+  margin-right: 10px;
   background-color: greenyellow;
 }
 .red{
   width: 20px;
   height: 20px;
-  border-radius: 20;
   background-color: red;
+  border-radius: 20px;
+  margin-right: 10px;
 
 }
 .rateButtonBuyer{
@@ -50,4 +53,12 @@
   border-radius: 8px;
   color:white;
   padding:  5px 30px;
+}
+.statusName{
+  width: inherit;
+  display: flex;
+
+}
+.itemName {
+  margin: 0 auto;
 }
