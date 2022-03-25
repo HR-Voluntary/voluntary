@@ -19,7 +19,7 @@ const Listing = ({ listing, highlightedListing }) => {
         <img className={styles.listingImage} src={listing.image} alt=""></img>
       </div>
       <div className={styles.indivListingRight}>
-        <h2 className="listing-category" onClick={navigateToProductPage}>{listing.name}</h2>
+        <h2 id={styles.listingName} className="listing-category" onClick={navigateToProductPage}>{listing.name}</h2>
         <span className="listing-category"><b>Category:</b> {listing.category}</span>
         <span className="seller-name"><b>Donator:</b> {listing.sellerName}</span>
         <span className="seller-trust-score"><b>Trust Score:</b> {listing.trustScore}</span>
