@@ -109,7 +109,7 @@ const ProductPage = () => {
                     <button className={newStyles.chatButton} onClick={() => onChatClick(product)}><span>Chat with Donator</span></button>
                   </div>
                   <div className={newStyles.otherItemsBox}>
-                    <h2>Other Items from the Donator</h2>
+                    <h2>Other Items from {product.sellerName}</h2>
                     {product.userItems.map(prod => {
                         // console.log(product)
                        return (
