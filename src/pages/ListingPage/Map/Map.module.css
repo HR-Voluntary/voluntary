@@ -10,8 +10,73 @@
 }
 
 .popUpListingTitle:hover {
-  color: black;
+  /* color: rgb(95, 95, 95); */
+  /* font-size: 25px; */
+}
 
+.markerimg {
+  width: 20px;
+  height: auto;
+  transition: transform 250ms;
+}
+
+.markerimg:hover {
+  transform: scale(1.3);
+}
+
+.popupInfo {
+  height: 300px;
+}
+
+.popupImgContainer {
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  width: 100%;
+  height: 60%;
+}
+
+.popupImg {
+  object-fit: cover;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  width: 100%;
+  height: 100%;
+  /* height: 100%;
+  width: 100%; */
+  /* border-radius: 5%; */
+}
+
+.popupImgTextContainer {
+  object-fit: contain;
+  width: 255px;
+  height: 100px;
+  margin: 10px;
+  /* overflow: hidden; */
+}
+
+.h2 {
+  margin: 8px 0px 0px 0px;
+  font-size: 24px;
+}
+
+.category {
+  font-size: 14px;
+}
+
+.donator {
+  font-size: 18px;
+  font-weight: light;
+  margin: 8px 0px 0px 0px;
+}
+
+.trust {
+  font-size: 14px;
+}
+
+.distance{
+  width: 100%;
+  height: 20%;
+  text-overflow: ellipsis;
 }
 
 /* .mapboxgl{
