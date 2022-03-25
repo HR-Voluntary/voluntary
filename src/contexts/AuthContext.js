@@ -30,14 +30,15 @@ export function AuthProvider({ children }) {
   const loadProfileDataFromApi = (userIdFromAuth) => {
     axios.get(`http://localhost:3001/user/profile/${userIdFromAuth}`)
     .then(res => {
-      if (res.data.length) {
+      if(res.data.length ){
         setUserProfile(res.data[0]);
-        const userItems = res.data[0].userItems;
-        const activeItems = userItems.filter(item => item.isActive)
-        const inactiveItems = userItems.filter(item => !item.isActive)
-        setUserActiveItems(activeItems);
-        setUserInactiveItems(inactiveItems);
+      const userItems = res?.data[0]?.userItems;
+      const activeItems = userItems.filter(item => item.isActive)
+      const inactiveItems = userItems.filter(item => !item.isActive)
+      setUserActiveItems(activeItems);
+      setUserInactiveItems(inactiveItems);
       }
+
     })
     .catch(e => console.log(e))
   };

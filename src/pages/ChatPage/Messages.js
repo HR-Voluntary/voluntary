@@ -14,7 +14,8 @@ function Messages({loggedInUser,messages}) {
 
     <div ref={mesRef} className={styles.messageContainer}>
       {messages.map((message, i) => {
-        return <div className={message.from.name===loggedInUser.name?styles.fromMessage: styles.toMessage} key={i}>{message.messageText}</div>
+
+        return <div className={message.from.uid===loggedInUser.uid?styles.fromMessage: styles.toMessage} key={i}>{message.messageText}</div>
       })}
     </div>
   )

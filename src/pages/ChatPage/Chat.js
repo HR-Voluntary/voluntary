@@ -8,6 +8,7 @@ import {
   orderBy,
   query,
   getDoc,
+  getDocs,
   updateDoc,
   addDoc,
   setDoc,
@@ -40,6 +41,8 @@ function Chat({ changeUser,user1, user2, userList, product, productId }) {
   },[modal])
 
   useEffect(()=>{
+
+    // debugger
     if (Object.keys(user1).length && Object.keys(user2).length) {
       const roomId =
         user1.uid > user2.uid
@@ -47,10 +50,11 @@ function Chat({ changeUser,user1, user2, userList, product, productId }) {
           : `${user2.uid + user1.uid}`;
       getDoc(doc(db, 'conversations', user1?.uid, 'to', user2?.uid)).then(
         (res) => {
+          console.log(res.data())
           setItemId(res.data()?.item);
         }
       );
-    } else{console.log(item)
+    } else{
       if(productId){
 
         setItemId(productId)
@@ -63,7 +67,6 @@ function Chat({ changeUser,user1, user2, userList, product, productId }) {
   useEffect(() => {
 
     if (itemId) {
-
       let unsubscribe = onSnapshot(doc(db, 'items', itemId), (doc) => {
         setItem(doc.data());
       });
@@ -75,6 +78,7 @@ function Chat({ changeUser,user1, user2, userList, product, productId }) {
       return unsubscribe
     }
   }, [itemId]);
+
   useEffect(() => {
 
     const roomId =
@@ -123,8 +127,12 @@ function Chat({ changeUser,user1, user2, userList, product, productId }) {
 
   async function sendMessage(e) {
     e.preventDefault();
-    addMessageToConversation(messageText);
+    if(messageText.length){
+      addMessageToConversation(messageText);
     setMessageText('');
+
+    }
+
   }
 
   let onSellerClick = async (item) => {
@@ -136,9 +144,19 @@ function Chat({ changeUser,user1, user2, userList, product, productId }) {
     renderModal();
   }
   let deleteConversations = async () =>{
+    let results=[]
     await deleteDoc(doc(db, 'conversations', user1?.uid, 'to', user2?.uid))
-   await deleteDoc(doc(db, 'conversations', user2?.uid, 'to', user1?.uid))
-  }
+    getDocs(collection(db, "conversations",user2?.uid,'to')).then((qSnap)=>{
+      qSnap.forEach((docu) => {
+        if(docu?.data()?.item === itemId){
+          return results.push(deleteDoc(doc(db,'conversations',user2.uid,'to',docu?.data()?.id)))
+        }
+    });
+
+  })
+  Promise.all(results);
+}
+
 
   let onBuyerClick = async () => {
     if(itemId){
@@ -171,11 +189,17 @@ function Chat({ changeUser,user1, user2, userList, product, productId }) {
   };
   return (
     <div className={styles.messageContainer}>
+      {/* {(getDoc(doc(db, 'conversations', user1?.uid)).then(
+        (res) => {
+          console.log(res.data())
+
+        }
+      ))} */}
       <div className={styles.topBar}>
-      <div>
+      <div className={styles.statusName}>
       {userList.find((user)=>{if(user.uid===user2.uid){return user.uid}})?.active?<div className={styles.green}></div>:<div className={styles.red}></div>}
-      {item?.buyer===user1?.uid|| item?.sellerInfo===user2?.uid?<div>{item.name}</div>:<div></div>}
-      <div>{user2?.name}</div>
+      <div className={styles.displayName}>{user2?.name}</div>
+      {item?.sellerInfo===user2?.uid || item?.sellerInfo===user1?.uid?<div className={styles.itemName}>{item.name}</div>:<div></div>}
       </div>
       {renderButton()}
 
@@ -190,7 +214,7 @@ function Chat({ changeUser,user1, user2, userList, product, productId }) {
           value={messageText}
           onChange={onChangeTextHandler}
         />
-        <input type='submit' value='submit'></input>
+        {/* <input type='submit' value='submit'></input> */}
       </form>
 
       {modal ? <ReviewsModal uid={user2.uid} type={userType}/> : <></>}

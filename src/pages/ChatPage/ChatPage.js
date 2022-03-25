@@ -32,7 +32,7 @@ function ChatPage() {
         setUser1(res.data());
 
       });
-      
+
       if(userb.uid!==user2.uid){
         getDoc(doc(db, 'users', userb?.uid)).then((res) => {
           setUser2(res.data())
@@ -153,14 +153,7 @@ function ChatPage() {
       );
     } else {
       return (
-        <div className={styles.loadingContainer}>
-          <ReactLoading
-            className={styles.loading}
-            type={'spin'}
-            color={'#FEDCC5'}
-            height={100}
-            width={100}
-          />
+        <div >
         </div>
       );
     }
