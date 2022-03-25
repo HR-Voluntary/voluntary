@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
 #root {
   height: 100%;
   width: 100%;
@@ -6,4 +8,10 @@
 
 body {
   background-color:#FEDCC5;
+  font-family: 'Inter', sans-serif;
 }
+/*
+
+@font-face {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+} */
