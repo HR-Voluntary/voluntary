@@ -114,7 +114,7 @@ const ProductPage = () => {
                         // console.log(product)
                        return (
                          <div key={prod.id} onClick={() => onItemClickHandler(prod.id)}className={newStyles.otherItemsContainer}>
-                          <div className={newStyles.supportingImageContainer}>
+                          <div className={newStyles.otherItemsImageContainer}>
                             <img src={prod.image[0]} alt="product"/>
                           </div>
                           <div className={newStyles.otherItemsTextContainer}>
