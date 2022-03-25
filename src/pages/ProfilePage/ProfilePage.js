@@ -150,13 +150,27 @@ const ProfilePage = () => {
     clearForms();
     setPostModalWindow(!postModalWindow);
   };
-
-  if (userProfile === null) {
+  if (!userProfile) {
     return null;
   } else {
     return (
       <section>
         <div className={newStyles.focusContainer}>
+            <div className={newStyles.userInfoContainer}>
+              <div className={newStyles.profilePictureContainer}>
+                <img className={newStyles.img} src={userProfile.photo} alt="Profile" />
+              </div>
+              <div className={newStyles.profileTextContainer}>
+                <div>
+                  <p className={newStyles.strong}>User:</p>
+                  <p className={newStyles.semiStrong}>{userProfile.name}</p>
+                </div>
+                <div><p className={newStyles.strong}>Logged in with</p> <p className={newStyles.semiStrong}>{userProfile.authProvider}</p></div>
+                <div><p className={newStyles.strong}>Average Rating:</p> <p className={newStyles.semiStrong}>{Math.ceil(userProfile.ratingsScore)}</p></div>
+                <div><p className={newStyles.strong}># Transactions:</p> <p className={newStyles.semiStrong}>{userProfile.transactionCount}</p></div>
+                <div className={newStyles.trustScore}>Trust Score: {userProfile.trustScore}</div>
+              </div>
+            </div>
             <div className={newStyles.mainProductContainer}>
                 <div className={newStyles.mainProductContentContainer}>
 
