@@ -93,7 +93,7 @@ section {
 .imageContainer img {
   height: 100%;
   width: 100%;
-  object-fit: contain;
+  object-fit: cover;
 }
 
 .textContainer {
@@ -124,8 +124,18 @@ section {
   border: none;
   background-color: peachpuff;
   padding: 10px 10px;
-  width: 100px;
+  width: 120px;
   border-radius: 50px;
+  transition: all 0.5s ease;
+}
+
+.buttonContainer button:hover {
+  background-color: pink;
+  transform: scale(1.1);
+}
+
+.buttonContainer button:active {
+  background-color: rgb(242, 195, 202);
 }
 
 .textDescription {
@@ -147,7 +157,7 @@ section {
   border-radius: 50px;
   color: white;
   font-weight: 700;
-  width: 80px;
+  width: 90px;
 }
 
 /* TOP USER INFO CONTAINER */
@@ -178,7 +188,7 @@ section {
   width: 100%;
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
-  /* object-fit: contain; */
+  object-fit: cover;
 }
 .profileTextContainer {
   display: flex;
@@ -223,7 +233,7 @@ section {
   border-radius: 10px;
   position: absolute;
   padding: 5px;
-  width: 100px;
+  width: 110px;
   background-color: tomato;
   margin: 5px;
   color: white;

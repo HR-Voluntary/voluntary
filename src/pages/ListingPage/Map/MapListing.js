@@ -91,9 +91,14 @@ const MapListing = ({ userLocation, filterListing, changeHighlightedListing }) =
           longitude={userLoc.longitude}
         >
           <img
+            className={styles.myLocation}
             src={require("../utils/currentLocPinV2.1shadow.png")}
             alt="location"
-            style={{ width: '20px', height: 'auto' }}
+            style={{
+              width: '20px',
+              height: 'auto',
+              borderRadius: '50px',
+            }}
           />
         </Marker>
       )}

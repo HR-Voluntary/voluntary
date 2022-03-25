@@ -20,6 +20,14 @@
   align-items: center;
 }
 
+.logo img {
+  transition: all ease 250ms;
+}
+
+.logo img:hover{
+  transform: rotate(1820deg) scale(1.5);
+}
+
 .logoText {
   margin-left: 25%;
 }
@@ -57,7 +65,7 @@
 
 .navbar_logout_button:hover {
   background-color: pink;
-  color: white
+  color: white;
 }
 
 .navbar_logout_button span {
@@ -78,6 +86,7 @@
 
 .navbar_logout_button:hover span {
   padding-right: 25px;
+
 }
 
 .navbar_logout_button:hover span:after {
@@ -103,9 +112,11 @@
   border-radius: 5px;
   text-align: center;
   font-size: 15px;
-  transition-duration: all 0.4s;
+  transition: all 0.2s ease;
 }
 
 .listItemButton:hover {
   background-color: pink;
+  color: white;
+  transform: scale(1.05);
 }
