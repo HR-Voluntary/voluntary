@@ -63,7 +63,7 @@
 .supportingImageBox {
   flex: 1;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   /* border: 1px solid black; */
   margin: 25px;
