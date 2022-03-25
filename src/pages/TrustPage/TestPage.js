@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-// import Modal from 'react-bootstrap/Modal';
 // import styles from './Thumbs.module.css';
-import Modal from '../../pages/ProfilePage/Modal/Modal.js';
+// import Modal from '../../pages/ProfilePage/Modal/Modal.js';
+import Modal from './TrustModal.js';
 import AllRatings from './AllRatings.js'
 import {useAuth} from '../../contexts/AuthContext';
 
@@ -9,8 +9,8 @@ import {useAuth} from '../../contexts/AuthContext';
 function ReviewsModal({ uid, type }) {
   const { modal, setModal } = useAuth();
   // const [show, setShow] = useState(false);
-  // uid = '1AOjnwnoc5bxD1u3VBiaNzKYL2k1';
-  // type = 'buyer';
+  uid = '1AOjnwnoc5bxD1u3VBiaNzKYL2k1';
+  type = 'seller';
   console.log('SHOW', uid);
 
   function toggleModal() {
@@ -19,9 +19,9 @@ function ReviewsModal({ uid, type }) {
 
   return (
     <div>
-      {/* <button onClick={toggleModal}>
+      <button onClick={toggleModal}>
         Temp Button
-      </button> */}
+      </button>
 
       <Modal
         show={modal}
@@ -33,3 +33,6 @@ function ReviewsModal({ uid, type }) {
 }
 
 export default ReviewsModal;
+
+
+
